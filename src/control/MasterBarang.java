@@ -15,6 +15,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author handa
  */
+//caca
 public class MasterBarang extends koneksi{
     public MasterBarang(){
         super.setKoneksi();
