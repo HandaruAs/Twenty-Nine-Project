@@ -117,6 +117,7 @@ control_login cl;
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
          try {
+             //handaru
             String user = txUsername.getText();
            char[] passArray = txPass.getPassword();
             String pass = new String(passArray);
