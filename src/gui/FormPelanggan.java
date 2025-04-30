@@ -381,15 +381,13 @@ public class FormPelanggan extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnNewActionPerformed
 
     private void btnSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSimpanActionPerformed
-        // TODO add your handling code here:
-
         if(edit==true){
-            String idpelanggan = txid.getText();
-            String nama = txnama.getText();
+            String id_pelanggan = txid.getText();
+            String nama_pelanggan = txnama.getText();
             String alamat = txalamat.getText();
             String nomor = txnomor.getText();
             try {
-                pl.edit(idpelanggan, nama, alamat, nomor);
+                pl.edit(id_pelanggan, nama_pelanggan, alamat, nomor);
                 JOptionPane.showMessageDialog(rootPane, "DATA BERHASIL DI UPDATE");
                 tampil();
                 clear();
@@ -404,13 +402,13 @@ public class FormPelanggan extends javax.swing.JInternalFrame {
                 Logger.getLogger(FormPelanggan.class.getName()).log(Level.SEVERE, null, ex);
             }
         }else{
-            String idpelanggan = txid.getText();
-            String nama = txnama.getText();
+            String id_pelanggan = txid.getText();
+            String nama_pelanggan = txnama.getText();
             String alamat = txalamat.getText();
             String nomor = txnomor.getText();
 
             try {
-                pl.simpan(idpelanggan, nama, alamat, nomor);
+                pl.simpan(id_pelanggan, nama_pelanggan, alamat, nomor);
                 JOptionPane.showMessageDialog(rootPane, "DATA BERHASIL DISIMPAN");
                 tampil();
 
@@ -429,6 +427,7 @@ public class FormPelanggan extends javax.swing.JInternalFrame {
                 Logger.getLogger(FormPelanggan.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+       
 
     }//GEN-LAST:event_btnSimpanActionPerformed
 
