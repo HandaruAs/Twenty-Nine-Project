@@ -35,7 +35,7 @@ public class MasterBarang extends koneksi{
     }
     public void tampil(){
         try {
-            String sqli= "SELECT * FROM masterBarang";
+            String sqli= "SELECT * FROM masterbarang";
             String[] kolom = {"Kode Barang", "Nama Barang", "Stok", "Harga", "Status"};
             modelBarang.setColumnIdentifiers(kolom);
             rs = st.executeQuery(sqli);
