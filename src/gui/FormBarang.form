@@ -50,7 +50,11 @@
                   <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
-                      <Component id="btnBaru" min="-2" pref="105" max="-2" attributes="0"/>
+                      <Group type="102" attributes="0">
+                          <Component id="btnBaru" min="-2" pref="105" max="-2" attributes="0"/>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Component id="cetak" min="-2" pref="93" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
@@ -86,6 +90,7 @@
                       <Component id="btnEdit" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
                       <Component id="btnBatal" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
                       <Component id="btnBaru" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
+                      <Component id="cetak" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace pref="34" max="32767" attributes="0"/>
               </Group>
@@ -340,6 +345,14 @@
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnBatalActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="cetak">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="cetak barcode"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cetakActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>

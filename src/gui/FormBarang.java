@@ -12,6 +12,8 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import com.barcodelib.barcode.Linear;
+import javax.swing.*;
 /**
  *
  * @author handa
@@ -89,6 +91,7 @@ public class FormBarang extends javax.swing.JInternalFrame {
         btnHapus = new javax.swing.JButton();
         btnEdit = new javax.swing.JButton();
         btnBatal = new javax.swing.JButton();
+        cetak = new javax.swing.JButton();
 
         addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
             public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
@@ -285,6 +288,13 @@ public class FormBarang extends javax.swing.JInternalFrame {
             }
         });
 
+        cetak.setText("cetak barcode");
+        cetak.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cetakActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -293,7 +303,10 @@ public class FormBarang extends javax.swing.JInternalFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnBaru, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(btnBaru, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(cetak, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(34, 34, 34)
@@ -321,7 +334,8 @@ public class FormBarang extends javax.swing.JInternalFrame {
                     .addComponent(btnHapus, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnBatal, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnBaru, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnBaru, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cetak, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(34, Short.MAX_VALUE))
         );
 
@@ -507,6 +521,24 @@ try {
         ut.tampilCountPlg();
         ut.tampilCountTrx();
     }//GEN-LAST:event_formInternalFrameClosing
+
+    private void cetakActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cetakActionPerformed
+        String a = (String) jTable1.getValueAt(jTable1.getSelectedRow(), 0);
+        System.out.println("a = " + a);
+        try {
+            Linear barcode = new Linear();
+            barcode.setType(Linear.CODE128B);
+            barcode.setData (a);
+            barcode.setI(11.0f);
+            String fname = a;
+            barcode.renderBarcode("src/image/" + fname + ".png");
+        } catch (Exception e){
+           JOptionPane.showMessageDialog(null, "gagal mencetak barcode"+ e);
+        }
+        String imagePath = "src/image/" + a + ".png";
+        ha haha = new ha();
+        haha.ha(imagePath);
+    }//GEN-LAST:event_cetakActionPerformed
    boolean edit = false;
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -515,6 +547,7 @@ try {
     private javax.swing.JButton btnEdit;
     private javax.swing.JButton btnHapus;
     private javax.swing.JButton btnSimpan;
+    private javax.swing.JButton cetak;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -532,7 +565,18 @@ try {
     private javax.swing.JComboBox<String> txStatus;
     private javax.swing.JTextField txStok;
     // End of variables declaration//GEN-END:variables
-
+public class ha {
+    public void ha(String c) {
+        JFrame f = new JFrame();
+        f.setSize(400,200);
+        f.setVisible(true);
+        
+        JLabel l = new JLabel();
+        l.setIcon(new ImageIcon(c));
+        
+        f.add(l);
+    }
+}
     
    
 }
