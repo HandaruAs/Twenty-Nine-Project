@@ -386,16 +386,23 @@ public class User extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_tabelUserMouseClicked
 
     private void btnNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNewActionPerformed
-        // TODO add your handling code here:
-        txId.setEditable(true);
-        txUser.setEditable(true);
-        txPass.setEditable(true);
-        txNama.setEditable(true);
-        txNohp.setEditable(true);
-        btnSimpan.setEnabled(true);
-        btnCancel.setEnabled(true);
-        btnNew.setEnabled(false);
-        txId.requestFocus();
+      // Membuat ID otomatis berdasarkan waktu
+    java.time.LocalDateTime now = java.time.LocalDateTime.now();
+    String idUser = "USR" + now.format(java.time.format.DateTimeFormatter.ofPattern("HHmm"));
+
+    txId.setText(idUser);           // Isi otomatis ID
+    txId.setEditable(false);        // Tidak bisa diubah manual
+
+    txUser.setEditable(true);
+    txPass.setEditable(true);
+    txNama.setEditable(true);
+    txNohp.setEditable(true);
+
+    btnSimpan.setEnabled(true);
+    btnCancel.setEnabled(true);
+    btnNew.setEnabled(false);
+
+    txUser.requestFocus();
     }//GEN-LAST:event_btnNewActionPerformed
 
     private void btnSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSimpanActionPerformed

@@ -11,6 +11,9 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 /**
  *
  * @author handa
@@ -369,15 +372,22 @@ public class FormPelanggan extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_txnomorKeyTyped
 
     private void btnNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNewActionPerformed
-        // TODO add your handling code here:
-        txid.setEditable(true);
-        txnama.setEditable(true);
-        txalamat.setEditable(true);
-        txnomor.setEditable(true);
-        btnSimpan.setEnabled(true);
-        btnCancel.setEnabled(true);
-        btnNew.setEnabled(false);
-        txid.requestFocus();
+       // Mengisi ID otomatis berdasarkan jam dan menit saat ini
+    java.time.LocalDateTime now = java.time.LocalDateTime.now();
+    String idPelanggan = "PLG" + now.format(java.time.format.DateTimeFormatter.ofPattern("HHmm"));
+
+    txid.setText(idPelanggan);       // Set ID otomatis
+    txid.setEditable(false);         // Tidak bisa diubah oleh user
+
+    txnama.setEditable(true);
+    txalamat.setEditable(true);
+    txnomor.setEditable(true);
+    
+    btnSimpan.setEnabled(true);
+    btnCancel.setEnabled(true);
+    btnNew.setEnabled(false);
+
+    txnama.requestFocus();  
     }//GEN-LAST:event_btnNewActionPerformed
 
     private void btnSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSimpanActionPerformed
