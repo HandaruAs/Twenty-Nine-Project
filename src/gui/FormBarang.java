@@ -30,7 +30,7 @@ public class FormBarang extends javax.swing.JInternalFrame {
         mb = new MasterBarang();
         tampil();
         
-    txKode.setEnabled(false);
+    txtKodeBarang.setEnabled(false);
     txNama.setEnabled(false);
     txStok.setEnabled(false);
     txHarga.setEnabled(false);
@@ -51,12 +51,18 @@ public class FormBarang extends javax.swing.JInternalFrame {
     }
     public void clear(){
         txHarga.setText("");
-        txKode.setText("");
+        txtKodeBarang.setText("");
         txStok.setText("");
         txNama.setText("");
         txStatus.setSelectedIndex(0);
         jTable1.clearSelection();
     }
+    private String generateKodeBarang() {
+    String prefix = "BRG";
+    int randomNumber = (int) (Math.random() * 90000) + 10000; // 5 digit angka acak
+    return prefix + randomNumber;
+}
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -71,7 +77,7 @@ public class FormBarang extends javax.swing.JInternalFrame {
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        txKode = new javax.swing.JTextField();
+        txtKodeBarang = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         txNama = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
@@ -114,9 +120,9 @@ public class FormBarang extends javax.swing.JInternalFrame {
 
         jLabel2.setText("KODE BARANG");
 
-        txKode.addActionListener(new java.awt.event.ActionListener() {
+        txtKodeBarang.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txKodeActionPerformed(evt);
+                txtKodeBarangActionPerformed(evt);
             }
         });
 
@@ -163,7 +169,7 @@ public class FormBarang extends javax.swing.JInternalFrame {
                     .addComponent(txHarga, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txNama, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3)
-                    .addComponent(txKode, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtKodeBarang, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2)
                     .addComponent(txStok, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5)
@@ -178,7 +184,7 @@ public class FormBarang extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txKode, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtKodeBarang, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -348,9 +354,9 @@ public class FormBarang extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txKodeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txKodeActionPerformed
+    private void txtKodeBarangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtKodeBarangActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txKodeActionPerformed
+    }//GEN-LAST:event_txtKodeBarangActionPerformed
 
     private void txNamaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txNamaActionPerformed
         // TODO add your handling code here:
@@ -367,7 +373,7 @@ public class FormBarang extends javax.swing.JInternalFrame {
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
         int row = jTable1.getSelectedRow();
 
-        txKode.setText(jTable1.getValueAt(row, 0).toString());
+        txtKodeBarang.setText(jTable1.getValueAt(row, 0).toString());
         txNama.setText(jTable1.getValueAt(row, 1).toString());
         txStok.setText(jTable1.getValueAt(row, 2).toString());
         txHarga.setText(jTable1.getValueAt(row, 3).toString());
@@ -408,14 +414,14 @@ if (selectedRow == -1) {
 
     private void btnBaruActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBaruActionPerformed
        // Aktifkan input
-    txKode.setEnabled(true);
+    txtKodeBarang.setEnabled(true);
     txNama.setEnabled(true);
     txStok.setEnabled(true);
     txHarga.setEnabled(true);
     txStatus.setEnabled(true);
 
     // Kosongkan semua input
-    txKode.setText("");
+    txtKodeBarang.setText("");
     txNama.setText("");
     txStok.setText("");
     txHarga.setText("");
@@ -427,11 +433,13 @@ if (selectedRow == -1) {
     btnBaru.setEnabled(false);
 
     // Fokus ke input pertama
-    txKode.requestFocus();
+    txtKodeBarang.requestFocus();
+    txtKodeBarang.setText(generateKodeBarang());
+
     }//GEN-LAST:event_btnBaruActionPerformed
 
     private void btnBatalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBatalActionPerformed
-        txKode.setEditable(false);
+        txtKodeBarang.setEditable(false);
         txNama.setEditable(false);
         txStok.setEditable(false);
         txStatus.setEditable(false);
@@ -450,7 +458,7 @@ if (selectedRow == -1) {
         btnEdit.setEnabled(false);
         btnHapus.setEnabled(false);
         btnSimpan.setEnabled(true);
-        txKode.setEditable(true);
+        txtKodeBarang.setEditable(true);
         txNama.setEditable(true);
         txStok.setEditable(true);
         txStatus.setEditable(true);
@@ -460,7 +468,7 @@ if (selectedRow == -1) {
 
     private void btnSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSimpanActionPerformed
      String status = txStatus.getSelectedItem().toString(); 
-String kode = txKode.getText();
+String kode = txtKodeBarang.getText();
 String nama = txNama.getText();
 
 // Cek apakah ada input kosong
@@ -492,7 +500,7 @@ try {
     clear();
 
     // Nonaktifkan input kembali
-    txKode.setEnabled(false);
+    txtKodeBarang.setEnabled(false);
     txNama.setEnabled(false);
     txStok.setEnabled(false);
     txHarga.setEnabled(false);
@@ -533,10 +541,10 @@ try {
     public static javax.swing.JTable jTable1;
     private keeptoo.KGradientPanel kGradientPanel1;
     private javax.swing.JTextField txHarga;
-    private javax.swing.JTextField txKode;
     private javax.swing.JTextField txNama;
     private javax.swing.JComboBox<String> txStatus;
     private javax.swing.JTextField txStok;
+    private javax.swing.JTextField txtKodeBarang;
     // End of variables declaration//GEN-END:variables
 
     

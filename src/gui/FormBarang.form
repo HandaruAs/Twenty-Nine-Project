@@ -122,7 +122,7 @@
                           <Component id="txHarga" min="-2" pref="171" max="-2" attributes="0"/>
                           <Component id="txNama" min="-2" pref="171" max="-2" attributes="0"/>
                           <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
-                          <Component id="txKode" min="-2" pref="171" max="-2" attributes="0"/>
+                          <Component id="txtKodeBarang" min="-2" pref="171" max="-2" attributes="0"/>
                           <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                           <Component id="txStok" alignment="0" min="-2" pref="65" max="-2" attributes="0"/>
                           <Component id="jLabel5" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -140,7 +140,7 @@
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="txKode" min="-2" pref="29" max="-2" attributes="0"/>
+                      <Component id="txtKodeBarang" min="-2" pref="29" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
@@ -176,9 +176,9 @@
                 <Property name="text" type="java.lang.String" value="KODE BARANG"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="txKode">
+            <Component class="javax.swing.JTextField" name="txtKodeBarang">
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txKodeActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtKodeBarangActionPerformed"/>
               </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel3">
