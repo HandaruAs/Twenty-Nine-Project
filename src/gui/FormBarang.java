@@ -13,6 +13,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import com.barcodelib.barcode.Linear;
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+
 /**
  *
  * @author handa
@@ -575,6 +579,7 @@ try {
     private javax.swing.JTextField txtKodeBarang;
     // End of variables declaration//GEN-END:variables
 
+   
     
    
 }
