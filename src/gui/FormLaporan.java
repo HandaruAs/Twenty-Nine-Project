@@ -34,32 +34,18 @@ laporan lp;
         lp = new laporan();      
         lp.tampailBarangTerjual();
         tanggall();
-        lp.tampilPendapatanHariIni(tgli2.getText());
+        lp.tampilPendapatanHariIni(tanggall.getText());
         lp.tampilTotal();
-        lp.grafik();
+        
     }
     public void tanggall(){
          SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         Date date = new Date();
-        tgli2.setText(format.format(date));
-        tgli2.setVisible(false);
+        tanggall.setText(format.format(date));
+        tanggall.setVisible(false);
        
     }
-    public void grafik(){
-        DefaultCategoryDataset obj = new DefaultCategoryDataset();
-        obj.setValue(20, "24-03-2020", "HARI");
-        obj.setValue(40, "25-03-2020", "HARI");
-        obj.setValue(30, "26-03-2020", "HARI");
-        JFreeChart chart = ChartFactory.createBarChart("GRAFIK PENJUALAN", "ASS", "EH", obj,PlotOrientation.VERTICAL,false,true,false);
-        CategoryPlot  objc = chart.getCategoryPlot();
-        objc.setRangeGridlinePaint(Color.black);
-        objc.setBackgroundPaint(Color.white);
-        
-        ChartPanel panel = new ChartPanel(chart);
-        FormLaporan.chart.removeAll();
-        FormLaporan.chart.add(panel,BorderLayout.CENTER);
-        FormLaporan.chart.validate();
-        }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -81,12 +67,11 @@ laporan lp;
         jLabel2 = new javax.swing.JLabel();
         txTotal = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        chart = new javax.swing.JPanel();
         tgli1 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
-        tgli2 = new javax.swing.JLabel();
+        tanggall = new javax.swing.JLabel();
 
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setBackground(new java.awt.Color(102, 0, 0));
 
         kGradientPanel1.setkEndColor(new java.awt.Color(51, 255, 255));
         kGradientPanel1.setkGradientFocus(300);
@@ -163,7 +148,7 @@ laporan lp;
             .addGroup(kGradientPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
                 .addGroup(kGradientPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(pendapatanHariini)
                     .addComponent(jLabel4))
@@ -205,15 +190,12 @@ laporan lp;
             .addGroup(kGradientPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
                 .addGroup(kGradientPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txTotal)
                     .addComponent(jLabel5))
                 .addContainerGap())
         );
-
-        chart.setBackground(new java.awt.Color(255, 255, 255));
-        chart.setLayout(new java.awt.BorderLayout());
 
         tgli1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         tgli1.setForeground(new java.awt.Color(0, 0, 0));
@@ -227,9 +209,9 @@ laporan lp;
             }
         });
 
-        tgli2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        tgli2.setForeground(new java.awt.Color(0, 0, 0));
-        tgli2.setText("jLabel4");
+        tanggall.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        tanggall.setForeground(new java.awt.Color(0, 0, 0));
+        tanggall.setText("jLabel4");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -239,40 +221,37 @@ laporan lp;
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(tgli1, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(tgli2))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(239, 239, 239)
+                                .addComponent(tgli1, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(33, 33, 33)
+                                .addComponent(tanggall))
+                            .addComponent(kGradientPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(kGradientPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(kGradientPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
                         .addComponent(kGradientPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(kGradientPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(35, 35, 35)
-                        .addComponent(jButton2)))
-                .addContainerGap(120, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(chart, javax.swing.GroupLayout.DEFAULT_SIZE, 460, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 311, Short.MAX_VALUE)
+                        .addComponent(jButton2)
+                        .addGap(183, 183, 183))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(6, 6, 6)
+                .addGap(9, 9, 9)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(tgli1)
-                    .addComponent(tgli2, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(12, 12, 12)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(kGradientPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 82, Short.MAX_VALUE)
-                    .addComponent(kGradientPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 82, Short.MAX_VALUE)
-                    .addComponent(kGradientPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(327, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel1Layout.createSequentialGroup()
-                    .addGap(131, 131, 131)
-                    .addComponent(chart, javax.swing.GroupLayout.DEFAULT_SIZE, 307, Short.MAX_VALUE)
-                    .addContainerGap()))
+                    .addComponent(tanggall, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tgli1))
+                .addGap(9, 9, 9)
+                .addComponent(kGradientPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(57, 57, 57)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(kGradientPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 67, Short.MAX_VALUE)
+                .addComponent(kGradientPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(39, 39, 39))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -300,7 +279,6 @@ laporan lp;
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public static javax.swing.JLabel brgTerjual;
-    public static javax.swing.JPanel chart;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -312,8 +290,8 @@ laporan lp;
     private keeptoo.KGradientPanel kGradientPanel2;
     private keeptoo.KGradientPanel kGradientPanel3;
     public static javax.swing.JLabel pendapatanHariini;
+    private javax.swing.JLabel tanggall;
     private javax.swing.JLabel tgli1;
-    private javax.swing.JLabel tgli2;
     public static javax.swing.JLabel txTotal;
     // End of variables declaration//GEN-END:variables
 }

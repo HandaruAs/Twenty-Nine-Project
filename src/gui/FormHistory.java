@@ -5,7 +5,11 @@
 package gui;
 import control.histori;
 import control.laporan;
+import static gui.FormBarang.TabelBarang;
 import java.awt.Color;
+import java.awt.Component;
+import java.awt.Container;
+import java.awt.Font;
 import javax.swing.JOptionPane;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 
@@ -22,13 +26,36 @@ laporan lp;
      */
     public FormHistory() {
         initComponents();
+        
+               // Font global manual (kalau mau override)
+    Font font = new Font("Poppins", Font.PLAIN, 10);
+    setFontKeSemuaKomponen(this, font);
+
+    // TABLE STYLE
+TabelHistory.setFont(font);
+TabelHistory.setRowHeight(30);
+TabelHistory.setBackground(new Color(255, 255, 180)); // kuning
+TabelHistory.setForeground(Color.BLACK);
+TabelHistory.setSelectionBackground(new Color(255, 204, 0)); // kuning gelap
+TabelHistory.setSelectionForeground(Color.BLACK);
+
+// Menampilkan garis antar kolom dan baris
+TabelHistory.setShowGrid(true);
+TabelHistory.setGridColor(Color.BLACK); // warna garis
+
+// HEADER STYLE
+TabelHistory.getTableHeader().setFont(font);
+TabelHistory.getTableHeader().setBackground(new Color(255, 235, 150));
+TabelHistory.getTableHeader().setForeground(Color.BLACK);
+
+        
          this.setBorder(javax.swing.BorderFactory.createEmptyBorder(0,0,0,0));
         BasicInternalFrameUI ui=(BasicInternalFrameUI)this.getUI();
         ui.setNorthPane(null);
          hh = new histori();
         lp = new laporan();
-        jTable1.setBackground(Color.WHITE);
-        jTable1.setModel(hh.model);
+        TabelHistory.setBackground(Color.WHITE);
+        TabelHistory.setModel(hh.model);
         hh.tampilTb();
         hh.tglAwal();
         hh.tglAkhir();
@@ -45,7 +72,7 @@ laporan lp;
 
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        TabelHistory = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         tglAwal = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -55,7 +82,7 @@ laporan lp;
 
         jPanel1.setBackground(new java.awt.Color(102, 0, 0));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        TabelHistory.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -66,12 +93,12 @@ laporan lp;
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+        TabelHistory.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTable1MouseClicked(evt);
+                TabelHistoryMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(TabelHistory);
 
         jLabel1.setBackground(new java.awt.Color(255, 255, 255));
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
@@ -161,12 +188,12 @@ laporan lp;
         pack();
     }// </editor-fold>//GEN-END:initComponents
 boolean cetak = false;
-    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+    private void TabelHistoryMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TabelHistoryMouseClicked
         // TODO add your handling code here:
         cetak = true;
-        int row = jTable1.getSelectedRow();
-        nofak =  jTable1.getValueAt(row, 1).toString();
-    }//GEN-LAST:event_jTable1MouseClicked
+        int row = TabelHistory.getSelectedRow();
+        nofak =  TabelHistory.getValueAt(row, 1).toString();
+    }//GEN-LAST:event_TabelHistoryMouseClicked
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
@@ -174,7 +201,7 @@ boolean cetak = false;
             lp.printNota(nofak);
             jButton1.setFocusable(false);
             jButton1.setSelected(false);
-            jTable1.clearSelection();
+            TabelHistory.clearSelection();
 
         }else{
             JOptionPane.showMessageDialog(rootPane, "PILIH TRANSAKSI TERLEBIH DAHULU");
@@ -184,14 +211,23 @@ boolean cetak = false;
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTable TabelHistory;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     public static javax.swing.JLabel tglAkhir;
     public static javax.swing.JLabel tglAwal;
     // End of variables declaration//GEN-END:variables
+private void setFontKeSemuaKomponen(Container container, Font font) {
+    for (Component comp : container.getComponents()) {
+        comp.setFont(font);
+        if (comp instanceof Container) {
+            setFontKeSemuaKomponen((Container) comp, font);
+        }
+    }
+}
+
 }
