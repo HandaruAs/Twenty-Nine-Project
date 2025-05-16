@@ -7,12 +7,17 @@ package gui;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import control.pelanggan;
 import control.utama;
+import static gui.FormBarang.TabelBarang;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Container;
+import java.awt.Font;
 
 /**
  *
@@ -24,6 +29,29 @@ public class FormPelanggan extends javax.swing.JInternalFrame {
    
     public FormPelanggan() {
         initComponents();
+        
+           // Font global manual (kalau mau override)
+    Font font = new Font("Poppins", Font.PLAIN, 10);
+    setFontKeSemuaKomponen(this, font);
+
+    // TABLE STYLE
+    TabelPelanggan.setFont(font);
+    TabelPelanggan.setRowHeight(30);
+    TabelPelanggan.setBackground(new Color(255, 255, 180)); // kuning
+    TabelPelanggan.setForeground(Color.BLACK);
+    TabelPelanggan.setSelectionBackground(new Color(255, 204, 0)); // kuning gelap
+    TabelPelanggan.setSelectionForeground(Color.BLACK);
+
+    // Menampilkan garis antar kolom dan baris
+    TabelPelanggan.setShowGrid(true);
+    TabelPelanggan.setGridColor(Color.BLACK); // warna garis
+
+    // HEADER STYLE
+    TabelPelanggan.getTableHeader().setFont(font);
+    TabelPelanggan.getTableHeader().setBackground(new Color(255, 235, 150));
+    TabelPelanggan.getTableHeader().setForeground(Color.BLACK);
+   
+        
         this.setBorder(javax.swing.BorderFactory.createEmptyBorder(0,0,0,0));
         BasicInternalFrameUI ui=(BasicInternalFrameUI)this.getUI();
         ui.setNorthPane(null);
@@ -33,7 +61,7 @@ public class FormPelanggan extends javax.swing.JInternalFrame {
     }
    
    public void tampil(){
-         jTable1.setModel(pl.model);
+         TabelPelanggan.setModel(pl.model);
         pl.model.setRowCount(0);
         pl.tampil();
     }
@@ -42,7 +70,7 @@ public class FormPelanggan extends javax.swing.JInternalFrame {
         txid.setText("");
         txalamat.setText("");
         txnama.setText("");
-        jTable1.clearSelection();
+        TabelPelanggan.clearSelection();
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -56,21 +84,21 @@ public class FormPelanggan extends javax.swing.JInternalFrame {
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        txid = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
-        txnama = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        txalamat = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        txnomor = new javax.swing.JTextField();
+        txid = new custom.JTextfieldRounded();
+        txnama = new custom.JTextfieldRounded();
+        txalamat = new custom.JTextfieldRounded();
+        txnomor = new custom.JTextfieldRounded();
         kGradientPanel1 = new keeptoo.KGradientPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        btnNew = new javax.swing.JButton();
-        btnSimpan = new javax.swing.JButton();
-        btnHapus = new javax.swing.JButton();
-        btnEdit = new javax.swing.JButton();
-        btnCancel = new javax.swing.JButton();
+        TabelPelanggan = new javax.swing.JTable();
+        btnNew = new custom.Custom_ButtonRounded();
+        btnSimpan = new custom.Custom_ButtonRounded();
+        btnHapus = new custom.Custom_ButtonRounded();
+        btnEdit = new custom.Custom_ButtonRounded();
+        btnCancel = new custom.Custom_ButtonRounded();
 
         addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
             public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
@@ -92,54 +120,20 @@ public class FormPelanggan extends javax.swing.JInternalFrame {
 
         jPanel1.setBackground(new java.awt.Color(102, 0, 0));
 
-        jLabel2.setText("ID PELANGGAN");
+        jPanel2.setBackground(new java.awt.Color(255, 255, 204));
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "DATA PELANGGAN", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11))); // NOI18N
 
-        txid.setEditable(false);
-        txid.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txidActionPerformed(evt);
-            }
-        });
-        txid.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txidKeyTyped(evt);
-            }
-        });
+        jLabel2.setText("ID PELANGGAN");
 
         jLabel1.setText("NAMA PELANGGAN");
 
-        txnama.setEditable(false);
-        txnama.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txnamaActionPerformed(evt);
-            }
-        });
-        txnama.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txnamaKeyTyped(evt);
-            }
-        });
-
         jLabel3.setText("ALAMAT PELANGGAN");
-
-        txalamat.setEditable(false);
-        txalamat.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txalamatActionPerformed(evt);
-            }
-        });
-        txalamat.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txalamatKeyTyped(evt);
-            }
-        });
 
         jLabel4.setText("NOMOR TELEPON");
 
-        txnomor.setEditable(false);
-        txnomor.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txnomorKeyTyped(evt);
+        txnama.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txnamaActionPerformed(evt);
             }
         });
 
@@ -150,14 +144,14 @@ public class FormPelanggan extends javax.swing.JInternalFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(23, 23, 23)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txnomor, javax.swing.GroupLayout.DEFAULT_SIZE, 228, Short.MAX_VALUE)
                     .addComponent(jLabel4)
                     .addComponent(jLabel3)
-                    .addComponent(txnama, javax.swing.GroupLayout.DEFAULT_SIZE, 228, Short.MAX_VALUE)
-                    .addComponent(txid)
                     .addComponent(jLabel2)
                     .addComponent(jLabel1)
-                    .addComponent(txalamat))
+                    .addComponent(txid, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txnama, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txalamat, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txnomor, javax.swing.GroupLayout.DEFAULT_SIZE, 228, Short.MAX_VALUE))
                 .addContainerGap(23, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -166,27 +160,27 @@ public class FormPelanggan extends javax.swing.JInternalFrame {
                 .addGap(55, 55, 55)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txid, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txid, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txnama, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(txnama, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txalamat, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txalamat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txnomor, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(67, Short.MAX_VALUE))
+                .addComponent(txnomor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(61, Short.MAX_VALUE))
         );
 
         kGradientPanel1.setkBorderRadius(0);
-        kGradientPanel1.setkEndColor(new java.awt.Color(89, 130, 255));
-        kGradientPanel1.setkStartColor(new java.awt.Color(178, 234, 255));
+        kGradientPanel1.setkEndColor(new java.awt.Color(255, 204, 0));
+        kGradientPanel1.setkStartColor(new java.awt.Color(255, 204, 0));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        TabelPelanggan.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -202,14 +196,14 @@ public class FormPelanggan extends javax.swing.JInternalFrame {
                 return canEdit [columnIndex];
             }
         });
-        jTable1.setGridColor(new java.awt.Color(102, 102, 102));
-        jTable1.setSelectionBackground(new java.awt.Color(0, 204, 153));
-        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+        TabelPelanggan.setGridColor(new java.awt.Color(102, 102, 102));
+        TabelPelanggan.setSelectionBackground(new java.awt.Color(0, 204, 153));
+        TabelPelanggan.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTable1MouseClicked(evt);
+                TabelPelangganMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(TabelPelanggan);
 
         javax.swing.GroupLayout kGradientPanel1Layout = new javax.swing.GroupLayout(kGradientPanel1);
         kGradientPanel1.setLayout(kGradientPanel1Layout);
@@ -228,44 +222,35 @@ public class FormPelanggan extends javax.swing.JInternalFrame {
                 .addContainerGap())
         );
 
-        btnNew.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Group 8.png"))); // NOI18N
-        btnNew.setText("NEW");
+        btnNew.setText("New");
         btnNew.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnNewActionPerformed(evt);
             }
         });
 
-        btnSimpan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Vector_art_of_Floppy_Disk___illustration__art__floppy__techsurfer15__techsurfer_abhi__techheap__illustrations-removebg-preview (1) 2.png"))); // NOI18N
-        btnSimpan.setText("SIMPAN");
-        btnSimpan.setEnabled(false);
+        btnSimpan.setText("Simpan");
         btnSimpan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSimpanActionPerformed(evt);
             }
         });
 
-        btnHapus.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Group 27.png"))); // NOI18N
-        btnHapus.setText("HAPUS");
-        btnHapus.setEnabled(false);
+        btnHapus.setText("Hapus");
         btnHapus.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnHapusActionPerformed(evt);
             }
         });
 
-        btnEdit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Note_Vector_Art_PNG__Vector_Notes_Icon__Document__Notes__Notes_Icon_PNG_Image_For_Free_Download__1_-removebg-preview (1) 2.png"))); // NOI18N
-        btnEdit.setText("EDIT");
-        btnEdit.setEnabled(false);
+        btnEdit.setText("Edit");
         btnEdit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEditActionPerformed(evt);
             }
         });
 
-        btnCancel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Group 28.png"))); // NOI18N
-        btnCancel.setText("CANCEL");
-        btnCancel.setEnabled(false);
+        btnCancel.setText("Batal");
         btnCancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCancelActionPerformed(evt);
@@ -279,42 +264,42 @@ public class FormPelanggan extends javax.swing.JInternalFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(112, 112, 112)
-                        .addComponent(btnNew, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(31, 31, 31)
-                        .addComponent(btnSimpan, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnHapus, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addGap(97, 97, 97)
+                        .addComponent(btnNew, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(btnSimpan, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(29, 29, 29)
+                        .addComponent(btnHapus, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(30, 30, 30)
                         .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(kGradientPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 567, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(47, Short.MAX_VALUE))
+                        .addGap(37, 37, 37)
+                        .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(38, 38, 38))
+                    .addComponent(kGradientPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 567, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(41, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(kGradientPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 358, Short.MAX_VALUE)
+                    .addComponent(kGradientPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 391, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnEdit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnHapus, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnNew, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnSimpan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnCancel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(24, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnSimpan, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnHapus, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnNew, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -331,48 +316,30 @@ public class FormPelanggan extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+    private void TabelPelangganMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TabelPelangganMouseClicked
         // TODO add your handling code here:
-        int row = jTable1.getSelectedRow();
-        txid.setText(jTable1.getValueAt(row, 0).toString());
-        txnama.setText(jTable1.getValueAt(row, 1).toString());
-        txalamat.setText(jTable1.getValueAt(row, 2).toString());
-        txnomor.setText(jTable1.getValueAt(row, 3).toString());
+        int row = TabelPelanggan.getSelectedRow();
+        txid.setText(TabelPelanggan.getValueAt(row, 0).toString());
+        txnama.setText(TabelPelanggan.getValueAt(row, 1).toString());
+        txalamat.setText(TabelPelanggan.getValueAt(row, 2).toString());
+        txnomor.setText(TabelPelanggan.getValueAt(row, 3).toString());
         btnEdit.setEnabled(true);
         btnHapus.setEnabled(true);
         btnCancel.setEnabled(true);
-    }//GEN-LAST:event_jTable1MouseClicked
+    }//GEN-LAST:event_TabelPelangganMouseClicked
 
-    private void txidKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txidKeyTyped
-        // TODO add your handling code here:
-        if(txid.getText().length()==5){
-            evt.consume();
-        }
-    }//GEN-LAST:event_txidKeyTyped
+    private void formInternalFrameClosing(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameClosing
+        ut.tampilCountBrg();
+        ut.tampilCountPlg();
+        ut.tampilCountTrx();
+    }//GEN-LAST:event_formInternalFrameClosing
 
-    private void txnamaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txnamaKeyTyped
+    private void txnamaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txnamaActionPerformed
         // TODO add your handling code here:
-        if(txnama.getText().length()==30){
-            evt.consume();
-        }
-    }//GEN-LAST:event_txnamaKeyTyped
-
-    private void txalamatKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txalamatKeyTyped
-        // TODO add your handling code here:
-        if(txalamat.getText().length()==40){
-            evt.consume();
-        }
-    }//GEN-LAST:event_txalamatKeyTyped
-
-    private void txnomorKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txnomorKeyTyped
-        // TODO add your handling code here:
-        if(txnomor.getText().length()==16){
-            evt.consume();
-        }
-    }//GEN-LAST:event_txnomorKeyTyped
+    }//GEN-LAST:event_txnamaActionPerformed
 
     private void btnNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNewActionPerformed
-       // Mengisi ID otomatis berdasarkan jam dan menit saat ini
+         // Mengisi ID otomatis berdasarkan jam dan menit saat ini
     java.time.LocalDateTime now = java.time.LocalDateTime.now();
     String idPelanggan = "PLG" + now.format(java.time.format.DateTimeFormatter.ofPattern("HHmm"));
 
@@ -391,7 +358,7 @@ public class FormPelanggan extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnNewActionPerformed
 
     private void btnSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSimpanActionPerformed
-        if(edit==true){
+            if(edit==true){
             String id_pelanggan = txid.getText();
             String nama_pelanggan = txnama.getText();
             String alamat = txalamat.getText();
@@ -437,12 +404,10 @@ public class FormPelanggan extends javax.swing.JInternalFrame {
                 Logger.getLogger(FormPelanggan.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-       
-
     }//GEN-LAST:event_btnSimpanActionPerformed
 
     private void btnHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHapusActionPerformed
-        // TODO add your handling code here:
+         // TODO add your handling code here:
         String kode = txid.getText();
         try {
             pl.hapus(kode);
@@ -454,6 +419,17 @@ public class FormPelanggan extends javax.swing.JInternalFrame {
             Logger.getLogger(FormPelanggan.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnHapusActionPerformed
+
+    private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
+        edit = true;
+        btnEdit.setEnabled(false);
+        btnHapus.setEnabled(false);
+        btnSimpan.setEnabled(true);
+         txnama.setEditable(true);
+        txalamat.setEditable(true);
+        txnomor.setEditable(true);
+        txnama.requestFocus();
+    }//GEN-LAST:event_btnEditActionPerformed
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
         // TODO add your handling code here:
@@ -467,45 +443,17 @@ public class FormPelanggan extends javax.swing.JInternalFrame {
         btnEdit.setEnabled(false);
         btnNew.setEnabled(true);
         clear();
-        jTable1.clearSelection();
+        TabelPelanggan.clearSelection();
     }//GEN-LAST:event_btnCancelActionPerformed
-
-    private void txidActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txidActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txidActionPerformed
-
-    private void txnamaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txnamaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txnamaActionPerformed
-
-    private void txalamatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txalamatActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txalamatActionPerformed
-
-    private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
-         edit = true;
-        btnEdit.setEnabled(false);
-        btnHapus.setEnabled(false);
-        btnSimpan.setEnabled(true);
-         txnama.setEditable(true);
-        txalamat.setEditable(true);
-        txnomor.setEditable(true);
-        txnama.requestFocus();
-    }//GEN-LAST:event_btnEditActionPerformed
-
-    private void formInternalFrameClosing(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameClosing
-        ut.tampilCountBrg();
-        ut.tampilCountPlg();
-        ut.tampilCountTrx();
-    }//GEN-LAST:event_formInternalFrameClosing
 boolean edit = false;
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnCancel;
-    private javax.swing.JButton btnEdit;
-    private javax.swing.JButton btnHapus;
-    private javax.swing.JButton btnNew;
-    private javax.swing.JButton btnSimpan;
+    private javax.swing.JTable TabelPelanggan;
+    private custom.Custom_ButtonRounded btnCancel;
+    private custom.Custom_ButtonRounded btnEdit;
+    private custom.Custom_ButtonRounded btnHapus;
+    private custom.Custom_ButtonRounded btnNew;
+    private custom.Custom_ButtonRounded btnSimpan;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -513,11 +461,21 @@ boolean edit = false;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private keeptoo.KGradientPanel kGradientPanel1;
-    private javax.swing.JTextField txalamat;
-    public static javax.swing.JTextField txid;
-    private javax.swing.JTextField txnama;
-    private javax.swing.JTextField txnomor;
+    private custom.JTextfieldRounded txalamat;
+    private custom.JTextfieldRounded txid;
+    private custom.JTextfieldRounded txnama;
+    private custom.JTextfieldRounded txnomor;
     // End of variables declaration//GEN-END:variables
+private void setFontKeSemuaKomponen(Container container, Font font) {
+        for (Component comp : container.getComponents()) {
+            comp.setFont(font);
+            if (comp instanceof Container) {
+                setFontKeSemuaKomponen((Container) comp, font);
+            }
+        }
+    }
+
+
+
 }

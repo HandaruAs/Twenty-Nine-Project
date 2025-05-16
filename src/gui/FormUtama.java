@@ -41,7 +41,8 @@ import org.jfree.chart.ChartFrame;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.data.category.DefaultCategoryDataset;
-
+import com.formdev.flatlaf.FlatLightLaf;
+import javax.swing.UIManager;
 /**
  *
  * @author handa
@@ -382,7 +383,7 @@ Color DefaultColor,ClickedColor;
         });
         jPanel1.add(pengguna, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 20, 50, 30));
 
-        MainPanel.setBackground(new java.awt.Color(255, 255, 255));
+        MainPanel.setBackground(new java.awt.Color(255, 255, 204));
         MainPanel.setForeground(new java.awt.Color(255, 204, 204));
 
         kGradientPanel2.setkEndColor(new java.awt.Color(255, 153, 51));
@@ -703,20 +704,10 @@ Color DefaultColor,ClickedColor;
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
         try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FormUtama.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FormUtama.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FormUtama.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FormUtama.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+             UIManager.setLookAndFeel(new FlatLightLaf());
+             UIManager.put("defaultFont", new java.awt.Font("Poppins", java.awt.Font.PLAIN, 14));
+        } catch (Exception e) {
+            
         }
         //</editor-fold>
 
