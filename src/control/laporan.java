@@ -11,6 +11,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dialog;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -113,40 +114,37 @@ public class laporan extends koneksi{
     }
     
       public void printNota(String nofak) {
-        JasperReport jasRep;
-        JasperPrint jasPri;
-        JasperDesign jasdes;
-        Map<String, Object> param = new HashMap<String, Object>();
-        
+    JasperReport jasRep;
+    JasperPrint jasPri;
+    JasperDesign jasdes;
+    Map<String, Object> param = new HashMap<>();
+
     try {
         Class.forName("com.mysql.cj.jdbc.Driver");
-         con = DriverManager.getConnection("jdbc:mysql://localhost:3306/sistemkasir","root","");
-         InputStream reportStream = getClass().getClassLoader().getResourceAsStream("report2/ASW.jrxml");
-        
-         param.put("nofak", nofak);
-         jasdes = JRXmlLoader.load(reportStream);
-         jasRep = JasperCompileManager.compileReport(jasdes);
-         jasPri = JasperFillManager.fillReport(jasRep,param, con);
-         JasperViewer.viewReport(jasPri,false);
-          JasperViewer jasperViewer = new JasperViewer(jasPri, false);
-           JDialog dialog = new JDialog();//the owner
-            dialog.setContentPane(jasperViewer.getContentPane());
-            dialog.setSize(jasperViewer.getSize());
-            dialog.setTitle("NOTA");
-            dialog.setAlwaysOnTop(true);
-            dialog.setModalityType(Dialog.ModalityType.MODELESS);
-            dialog.setModal(true);
-            dialog.setLocationRelativeTo(null);
-            dialog.setVisible(true);
-    } catch (ClassNotFoundException ex) {
-        Logger.getLogger(FormUtama.class.getName()).log(Level.SEVERE, null, ex);
-    } catch (SQLException ex) {
-        Logger.getLogger(FormUtama.class.getName()).log(Level.SEVERE, null, ex);
-    } catch (JRException ex) {
-        Logger.getLogger(FormUtama.class.getName()).log(Level.SEVERE, null, ex);
-    }
+        con = DriverManager.getConnection("jdbc:mysql://localhost:3306/sistemkasir", "root", "");
 
-      } 
+        InputStream reportStream = getClass().getClassLoader().getResourceAsStream("report2/ASW.jrxml");
+
+        if (reportStream == null) {
+            throw new FileNotFoundException("File report2/ASW.jrxml tidak ditemukan.");
+        }
+
+        param.put("nofak", nofak);
+        jasdes = JRXmlLoader.load(reportStream);
+        jasRep = JasperCompileManager.compileReport(jasdes);
+        jasPri = JasperFillManager.fillReport(jasRep, param, con);
+
+        // Tampilkan hanya sekali
+        JasperViewer viewer = new JasperViewer(jasPri, false);
+        viewer.setTitle("NOTA");
+        viewer.setVisible(true);
+
+    } catch (FileNotFoundException e) {
+        JOptionPane.showMessageDialog(null, "Laporan tidak ditemukan: " + e.getMessage());
+    } catch (ClassNotFoundException | SQLException | JRException e) {
+        Logger.getLogger(FormUtama.class.getName()).log(Level.SEVERE, null, e);
+    }
+}
     
       
        public void printLap(String tanggalCetak) {
