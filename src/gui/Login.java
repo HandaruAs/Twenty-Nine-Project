@@ -159,7 +159,7 @@ control_login cl;
     this.dispose();
     }//GEN-LAST:event_RegisterMouseClicked
 
-    /**
+   /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {

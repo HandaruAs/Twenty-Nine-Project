@@ -19,19 +19,24 @@ import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
+
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
+
+
 import net.sf.jasperreports.view.JasperViewer;
 import javax.swing.JFrame;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author handa
  */
 public class FormTransaksi extends javax.swing.JFrame {
+    private laporan servisReport = new laporan();
     control_transaksi ct;
     laporan lp;
     koneksi db;
@@ -108,8 +113,6 @@ public class FormTransaksi extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         txKembali = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
-        btnCetak = new javax.swing.JButton();
-        jLabel11 = new javax.swing.JLabel();
         btnSave = new javax.swing.JButton();
         jLabel12 = new javax.swing.JLabel();
         btnReset = new javax.swing.JButton();
@@ -287,7 +290,7 @@ public class FormTransaksi extends javax.swing.JFrame {
                         .addComponent(btnhapus)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btncancel)))
-                .addContainerGap(46, Short.MAX_VALUE))
+                .addContainerGap(49, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -364,17 +367,6 @@ public class FormTransaksi extends javax.swing.JFrame {
 
         jLabel10.setText("Kembali");
 
-        btnCetak.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/printer_machine_icon_logo_vector_design_template-removebg-preview (1) 2.png"))); // NOI18N
-        btnCetak.setEnabled(false);
-        btnCetak.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCetakActionPerformed(evt);
-            }
-        });
-
-        jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel11.setText("CETAK NOTA");
-
         btnSave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Group 16.png"))); // NOI18N
         btnSave.setEnabled(false);
         btnSave.addActionListener(new java.awt.event.ActionListener() {
@@ -447,18 +439,15 @@ public class FormTransaksi extends javax.swing.JFrame {
                             .addComponent(jLabel9)
                             .addComponent(jLabel10)
                             .addComponent(txBayar, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 106, Short.MAX_VALUE)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(36, 36, 36)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, 117, Short.MAX_VALUE)
-                            .addComponent(btnCetak, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(27, 27, 27))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(txKembali, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, 117, Short.MAX_VALUE)
+                    .addComponent(btnSave, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(40, 40, 40)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE)
                     .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE)
@@ -471,12 +460,10 @@ public class FormTransaksi extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel11)
                             .addComponent(jLabel12)
                             .addComponent(jLabel14))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnCetak, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(btnReset, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
@@ -721,67 +708,85 @@ public class FormTransaksi extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_txBayarCaretUpdate
 
-    private void btnCetakActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCetakActionPerformed
-        lp.printNota(txNoFaktur.getText());
-    }//GEN-LAST:event_btnCetakActionPerformed
-
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         // TODO add your handling code here:
-        String nofak = txNoFaktur.getText();
-        String kasir = pengguna.getText();
-        String id_pelanggan = txidPelanggan.getText();
-        String pelanggan = txpelanggan.getText();
-        int total = Integer.parseInt(txGrandTotal.getText());
-        int diskon = Integer.parseInt(txDiskon.getText());
-        int bayar = Integer.parseInt(txBayar.getText());
-        int kembali = Integer.parseInt(txKembali.getText());
+     String nofak = txNoFaktur.getText().trim();
+    String kasir = pengguna.getText().trim();
+    String id_pelanggan = txidPelanggan.getText().trim();
+    String pelanggan = txpelanggan.getText().trim();
+    String tanggall = tanggal.getText().trim();
 
-        String tanggall = tanggal.getText();
-        if(bayar<total){
-            JOptionPane.showMessageDialog(rootPane, "PEMBAYARAN KURANG");
-        }else{
-            for(int n = 0;n<tbPengeluaran.getRowCount();n++){
-                try {
-                    String kode_barang = (String) tbPengeluaran.getValueAt(n, 0);
-                    String nama_barang = (String) tbPengeluaran.getValueAt(n, 1);
-                    int harga = (int) tbPengeluaran.getValueAt(n, 2);
-                    int qty = (int) tbPengeluaran.getValueAt(n, 3);
-                    int totall = (int) tbPengeluaran.getValueAt(n, 4);
-                    db.setKoneksi();
-                    String sqli = "SELECT stok from masterBarang where kode_barang = '"+kode_barang+"'";
-                    Statement st = db.getKoneksi().createStatement();
-                    ResultSet rs = st.executeQuery(sqli);
-                    while(rs.next()){
-                        int stok = rs.getInt("stok");
-                        int sisa = stok - qty;
-                        ct.updateStok(sisa, kode_barang);
+    if (nofak.isEmpty() || kasir.isEmpty() || id_pelanggan.isEmpty() || pelanggan.isEmpty()) {
+        JOptionPane.showMessageDialog(rootPane, "Lengkapi semua data terlebih dahulu!");
+        return;
+    }
 
-                    }
-                    try {
-                        ct.insertBarang(nofak, kode_barang, nama_barang, harga, qty, totall);
-                    } catch (SQLException ex) {
-                        Logger.getLogger(Transaksi.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                } catch (SQLException ex) {
-                    Logger.getLogger(Transaksi.class.getName()).log(Level.SEVERE, null, ex);
-                }
+    if (tbPengeluaran.getRowCount() == 0) {
+        JOptionPane.showMessageDialog(rootPane, "Tabel barang kosong!");
+        return;
+    }
+
+    int total, diskon, bayar, kembali;
+    try {
+        total = Integer.parseInt(txGrandTotal.getText());
+        diskon = Integer.parseInt(txDiskon.getText());
+        bayar = Integer.parseInt(txBayar.getText());
+        kembali = Integer.parseInt(txKembali.getText());
+    } catch (NumberFormatException e) {
+        JOptionPane.showMessageDialog(rootPane, "Format angka tidak valid.");
+        return;
+    }
+
+    if (bayar < total) {
+        JOptionPane.showMessageDialog(rootPane, "PEMBAYARAN KURANG");
+        return;
+    }
+
+    try {
+        // Simpan ke tabel penjualan
+        ct.simpanPenjualan(nofak, kasir, id_pelanggan, pelanggan, diskon, total, bayar, kembali, tanggall);
+
+        // Simpan ke tabel barangpenjualan dan update stok
+        for (int n = 0; n < tbPengeluaran.getRowCount(); n++) {
+            String kode_barang = tbPengeluaran.getValueAt(n, 0).toString();
+            String nama_barang = tbPengeluaran.getValueAt(n, 1).toString();
+            int harga = Integer.parseInt(tbPengeluaran.getValueAt(n, 2).toString());
+            int qty = Integer.parseInt(tbPengeluaran.getValueAt(n, 3).toString());
+            int totall = Integer.parseInt(tbPengeluaran.getValueAt(n, 4).toString());
+
+            db.setKoneksi();
+            String sqli = "SELECT stok FROM masterBarang WHERE kode_barang = ?";
+            PreparedStatement pst = db.getKoneksi().prepareStatement(sqli);
+            pst.setString(1, kode_barang);
+            ResultSet rs = pst.executeQuery();
+
+            if (rs.next()) {
+                int stok = rs.getInt("stok");
+                int sisa = stok - qty;
+                ct.updateStok(sisa, kode_barang);
             }
 
-            try {
-                ct.simpanPenjualan(nofak,kasir,id_pelanggan, pelanggan, diskon,total,bayar,kembali,tanggall);
-                JOptionPane.showMessageDialog(rootPane, "DATA BERHASIL DI SIMPAN");
-
-                ct.noFak();
-            } catch (SQLException ex) {
-                Logger.getLogger(Transaksi.class.getName()).log(Level.SEVERE, null, ex);
-            }
-
-            btnSave.setEnabled(false);
-            btnCetak.setEnabled(true);
-            btnCariPlg.setEnabled(false);
-            btnNew.setEnabled(false);
+            ct.insertBarang(nofak, kode_barang, nama_barang, harga, qty, totall);
         }
 
+        JOptionPane.showMessageDialog(rootPane, "DATA BERHASIL DI SIMPAN");
+
+        // Reset tampilan
+        ct.noFak();
+        ((DefaultTableModel) tbPengeluaran.getModel()).setRowCount(0);
+
+        // Cetak nota
+        servisReport.printNota(nofak);
+
+        // Disable tombol
+        btnSave.setEnabled(false);
+        btnCariPlg.setEnabled(false);
+        btnNew.setEnabled(false);
+
+    } catch (SQLException ex) {
+        JOptionPane.showMessageDialog(rootPane, "GAGAL MENYIMPAN DATA\n" + ex.getMessage());
+        Logger.getLogger(Transaksi.class.getName()).log(Level.SEVERE, null, ex);
+    }
     }//GEN-LAST:event_btnSaveActionPerformed
 
     private void btnResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetActionPerformed
@@ -799,11 +804,11 @@ public class FormTransaksi extends javax.swing.JFrame {
         txBayar.setEditable(false);
         txDiskon.setEditable(false);
         ct.model.setRowCount(0);
-        btnCetak.setEnabled(false);
+       
         btnReset.setEnabled(false);
         btnCariPlg.setEnabled(false);
         btnSave.setEnabled(false);
-        btnCetak.setEnabled(false);
+        
         btnNew.setEnabled(true);
 
     }//GEN-LAST:event_btnResetActionPerformed
@@ -889,7 +894,6 @@ public class FormTransaksi extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCari;
     private javax.swing.JButton btnCariPlg;
-    private javax.swing.JButton btnCetak;
     private javax.swing.JButton btnNew;
     private javax.swing.JButton btnReset;
     private javax.swing.JButton btnSave;
@@ -899,7 +903,6 @@ public class FormTransaksi extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;

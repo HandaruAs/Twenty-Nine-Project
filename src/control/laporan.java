@@ -86,7 +86,30 @@ public class laporan extends koneksi{
      }
     }    
     
-       
+       public void grafik(){
+     try {
+         DefaultCategoryDataset obj = new DefaultCategoryDataset();
+         String sql = "SELECT COUNT(no_faktur),tanggal FROM penjualan GROUP BY tanggal";
+         rs = st.executeQuery(sql);
+         while(rs.next()){
+             for(int i=0;i<rs.getRow();i++){
+                 obj.setValue(rs.getInt(1), "HARI", rs.getString(2));
+                 JFreeChart chart = ChartFactory.createLineChart("GRAFIK PENJUALAN", null, null, obj);
+                 CategoryPlot  objc = chart.getCategoryPlot();
+                 objc.setRangeGridlinePaint(Color.black);
+                 objc.setBackgroundPaint(Color.white); 
+              
+                 
+                 ChartPanel panel = new ChartPanel(chart);
+                 
+             }
+         }
+     } catch (SQLException ex) {
+         Logger.getLogger(laporan.class.getName()).log(Level.SEVERE, null, ex);
+     }
+        
+     
+    }
        
        public void grafikDashboard(){
      try {
@@ -113,7 +136,7 @@ public class laporan extends koneksi{
      
     }
     
-      public void printNota(String nofak) {
+     public void printNota(String nofak) {
     JasperReport jasRep;
     JasperPrint jasPri;
     JasperDesign jasdes;
@@ -145,6 +168,7 @@ public class laporan extends koneksi{
         Logger.getLogger(FormUtama.class.getName()).log(Level.SEVERE, null, e);
     }
 }
+
     
       
        public void printLap(String tanggalCetak) {

@@ -3,19 +3,56 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package control;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-/**
- *
- * @author handa
- */
-public class control_login extends koneksi{
-    public control_login(){
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
+public class control_login extends koneksi {
+    
+    public control_login() {
         super.setKoneksi();
     }
-    public ResultSet login(String username,String password) throws SQLException{
-        String sql ="SELECT * FROM user where username = '"+username+"' AND password = '"+password+"'";
-        rs = st.executeQuery(sql);
-        return rs;
+
+    // Fungsi untuk menghasilkan hash dari password menggunakan SHA-256
+    public static String hashPassword(String password) throws NoSuchAlgorithmException {
+        MessageDigest digest = MessageDigest.getInstance("SHA-256");
+        byte[] hash = digest.digest(password.getBytes());
+        StringBuilder hexString = new StringBuilder();
+        for (byte b : hash) {
+            hexString.append(String.format("%02x", b));
+        }
+        return hexString.toString();
+    }
+
+    // Fungsi untuk login, tetap mengembalikan boolean
+   public boolean login(String username, String password) throws SQLException, NoSuchAlgorithmException {
+    String sql = "SELECT * FROM user WHERE username = ?";
+    PreparedStatement ps = con.prepareStatement(sql);
+    ps.setString(1, username);
+    ResultSet rs = ps.executeQuery();
+
+    if (rs.next()) {
+        String hashedPasswordFromDb = rs.getString("password");
+        String hashedInputPassword = hashPassword(password); // Hash input password
+
+        if (hashedPasswordFromDb.equals(hashedInputPassword)) {
+            return true; // Login berhasil
+        }
+    }
+
+    return false; // Login gagal
+}
+
+
+    // Fungsi baru untuk mengambil data user berdasarkan username setelah login berhasil
+    public ResultSet getUserData(String username) throws SQLException {
+        String sql = "SELECT * FROM user WHERE username = ?";
+        PreparedStatement ps = con.prepareStatement(sql);
+        ps.setString(1, username);
+        return ps.executeQuery(); // Mengembalikan ResultSet
     }
 }

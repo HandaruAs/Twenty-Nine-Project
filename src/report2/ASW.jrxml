@@ -1,15 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" pageWidth="200" pageHeight="500" columnWidth="190" leftMargin="5" rightMargin="5" topMargin="10" bottomMargin="10" isIgnorePagination="true" uuid="e7654f4e-d738-4914-962a-a11c58086c2b">
-	<property name="ireport.zoom" value="2.483685292236621"/>
+	<property name="ireport.zoom" value="1.6963904734899398"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="192"/>
+	<property name="ireport.y" value="0"/>
 	<parameter name="nofak" class="java.lang.String">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
 	<queryString>
-		<![CDATA[select DATE_FORMAT(tanggal,'%d-%m-%Y') AS tanggal,nama_barang,harga,qty,total1,total,bayar,kembali,kasir,nama_pelanggan,diskon from barangpenjualan inner join penjualan USING(no_faktur) where no_faktur = $P{nofak}]]>
+		<![CDATA[select pj.no_faktur,pj.tanggal,bp.nama_barang,bp.harga,bp.qty,bp.total1,pj.total,pj.bayar,pj.kembali,pj.kasir,pj.diskon from penjualan pj
+INNER JOIN barangpenjualan bp ON bp.no_faktur = pj.no_faktur
+ where pj.no_faktur = $P{nofak}]]>
 	</queryString>
-	<field name="tanggal" class="java.lang.String">
+	<field name="no_faktur" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="tanggal" class="java.sql.Date">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="nama_barang" class="java.lang.String">
@@ -34,9 +39,6 @@
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="kasir" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="nama_pelanggan" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="diskon" class="java.lang.Integer">
@@ -100,7 +102,7 @@
 				</textElement>
 				<text><![CDATA[:]]></text>
 			</staticText>
-			<textField>
+			<textField pattern="dd/MM/yyyy">
 				<reportElement x="51" y="30" width="92" height="13" uuid="812abf7c-bf18-4719-9a9b-b9e3007d24b6"/>
 				<textElement verticalAlignment="Middle">
 					<font size="8"/>
