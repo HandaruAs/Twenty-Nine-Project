@@ -36,6 +36,7 @@ import javax.swing.table.DefaultTableModel;
  * @author handa
  */
 public class FormTransaksi extends javax.swing.JFrame {
+    //ecak
     private laporan servisReport = new laporan();
     control_transaksi ct;
     laporan lp;
