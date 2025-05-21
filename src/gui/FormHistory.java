@@ -3,56 +3,70 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JInternalFrame.java to edit this template
  */
 package gui;
+
 import control.histori;
 import control.laporan;
 import static gui.FormBarang.TabelBarang;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
+import java.awt.Desktop;
 import java.awt.Font;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.text.SimpleDateFormat;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
+import javax.swing.table.TableModel;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 /**
  *
  * @author handa
  */
 public class FormHistory extends javax.swing.JInternalFrame {
-histori hh;
-laporan lp;
+
+    histori hh;
+    laporan lp;
     public String nofak;
+
     /**
      * Creates new form FormHistory
      */
     public FormHistory() {
         initComponents();
-        
-               // Font global manual (kalau mau override)
-    Font font = new Font("Poppins", Font.PLAIN, 10);
-    setFontKeSemuaKomponen(this, font);
 
-    // TABLE STYLE
-TabelHistory.setFont(font);
-TabelHistory.setRowHeight(30);
-TabelHistory.setBackground(new Color(255, 255, 180)); // kuning
-TabelHistory.setForeground(Color.BLACK);
-TabelHistory.setSelectionBackground(new Color(255, 204, 0)); // kuning gelap
-TabelHistory.setSelectionForeground(Color.BLACK);
+        // Font global manual (kalau mau override)
+        Font font = new Font("Poppins", Font.PLAIN, 10);
+        setFontKeSemuaKomponen(this, font);
+
+        // TABLE STYLE
+        TabelHistory.setFont(font);
+        TabelHistory.setRowHeight(30);
+        TabelHistory.setBackground(new Color(255, 255, 180)); // kuning
+        TabelHistory.setForeground(Color.BLACK);
+        TabelHistory.setSelectionBackground(new Color(255, 204, 0)); // kuning gelap
+        TabelHistory.setSelectionForeground(Color.BLACK);
 
 // Menampilkan garis antar kolom dan baris
-TabelHistory.setShowGrid(true);
-TabelHistory.setGridColor(Color.BLACK); // warna garis
+        TabelHistory.setShowGrid(true);
+        TabelHistory.setGridColor(Color.BLACK); // warna garis
 
 // HEADER STYLE
-TabelHistory.getTableHeader().setFont(font);
-TabelHistory.getTableHeader().setBackground(new Color(255, 235, 150));
-TabelHistory.getTableHeader().setForeground(Color.BLACK);
+        TabelHistory.getTableHeader().setFont(font);
+        TabelHistory.getTableHeader().setBackground(new Color(255, 235, 150));
+        TabelHistory.getTableHeader().setForeground(Color.BLACK);
 
-        
-         this.setBorder(javax.swing.BorderFactory.createEmptyBorder(0,0,0,0));
-        BasicInternalFrameUI ui=(BasicInternalFrameUI)this.getUI();
+        this.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
+        BasicInternalFrameUI ui = (BasicInternalFrameUI) this.getUI();
         ui.setNorthPane(null);
-         hh = new histori();
+        hh = new histori();
         lp = new laporan();
         TabelHistory.setBackground(Color.WHITE);
         TabelHistory.setModel(hh.model);
@@ -145,12 +159,11 @@ TabelHistory.getTableHeader().setForeground(Color.BLACK);
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(tglAkhir))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 630, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(46, 46, 46)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton1)
-                            .addComponent(jLabel5))))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 630, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(46, 46, 46)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton1)
+                    .addComponent(jLabel5))
                 .addContainerGap(50, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -192,20 +205,23 @@ boolean cetak = false;
         // TODO add your handling code here:
         cetak = true;
         int row = TabelHistory.getSelectedRow();
-        nofak =  TabelHistory.getValueAt(row, 1).toString();
+        nofak = TabelHistory.getValueAt(row, 1).toString();
     }//GEN-LAST:event_TabelHistoryMouseClicked
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        if(cetak==true){
-            lp.printNota(nofak);
-            jButton1.setFocusable(false);
-            jButton1.setSelected(false);
-            TabelHistory.clearSelection();
+//        if(cetak==true){
+//            lp.printNota(nofak);
+//            jButton1.setFocusable(false);
+//            jButton1.setSelected(false);
+//            TabelHistory.clearSelection();
+//
+//        }else{
+//            JOptionPane.showMessageDialog(rootPane, "PILIH TRANSAKSI TERLEBIH DAHULU");
+//        }
+        exportToExcelWithSaveDialog(TabelHistory);
 
-        }else{
-            JOptionPane.showMessageDialog(rootPane, "PILIH TRANSAKSI TERLEBIH DAHULU");
-        }
+ 
 
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -221,13 +237,70 @@ boolean cetak = false;
     public static javax.swing.JLabel tglAkhir;
     public static javax.swing.JLabel tglAwal;
     // End of variables declaration//GEN-END:variables
-private void setFontKeSemuaKomponen(Container container, Font font) {
-    for (Component comp : container.getComponents()) {
-        comp.setFont(font);
-        if (comp instanceof Container) {
-            setFontKeSemuaKomponen((Container) comp, font);
+public void exportToExcelWithSaveDialog(JTable table) {
+    try {
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setDialogTitle("Simpan File Excel");
+        fileChooser.setFileFilter(new javax.swing.filechooser.FileNameExtensionFilter("Excel Files", "xlsx"));
+        
+        int userSelection = fileChooser.showSaveDialog(null);
+
+        if (userSelection == JFileChooser.APPROVE_OPTION) {
+            File fileToSave = fileChooser.getSelectedFile();
+            
+            // Tambahkan ekstensi jika belum ditulis
+            if (!fileToSave.getName().toLowerCase().endsWith(".xlsx")) {
+                fileToSave = new File(fileToSave.getAbsolutePath() + ".xlsx");
+            }
+
+            Workbook workbook = new XSSFWorkbook();
+            Sheet sheet = workbook.createSheet("History Penjualan");
+
+            TableModel model = table.getModel();
+
+            // Header
+            Row headerRow = sheet.createRow(0);
+            for (int col = 0; col < model.getColumnCount(); col++) {
+                Cell cell = headerRow.createCell(col);
+                cell.setCellValue(model.getColumnName(col));
+            }
+
+            // Data
+            for (int row = 0; row < model.getRowCount(); row++) {
+                Row excelRow = sheet.createRow(row + 1);
+                for (int col = 0; col < model.getColumnCount(); col++) {
+                    Cell cell = excelRow.createCell(col);
+                    Object value = model.getValueAt(row, col);
+                    cell.setCellValue(value != null ? value.toString() : "");
+                }
+            }
+
+            // Tulis ke file
+            FileOutputStream out = new FileOutputStream(fileToSave);
+            workbook.write(out);
+            out.close();
+            workbook.close();
+
+            // Buka file setelah disimpan
+            if (Desktop.isDesktopSupported()) {
+                Desktop.getDesktop().open(fileToSave);
+            } else {
+                System.out.println("Desktop tidak mendukung open file.");
+            }
         }
+
+    } catch (Exception e) {
+        e.printStackTrace();
     }
 }
+    
+    private void setFontKeSemuaKomponen(Container container, Font font) {
+        for (Component comp : container.getComponents()) {
+            comp.setFont(font);
+            if (comp instanceof Container) {
+                setFontKeSemuaKomponen((Container) comp, font);
+            }
+        }
+    }
 
 }
