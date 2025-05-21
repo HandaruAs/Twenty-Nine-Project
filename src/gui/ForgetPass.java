@@ -93,7 +93,8 @@ public class ForgetPass extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_VerifikasiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_VerifikasiActionPerformed
-         String inputOTP = txOTP.getText().trim();
+        //dRU 
+        String inputOTP = txOTP.getText().trim();
 
         if (inputOTP.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Please enter the OTP.", "Warning", JOptionPane.WARNING_MESSAGE);
