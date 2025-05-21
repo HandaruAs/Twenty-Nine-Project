@@ -34,18 +34,30 @@ laporan lp;
         lp = new laporan();      
         lp.tampailBarangTerjual();
         tanggall();
-        lp.tampilPendapatanHariIni(tanggall.getText());
+        lp.tampilPendapatanHariIni(tgli2.getText());
         lp.tampilTotal();
-        
+        lp.grafik();
     }
     public void tanggall(){
          SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         Date date = new Date();
-        tanggall.setText(format.format(date));
-        tanggall.setVisible(false);
+        tgli2.setText(format.format(date));
+        tgli2.setVisible(false);
        
     }
-    
+    public void grafik(){
+        DefaultCategoryDataset obj = new DefaultCategoryDataset();
+        obj.setValue(20, "24-03-2020", "HARI");
+        obj.setValue(40, "25-03-2020", "HARI");
+        obj.setValue(30, "26-03-2020", "HARI");
+        JFreeChart chart = ChartFactory.createBarChart("GRAFIK PENJUALAN", "ASS", "EH", obj,PlotOrientation.VERTICAL,false,true,false);
+        CategoryPlot  objc = chart.getCategoryPlot();
+        objc.setRangeGridlinePaint(Color.black);
+        objc.setBackgroundPaint(Color.white);
+        
+        ChartPanel panel = new ChartPanel(chart);
+        
+        }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -67,7 +79,7 @@ laporan lp;
         jLabel2 = new javax.swing.JLabel();
         txTotal = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        tgli1 = new javax.swing.JLabel();
+        tgli2 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
         tanggall = new javax.swing.JLabel();
 
@@ -95,7 +107,7 @@ laporan lp;
                 .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(kGradientPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel1)
-                        .addGap(0, 79, Short.MAX_VALUE))
+                        .addGap(0, 80, Short.MAX_VALUE))
                     .addComponent(brgTerjual, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -197,9 +209,9 @@ laporan lp;
                 .addContainerGap())
         );
 
-        tgli1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        tgli1.setForeground(new java.awt.Color(0, 0, 0));
-        tgli1.setText("Tanggal");
+        tgli2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        tgli2.setForeground(new java.awt.Color(0, 0, 0));
+        tgli2.setText("Tanggal");
 
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/printer_machine_icon_logo_vector_design_template-removebg-preview (1) 2.png"))); // NOI18N
         jButton2.setText("CETAK LAPORAN");
@@ -224,7 +236,7 @@ laporan lp;
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(239, 239, 239)
-                                .addComponent(tgli1, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(tgli2, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(33, 33, 33)
                                 .addComponent(tanggall))
                             .addComponent(kGradientPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -242,7 +254,7 @@ laporan lp;
                 .addGap(9, 9, 9)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(tanggall, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tgli1))
+                    .addComponent(tgli2))
                 .addGap(9, 9, 9)
                 .addComponent(kGradientPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(57, 57, 57)
@@ -291,7 +303,7 @@ laporan lp;
     private keeptoo.KGradientPanel kGradientPanel3;
     public static javax.swing.JLabel pendapatanHariini;
     private javax.swing.JLabel tanggall;
-    private javax.swing.JLabel tgli1;
+    private javax.swing.JLabel tgli2;
     public static javax.swing.JLabel txTotal;
     // End of variables declaration//GEN-END:variables
 }
