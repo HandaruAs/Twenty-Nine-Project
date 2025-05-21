@@ -7,6 +7,7 @@ import com.jtattoo.plaf.DecorationHelper;
 import com.jtattoo.plaf.mint.MintLookAndFeel;
 import control.control_login;
 import java.awt.Color;
+import java.security.NoSuchAlgorithmException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -117,28 +118,33 @@ control_login cl;
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
          try {
-             //handaru
-            String user = txUsername.getText();
-           char[] passArray = txPass.getPassword();
-            String pass = new String(passArray);
-            ResultSet rs = cl.login(user, pass);
-            if(rs.next()){
-                if(user.equalsIgnoreCase(rs.getString("username"))&&pass.equalsIgnoreCase(rs.getString("password"))){
-                    FormUtama frm = new FormUtama();
-                    FormUtama.pengguna.setText(rs.getString("nama"));
-                    dispose();
-                    frm.setVisible(true);
-                    JOptionPane.showMessageDialog(rootPane, "Selamat Datang "+rs.getString("username"));
-                            }else{
-                    JOptionPane.showMessageDialog(rootPane, "Username atau Password salah, Silahkan coba kembali");
-                }
-            }else{
-                JOptionPane.showMessageDialog(rootPane, "GAGAL LOGIN");
+        String user = txUsername.getText();
+        char[] passArray = txPass.getPassword();
+        String pass = new String(passArray);
+        
+        // Menggunakan metode login untuk mengecek kredensial
+        boolean loginSuccess = cl.login(user, pass); 
+        
+        // Jika login berhasil, ambil data user
+        if (loginSuccess) {
+            ResultSet rs = cl.getUserData(user); // Ambil data user setelah login berhasil
+            if (rs.next()) {
+                FormUtama frm = new FormUtama();
+                FormUtama.pengguna.setText(rs.getString("nama")); // Menampilkan nama pengguna di FormUtama
+                dispose(); // Menutup window login
+                frm.setVisible(true); // Menampilkan FormUtama
+                JOptionPane.showMessageDialog(rootPane, "Selamat Datang " + rs.getString("username"));
             }
-        } catch (SQLException ex) {
-            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
-               JOptionPane.showMessageDialog(rootPane, "GAGAL KONEK KE DATABASE KARENA "+ex);
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Username atau Password salah, Silahkan coba kembali");
         }
+    } catch (SQLException ex) {
+        Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+        JOptionPane.showMessageDialog(rootPane, "GAGAL KONEK KE DATABASE KARENA " + ex);
+    } catch (NoSuchAlgorithmException ex) {
+    Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+    JOptionPane.showMessageDialog(rootPane, "Algoritma hashing tidak tersedia.");
+    }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void ForgetPassMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ForgetPassMouseClicked
@@ -153,7 +159,7 @@ control_login cl;
     this.dispose();
     }//GEN-LAST:event_RegisterMouseClicked
 
-    /**
+   /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
