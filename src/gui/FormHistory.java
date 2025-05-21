@@ -3,56 +3,83 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JInternalFrame.java to edit this template
  */
 package gui;
+
 import control.histori;
 import control.laporan;
 import static gui.FormBarang.TabelBarang;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
+import java.awt.Desktop;
 import java.awt.Font;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.text.SimpleDateFormat;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import java.text.SimpleDateFormat;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
+import javax.swing.table.TableModel;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import java.util.Date;
+import javax.swing.table.DefaultTableModel;
+import java.sql.*;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+import java.sql.Connection;
 
 /**
  *
  * @author handa
  */
 public class FormHistory extends javax.swing.JInternalFrame {
-histori hh;
-laporan lp;
+    Connection conn;
+    histori hh;
+    laporan lp;
     public String nofak;
+
     /**
      * Creates new form FormHistory
      */
+    
     public FormHistory() {
         initComponents();
-        
-               // Font global manual (kalau mau override)
-    Font font = new Font("Poppins", Font.PLAIN, 10);
-    setFontKeSemuaKomponen(this, font);
 
-    // TABLE STYLE
-TabelHistory.setFont(font);
-TabelHistory.setRowHeight(30);
-TabelHistory.setBackground(new Color(255, 255, 180)); // kuning
-TabelHistory.setForeground(Color.BLACK);
-TabelHistory.setSelectionBackground(new Color(255, 204, 0)); // kuning gelap
-TabelHistory.setSelectionForeground(Color.BLACK);
+        
+        
+
+        // Font global manual (kalau mau override)
+        Font font = new Font("Poppins", Font.PLAIN, 10);
+        setFontKeSemuaKomponen(this, font);
+
+        // TABLE STYLE
+        TabelHistory.setFont(font);
+        TabelHistory.setRowHeight(30);
+        TabelHistory.setBackground(new Color(255, 255, 180)); // kuning
+        TabelHistory.setForeground(Color.BLACK);
+        TabelHistory.setSelectionBackground(new Color(255, 204, 0)); // kuning gelap
+        TabelHistory.setSelectionForeground(Color.BLACK);
 
 // Menampilkan garis antar kolom dan baris
-TabelHistory.setShowGrid(true);
-TabelHistory.setGridColor(Color.BLACK); // warna garis
+        TabelHistory.setShowGrid(true);
+        TabelHistory.setGridColor(Color.BLACK); // warna garis
 
 // HEADER STYLE
-TabelHistory.getTableHeader().setFont(font);
-TabelHistory.getTableHeader().setBackground(new Color(255, 235, 150));
-TabelHistory.getTableHeader().setForeground(Color.BLACK);
+        TabelHistory.getTableHeader().setFont(font);
+        TabelHistory.getTableHeader().setBackground(new Color(255, 235, 150));
+        TabelHistory.getTableHeader().setForeground(Color.BLACK);
 
-        
-         this.setBorder(javax.swing.BorderFactory.createEmptyBorder(0,0,0,0));
-        BasicInternalFrameUI ui=(BasicInternalFrameUI)this.getUI();
+        this.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
+        BasicInternalFrameUI ui = (BasicInternalFrameUI) this.getUI();
         ui.setNorthPane(null);
-         hh = new histori();
+        hh = new histori();
         lp = new laporan();
         TabelHistory.setBackground(Color.WHITE);
         TabelHistory.setModel(hh.model);
@@ -60,6 +87,13 @@ TabelHistory.getTableHeader().setForeground(Color.BLACK);
         hh.tglAwal();
         hh.tglAkhir();
     }
+
+    
+    
+    
+    
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -79,6 +113,12 @@ TabelHistory.getTableHeader().setForeground(Color.BLACK);
         tglAkhir = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        dateAkhir = new com.toedter.calendar.JDateChooser();
+        dateAwal = new com.toedter.calendar.JDateChooser();
+        filter = new javax.swing.JButton();
+        custom_ButtonRounded1 = new custom.Custom_ButtonRounded();
 
         jPanel1.setBackground(new java.awt.Color(102, 0, 0));
 
@@ -130,47 +170,109 @@ TabelHistory.getTableHeader().setForeground(Color.BLACK);
             }
         });
 
+        jLabel4.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel4.setText("TANGGAL AWAL");
+
+        jLabel6.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel6.setText("TANGGAL AKHIR");
+
+        filter.setText("Filter");
+        filter.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                filterActionPerformed(evt);
+            }
+        });
+
+        custom_ButtonRounded1.setText("Laporan");
+        custom_ButtonRounded1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                custom_ButtonRounded1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(42, 42, 42)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(tglAwal)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(tglAkhir))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 630, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(46, 46, 46)
+                        .addGap(42, 42, 42)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton1)
-                            .addComponent(jLabel5))))
-                .addContainerGap(50, Short.MAX_VALUE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(tglAwal)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(tglAkhir))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 630, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel4))
+                        .addGap(29, 29, 29)))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 6, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(filter)
+                            .addComponent(dateAwal, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(dateAkhir, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(125, 125, 125))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(46, 46, 46)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jButton1)
+                                    .addComponent(jLabel5)))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(37, 37, 37)
+                                .addComponent(custom_ButtonRounded1, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(52, 52, 52)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(tglAwal)
-                    .addComponent(jLabel3)
-                    .addComponent(tglAkhir))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(22, 22, 22)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(101, 101, 101)
-                        .addComponent(jLabel5)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(30, 30, 30)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel1)
+                                    .addComponent(tglAwal)
+                                    .addComponent(jLabel3)
+                                    .addComponent(tglAkhir)))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel4)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel6)))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(101, 101, 101)
+                                .addComponent(jLabel5)
+                                .addGap(18, 18, 18)
+                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(49, 49, 49)
+                                .addComponent(custom_ButtonRounded1, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 365, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(dateAwal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 365, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(dateAkhir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(filter)))
                 .addContainerGap(43, Short.MAX_VALUE))
         );
 
@@ -192,12 +294,11 @@ boolean cetak = false;
         // TODO add your handling code here:
         cetak = true;
         int row = TabelHistory.getSelectedRow();
-        nofak =  TabelHistory.getValueAt(row, 1).toString();
+        nofak = TabelHistory.getValueAt(row, 1).toString();
     }//GEN-LAST:event_TabelHistoryMouseClicked
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-        if(cetak==true){
+       if(cetak==true){
             lp.printNota(nofak);
             jButton1.setFocusable(false);
             jButton1.setSelected(false);
@@ -209,25 +310,100 @@ boolean cetak = false;
 
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void filterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_filterActionPerformed
+   hh.tampilTbFilter(dateAwal.getDate(), dateAkhir.getDate());
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        tglAwal.setText(String.valueOf(sdf.format(dateAwal.getDate())));
+        tglAkhir.setText(String.valueOf(sdf.format(dateAkhir.getDate())));
+    }//GEN-LAST:event_filterActionPerformed
+
+    private void custom_ButtonRounded1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_custom_ButtonRounded1ActionPerformed
+exportToExcelWithSaveDialog(TabelHistory);
+    }//GEN-LAST:event_custom_ButtonRounded1ActionPerformed
+public void exportToExcelWithSaveDialog(JTable table) {
+    try {
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setDialogTitle("Simpan File Excel");
+        fileChooser.setFileFilter(new javax.swing.filechooser.FileNameExtensionFilter("Excel Files", "xlsx"));
+        
+        int userSelection = fileChooser.showSaveDialog(null);
+
+        if (userSelection == JFileChooser.APPROVE_OPTION) {
+            File fileToSave = fileChooser.getSelectedFile();
+            
+            // Tambahkan ekstensi jika belum ditulis
+            if (!fileToSave.getName().toLowerCase().endsWith(".xlsx")) {
+                fileToSave = new File(fileToSave.getAbsolutePath() + ".xlsx");
+            }
+
+            Workbook workbook = new XSSFWorkbook();
+            Sheet sheet = workbook.createSheet("History Penjualan");
+
+            TableModel model = table.getModel();
+
+            // Header
+            Row headerRow = sheet.createRow(0);
+            for (int col = 0; col < model.getColumnCount(); col++) {
+                Cell cell = headerRow.createCell(col);
+                cell.setCellValue(model.getColumnName(col));
+            }
+
+            // Data
+            for (int row = 0; row < model.getRowCount(); row++) {
+                Row excelRow = sheet.createRow(row + 1);
+                for (int col = 0; col < model.getColumnCount(); col++) {
+                    Cell cell = excelRow.createCell(col);
+                    Object value = model.getValueAt(row, col);
+                    cell.setCellValue(value != null ? value.toString() : "");
+                }
+            }
+
+            // Tulis ke file
+            FileOutputStream out = new FileOutputStream(fileToSave);
+            workbook.write(out);
+            out.close();
+            workbook.close();
+
+            // Buka file setelah disimpan
+            if (Desktop.isDesktopSupported()) {
+                Desktop.getDesktop().open(fileToSave);
+            } else {
+                System.out.println("Desktop tidak mendukung open file.");
+            }
+        }
+
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+}
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable TabelHistory;
+    private custom.Custom_ButtonRounded custom_ButtonRounded1;
+    private com.toedter.calendar.JDateChooser dateAkhir;
+    private com.toedter.calendar.JDateChooser dateAwal;
+    private javax.swing.JButton filter;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     public static javax.swing.JLabel tglAkhir;
     public static javax.swing.JLabel tglAwal;
     // End of variables declaration//GEN-END:variables
-private void setFontKeSemuaKomponen(Container container, Font font) {
-    for (Component comp : container.getComponents()) {
-        comp.setFont(font);
-        if (comp instanceof Container) {
-            setFontKeSemuaKomponen((Container) comp, font);
+
+    
+    private void setFontKeSemuaKomponen(Container container, Font font) {
+        for (Component comp : container.getComponents()) {
+            comp.setFont(font);
+            if (comp instanceof Container) {
+                setFontKeSemuaKomponen((Container) comp, font);
+            }
         }
     }
-}
 
 }
+
