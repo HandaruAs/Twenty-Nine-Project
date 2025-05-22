@@ -118,7 +118,6 @@ public class FormHistory extends javax.swing.JInternalFrame {
         dateAkhir = new com.toedter.calendar.JDateChooser();
         dateAwal = new com.toedter.calendar.JDateChooser();
         filter = new javax.swing.JButton();
-        custom_ButtonRounded1 = new custom.Custom_ButtonRounded();
 
         jPanel1.setBackground(new java.awt.Color(102, 0, 0));
 
@@ -187,13 +186,6 @@ public class FormHistory extends javax.swing.JInternalFrame {
             }
         });
 
-        custom_ButtonRounded1.setText("Laporan");
-        custom_ButtonRounded1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                custom_ButtonRounded1ActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -227,16 +219,11 @@ public class FormHistory extends javax.swing.JInternalFrame {
                             .addComponent(dateAkhir, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(125, 125, 125))
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(46, 46, 46)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(46, 46, 46)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jButton1)
-                                    .addComponent(jLabel5)))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(37, 37, 37)
-                                .addComponent(custom_ButtonRounded1, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(jButton1)
+                            .addComponent(jLabel5))
+                        .addContainerGap(119, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -261,9 +248,7 @@ public class FormHistory extends javax.swing.JInternalFrame {
                                 .addGap(101, 101, 101)
                                 .addComponent(jLabel5)
                                 .addGap(18, 18, 18)
-                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(49, 49, 49)
-                                .addComponent(custom_ButtonRounded1, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 365, javax.swing.GroupLayout.PREFERRED_SIZE))))
@@ -379,7 +364,6 @@ public void exportToExcelWithSaveDialog(JTable table) {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable TabelHistory;
-    private custom.Custom_ButtonRounded custom_ButtonRounded1;
     private com.toedter.calendar.JDateChooser dateAkhir;
     private com.toedter.calendar.JDateChooser dateAwal;
     private javax.swing.JButton filter;
