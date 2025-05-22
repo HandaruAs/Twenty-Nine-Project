@@ -43,6 +43,9 @@ import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.data.category.DefaultCategoryDataset;
 import com.formdev.flatlaf.FlatLightLaf;
 import javax.swing.UIManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 /**
  *
  * @author handa
@@ -55,6 +58,7 @@ Color DefaultColor,ClickedColor;
     /**
      * Creates new form FormUtama
      */
+    Connection conn;
     public FormUtama() {
         initComponents();
         DefaultColor=new Color(102,0,0);
@@ -66,6 +70,13 @@ Color DefaultColor,ClickedColor;
         Menu4.setBackground(DefaultColor);
         Menu5.setBackground(DefaultColor);
         Menu6.setBackground(DefaultColor);
+        
+        koneksi kon = new koneksi();
+        kon.setKoneksi();
+        conn = kon.getKoneksi();
+        totalTrx.setText(String.valueOf(getTotalPenjualan()));
+        totalBrg.setText(String.valueOf(getTotalBarang()));
+        totalPlg.setText(String.valueOf(getTotalPelanggan()));
     }
 
     /**
@@ -562,7 +573,68 @@ Color DefaultColor,ClickedColor;
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+    public int getTotalPenjualan() {
+        int total = 0;
+        String sql = "SELECT count(*) AS total_penjualan FROM penjualan";
 
+        try {
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                total = rs.getInt("total_penjualan");
+            }
+
+            rs.close();
+            stmt.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return total;
+    }
+    
+    public int getTotalBarang() {
+        int total = 0;
+        String sql = "SELECT COUNT(*) AS total_barang FROM masterbarang";
+
+        try {
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                total = rs.getInt("total_barang");
+            }
+
+            rs.close();
+            stmt.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return total;
+    }
+    
+    public int getTotalPelanggan() {
+        int total = 0;
+        String sql = "SELECT COUNT(*) AS total_pelanggan FROM pelanggan";
+
+        try {
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                total = rs.getInt("total_pelanggan");
+            }
+
+            rs.close();
+            stmt.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return total;
+    }
     private void txUserMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txUserMouseClicked
         
     }//GEN-LAST:event_txUserMouseClicked
