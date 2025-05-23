@@ -7,12 +7,19 @@ import com.jtattoo.plaf.DecorationHelper;
 import com.jtattoo.plaf.mint.MintLookAndFeel;
 import control.control_login;
 import java.awt.Color;
+import java.awt.KeyEventDispatcher;
+import java.awt.KeyboardFocusManager;
+import java.awt.event.KeyEvent;
 import java.security.NoSuchAlgorithmException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.Timer;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import keeptoo.Drag;
@@ -30,6 +37,40 @@ control_login cl;
            cl = new control_login();
         this.setLocationRelativeTo(null);
         setTitle("LOGIN");
+        KeyboardFocusManager.getCurrentKeyboardFocusManager().addKeyEventDispatcher(new KeyEventDispatcher() {
+    private StringBuilder rfidBuffer = new StringBuilder();
+    private Timer rfidTimer;
+
+    @Override
+    public boolean dispatchKeyEvent(KeyEvent e) {
+        if (e.getID() == KeyEvent.KEY_PRESSED) {
+            char keyChar = e.getKeyChar();
+
+            // Tambah ke buffer
+            if (Character.isLetterOrDigit(keyChar)) {
+                rfidBuffer.append(keyChar);
+
+                // Mulai timer ulang
+                if (rfidTimer != null) {
+                    rfidTimer.stop();
+                }
+
+                rfidTimer = new Timer(100, evt -> {
+                    if (rfidBuffer.length() >= 10) {
+                        String rfid = rfidBuffer.toString();
+                        System.out.println("RFID Terdeteksi: " + rfid); // Debug
+                        loginDenganRFID(rfid); // Panggil metode login
+                    }
+                    rfidBuffer.setLength(0);
+                });
+                rfidTimer.setRepeats(false);
+                rfidTimer.start();
+            }
+        }
+
+        return false; // biarkan event tetap dikirim ke komponen
+    }
+});
     }
 
     /**
@@ -146,7 +187,35 @@ control_login cl;
     JOptionPane.showMessageDialog(rootPane, "Algoritma hashing tidak tersedia.");
     }
     }//GEN-LAST:event_jButton1ActionPerformed
+private void loginDenganRFID(String rfid_tag) {
+    try {
+        Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/sistemkasir", "root", "");
+        String query = "SELECT * FROM user WHERE rfid_tag = ?";
+        PreparedStatement ps = conn.prepareStatement(query);
+        ps.setString(1, rfid_tag);
+        ResultSet rs = ps.executeQuery();
 
+        if (rs.next()) {
+            String nama = rs.getString("nama");
+            String userRFID = rs.getString("username");
+
+            FormUtama frm = new FormUtama();
+            frm.setVisible(true);
+            frm.pengguna.setText(nama);
+
+            JOptionPane.showMessageDialog(this, "Login berhasil via RFID untuk " + userRFID);
+            this.dispose();
+        } else {
+            JOptionPane.showMessageDialog(this, "RFID tidak terdaftar!", "Login Gagal", JOptionPane.ERROR_MESSAGE);
+        }
+
+        rs.close();
+        ps.close();
+        conn.close();
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(this, "Terjadi kesalahan saat login RFID: " + e.getMessage());
+    }
+}
     private void ForgetPassMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ForgetPassMouseClicked
     ForgetPass forgetPass = new ForgetPass(); 
     forgetPass.setVisible(true); 

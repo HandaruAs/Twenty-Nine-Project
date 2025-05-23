@@ -27,17 +27,18 @@ public class registrasi extends koneksi {
     }
 
     // Fungsi untuk registrasi pengguna dengan password yang di-hash
-    public boolean registerUser(String username, String password, String nama, String nohp) {
+    public boolean registerUser(String username, String password, String nama, String nohp, String rfid) {
         try {
             // Hash password sebelum disimpan
             String hashedPassword = hashPassword(password);
 
-            String sql = "INSERT INTO user (username, password, nama, nohp) VALUES (?, ?, ?, ?)";
+            String sql = "INSERT INTO user (username, password, nama, nohp, rfid_tag) VALUES (?, ?, ?, ?, ?)";
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, username);
             ps.setString(2, hashedPassword); // Gunakan hashed password
             ps.setString(3, nama);
             ps.setString(4, nohp);
+            ps.setString(5, rfid);
 
             int result = ps.executeUpdate(); 
             return result > 0; 
