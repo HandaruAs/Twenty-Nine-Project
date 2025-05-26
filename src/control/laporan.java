@@ -4,7 +4,7 @@
  */
 package control;
 import control.koneksi;
-import gui.FormLaporan;
+
 import gui.FormUtama;
 import gui.Transaksi;
 import java.awt.BorderLayout;
@@ -49,43 +49,7 @@ public class laporan extends koneksi{
     public laporan(){
        super.setKoneksi();
     }
-    
-    public void tampailBarangTerjual(){
-     try {
-         String sql = "SELECT SUM(qty) FROM barangpenjualan";
-         rs = st.executeQuery(sql);
-         while(rs.next()){
-             FormLaporan.brgTerjual.setText(Integer.toString(rs.getInt(1)));
-         }
-     } catch (SQLException ex) {
-         Logger.getLogger(laporan.class.getName()).log(Level.SEVERE, null, ex);
-     }
-    }
-    public void tampilPendapatanHariIni(String tgl){
-     try {
-       // String sql = "SELECT SUM(IF (tanggal = '"+tgl+"%', total,0)) as totalDay FROM penjualan";
-         String sql = "SELECT SUM(total) AS total FROM penjualan WHERE tanggal = '"+tgl+"'";
-         System.out.println(tgl);
-         rs = st.executeQuery(sql);
-         while(rs.next()){
-             FormLaporan.pendapatanHariini.setText(Integer.toString(rs.getInt(1)));
-         }
-     } catch (SQLException ex) {
-         Logger.getLogger(laporan.class.getName()).log(Level.SEVERE, null, ex);
-     }
-    }
-    public void tampilTotal(){
-     try {
-         String sql = "SELECT SUM(total) FROM penjualan";
-         rs = st.executeQuery(sql);
-         while(rs.next()){
-             FormLaporan.txTotal.setText(Integer.toString(rs.getInt(1)));
-         }
-     } catch (SQLException ex) {
-         Logger.getLogger(laporan.class.getName()).log(Level.SEVERE, null, ex);
-     }
-    }    
-    
+  
        public void grafik(){
      try {
          DefaultCategoryDataset obj = new DefaultCategoryDataset();

@@ -26,9 +26,9 @@ public class Registrasi extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
+        btn_registrasi = new custom.Custom_ButtonRounded();
         jLabel3 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        btn_registrasi = new javax.swing.JButton();
         txPass = new javax.swing.JPasswordField();
         txNo = new javax.swing.JTextField();
         txNama = new javax.swing.JTextField();
@@ -40,26 +40,24 @@ public class Registrasi extends javax.swing.JFrame {
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        btn_registrasi.setText("Registrasi");
+        btn_registrasi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_registrasiActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btn_registrasi, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 425, 70, 30));
+
         jLabel3.setText("Login");
         jLabel3.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel3MouseClicked(evt);
             }
         });
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 450, -1, -1));
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 470, -1, -1));
 
         jLabel2.setText("Sudah punya akun? ");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 450, 120, -1));
-
-        btn_registrasi.setBackground(new java.awt.Color(255, 255, 255));
-        btn_registrasi.setText("REGISTRASI");
-        btn_registrasi.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(0, 0, 0)));
-        btn_registrasi.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_registrasiActionPerformed(evt);
-            }
-        });
-        jPanel1.add(btn_registrasi, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 430, 80, 20));
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 470, 120, -1));
 
         txPass.setBorder(null);
         txPass.addActionListener(new java.awt.event.ActionListener() {
@@ -86,7 +84,7 @@ public class Registrasi extends javax.swing.JFrame {
                 rfid_tagActionPerformed(evt);
             }
         });
-        jPanel1.add(rfid_tag, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 250, 180, -1));
+        jPanel1.add(rfid_tag, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 245, 180, 20));
 
         txUsername.setBorder(null);
         txUsername.addActionListener(new java.awt.event.ActionListener() {
@@ -122,8 +120,26 @@ public class Registrasi extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txPassActionPerformed
 
+    private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
+         Login Loginform = new Login(); 
+    Loginform.setVisible(true);
+    this.dispose();
+    }//GEN-LAST:event_jLabel3MouseClicked
+
+    private void txNamaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txNamaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txNamaActionPerformed
+
+    private void rfid_tagActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rfid_tagActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_rfid_tagActionPerformed
+
+    private void txUsernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txUsernameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txUsernameActionPerformed
+
     private void btn_registrasiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_registrasiActionPerformed
-        String username = txUsername.getText();
+     String username = txUsername.getText();
         String password = new String(txPass.getPassword());
         String nama = txNama.getText();
         String nomer = txNo.getText();
@@ -152,24 +168,6 @@ public class Registrasi extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_btn_registrasiActionPerformed
-
-    private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
-         Login Loginform = new Login(); 
-    Loginform.setVisible(true);
-    this.dispose();
-    }//GEN-LAST:event_jLabel3MouseClicked
-
-    private void txNamaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txNamaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txNamaActionPerformed
-
-    private void rfid_tagActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rfid_tagActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_rfid_tagActionPerformed
-
-    private void txUsernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txUsernameActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txUsernameActionPerformed
 
     /**
      * @param args the command line arguments
@@ -207,7 +205,7 @@ public class Registrasi extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btn_registrasi;
+    private custom.Custom_ButtonRounded btn_registrasi;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
