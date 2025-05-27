@@ -83,10 +83,10 @@ control_login cl;
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
+        custom_ButtonRounded1 = new custom.Custom_ButtonRounded();
         Register = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         ForgetPass = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
         txUsername = new javax.swing.JTextField();
         txPass = new javax.swing.JPasswordField();
         jLabel1 = new javax.swing.JLabel();
@@ -95,45 +95,36 @@ control_login cl;
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        Register.setForeground(new java.awt.Color(0, 0, 0));
+        custom_ButtonRounded1.setText("Login");
+        custom_ButtonRounded1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                custom_ButtonRounded1ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(custom_ButtonRounded1, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 360, 140, 40));
+
         Register.setText("Registrasi");
         Register.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 RegisterMouseClicked(evt);
             }
         });
-        jPanel1.add(Register, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 420, -1, 20));
+        jPanel1.add(Register, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 430, -1, 20));
 
-        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
         jLabel3.setText("Belum punya akun?");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 420, 120, 20));
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 430, 210, 20));
 
-        ForgetPass.setForeground(new java.awt.Color(0, 0, 0));
         ForgetPass.setText("Lupa password?");
         ForgetPass.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 ForgetPassMouseClicked(evt);
             }
         });
-        jPanel1.add(ForgetPass, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 400, 100, 20));
+        jPanel1.add(ForgetPass, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 400, 150, 20));
 
-        jButton1.setBackground(new java.awt.Color(255, 255, 255));
-        jButton1.setForeground(new java.awt.Color(0, 0, 0));
-        jButton1.setText("LOGIN");
-        jButton1.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(0, 0, 0)));
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(573, 370, 130, 30));
-
-        txUsername.setBackground(new java.awt.Color(255, 255, 255));
         txUsername.setBorder(null);
         jPanel1.add(txUsername, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 270, 180, 20));
 
-        txPass.setBackground(new java.awt.Color(255, 255, 255));
-        txPass.setForeground(new java.awt.Color(0, 0, 0));
         txPass.setBorder(null);
         jPanel1.add(txPass, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 330, 180, 20));
 
@@ -156,37 +147,6 @@ control_login cl;
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-         try {
-        String user = txUsername.getText();
-        char[] passArray = txPass.getPassword();
-        String pass = new String(passArray);
-        
-        // Menggunakan metode login untuk mengecek kredensial
-        boolean loginSuccess = cl.login(user, pass); 
-        
-        // Jika login berhasil, ambil data user
-        if (loginSuccess) {
-            ResultSet rs = cl.getUserData(user); // Ambil data user setelah login berhasil
-            if (rs.next()) {
-                FormUtama frm = new FormUtama();
-                FormUtama.pengguna.setText(rs.getString("nama")); // Menampilkan nama pengguna di FormUtama
-                dispose(); // Menutup window login
-                frm.setVisible(true); // Menampilkan FormUtama
-                JOptionPane.showMessageDialog(rootPane, "Selamat Datang " + rs.getString("username"));
-            }
-        } else {
-            JOptionPane.showMessageDialog(rootPane, "Username atau Password salah, Silahkan coba kembali");
-        }
-    } catch (SQLException ex) {
-        Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
-        JOptionPane.showMessageDialog(rootPane, "GAGAL KONEK KE DATABASE KARENA " + ex);
-    } catch (NoSuchAlgorithmException ex) {
-    Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
-    JOptionPane.showMessageDialog(rootPane, "Algoritma hashing tidak tersedia.");
-    }
-    }//GEN-LAST:event_jButton1ActionPerformed
 private void loginDenganRFID(String rfid_tag) {
     try {
         Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/sistemkasir", "root", "");
@@ -222,10 +182,41 @@ private void loginDenganRFID(String rfid_tag) {
     this.dispose();
     }//GEN-LAST:event_ForgetPassMouseClicked
 
+    private void custom_ButtonRounded1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_custom_ButtonRounded1ActionPerformed
+         try {
+        String user = txUsername.getText();
+        char[] passArray = txPass.getPassword();
+        String pass = new String(passArray);
+        
+        // Menggunakan metode login untuk mengecek kredensial
+        boolean loginSuccess = cl.login(user, pass); 
+        
+        // Jika login berhasil, ambil data user
+        if (loginSuccess) {
+            ResultSet rs = cl.getUserData(user); // Ambil data user setelah login berhasil
+            if (rs.next()) {
+                FormUtama frm = new FormUtama();
+                FormUtama.pengguna.setText(rs.getString("nama")); // Menampilkan nama pengguna di FormUtama
+                dispose(); // Menutup window login
+                frm.setVisible(true); // Menampilkan FormUtama
+                JOptionPane.showMessageDialog(rootPane, "Selamat Datang " + rs.getString("username"));
+            }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Username atau Password salah, Silahkan coba kembali");
+        }
+    } catch (SQLException ex) {
+        Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+        JOptionPane.showMessageDialog(rootPane, "GAGAL KONEK KE DATABASE KARENA " + ex);
+    } catch (NoSuchAlgorithmException ex) {
+    Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+    JOptionPane.showMessageDialog(rootPane, "Algoritma hashing tidak tersedia.");
+    }
+    }//GEN-LAST:event_custom_ButtonRounded1ActionPerformed
+
     private void RegisterMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RegisterMouseClicked
-         Registrasi Registrasi = new Registrasi(); 
-    Registrasi.setVisible(true); 
-    this.dispose();
+        Registrasi Registrasi = new Registrasi();
+        Registrasi.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_RegisterMouseClicked
 
    /**
@@ -266,7 +257,7 @@ private void loginDenganRFID(String rfid_tag) {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel ForgetPass;
     private javax.swing.JLabel Register;
-    private javax.swing.JButton jButton1;
+    private custom.Custom_ButtonRounded custom_ButtonRounded1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;

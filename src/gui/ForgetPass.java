@@ -30,8 +30,8 @@ public class ForgetPass extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        btn_Verifikasi = new javax.swing.JButton();
-        btn_sendEmail = new javax.swing.JButton();
+        btn_Verifikasi = new custom.Custom_ButtonRounded();
+        btn_sendEmail = new custom.Custom_ButtonRounded();
         txOTP = new javax.swing.JTextField();
         txEmail = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
@@ -40,27 +40,16 @@ public class ForgetPass extends javax.swing.JFrame {
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        btn_Verifikasi.setBackground(new java.awt.Color(255, 255, 255));
-        btn_Verifikasi.setForeground(new java.awt.Color(0, 0, 0));
-        btn_Verifikasi.setText("VERFIKASI");
-        btn_Verifikasi.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(0, 0, 0)));
+        btn_Verifikasi.setText("Verifikasi");
         btn_Verifikasi.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_VerifikasiActionPerformed(evt);
             }
         });
-        jPanel1.add(btn_Verifikasi, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 420, 120, 30));
+        jPanel1.add(btn_Verifikasi, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 415, 120, 30));
 
-        btn_sendEmail.setBackground(new java.awt.Color(255, 255, 255));
-        btn_sendEmail.setForeground(new java.awt.Color(0, 0, 0));
-        btn_sendEmail.setText("KIRIM EMAIL");
-        btn_sendEmail.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(0, 0, 0)));
-        btn_sendEmail.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_sendEmailActionPerformed(evt);
-            }
-        });
-        jPanel1.add(btn_sendEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 385, 120, 30));
+        btn_sendEmail.setText("Kirim Email");
+        jPanel1.add(btn_sendEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 380, 120, 30));
 
         txOTP.setBackground(new java.awt.Color(255, 255, 255));
         txOTP.setBorder(null);
@@ -93,8 +82,7 @@ public class ForgetPass extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_VerifikasiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_VerifikasiActionPerformed
-        //dRU 
-        String inputOTP = txOTP.getText().trim();
+ String inputOTP = txOTP.getText().trim();
 
         if (inputOTP.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Please enter the OTP.", "Warning", JOptionPane.WARNING_MESSAGE);
@@ -109,32 +97,6 @@ public class ForgetPass extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Incorrect OTP. Try again!", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btn_VerifikasiActionPerformed
-
-    private void btn_sendEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_sendEmailActionPerformed
-        String email = txEmail.getText().trim();
-
-        if (email.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Please enter your email.", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-
-        if (!isValidEmail(email)) {
-            JOptionPane.showMessageDialog(null, "Invalid email format!", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-
-        // Generate OTP
-        generatedOTP = generateOTP();
-
-        // Send OTP via Email
-        boolean emailSent = sendEmail(email, generatedOTP);
-        if (emailSent) {
-            JOptionPane.showMessageDialog(null, "OTP has been sent to your email.");
-            txOTP.setEnabled(true);
-        } else {
-            JOptionPane.showMessageDialog(null, "Failed to send OTP. Try again.", "Error", JOptionPane.ERROR_MESSAGE);
-        }
-    }//GEN-LAST:event_btn_sendEmailActionPerformed
 
     /**
      * @param args the command line arguments
@@ -172,8 +134,8 @@ public class ForgetPass extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btn_Verifikasi;
-    private javax.swing.JButton btn_sendEmail;
+    private custom.Custom_ButtonRounded btn_Verifikasi;
+    private custom.Custom_ButtonRounded btn_sendEmail;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField txEmail;

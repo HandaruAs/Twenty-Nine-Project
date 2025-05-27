@@ -416,6 +416,7 @@ boolean edit = false;
             String pass = txPass.getText();
             String nama = txNama.getText();
             String nohp = txNohp.getText();
+            
             try {
                 ur.simpan(id, user, pass, nama, nohp);
                 JOptionPane.showMessageDialog(rootPane, "DATA BERHASIL DISIMPAN");
