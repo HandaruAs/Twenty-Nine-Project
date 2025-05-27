@@ -21,7 +21,7 @@ public class utama extends koneksi{
             String sql = "SELECT COUNT(no_faktur) from penjualan";
             rs = st.executeQuery(sql);
             while(rs.next()){
-                FormUtama.totalTrx.setText(rs.getString(1));
+                FormUtama.totalTrx2.setText(rs.getString(1));
             }
         } catch (SQLException ex) {
             Logger.getLogger(utama.class.getName()).log(Level.SEVERE, null, ex);

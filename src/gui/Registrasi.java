@@ -4,6 +4,7 @@
  */
 package gui;
 import control.registrasi;
+import java.awt.Color;
 import javax.swing.JOptionPane;
 /**
  *
@@ -14,6 +15,10 @@ public class Registrasi extends javax.swing.JFrame {
     
     public Registrasi() {
         initComponents();
+        labelLogin = new javax.swing.JLabel();
+labelLogin.setFont(new java.awt.Font("Tahoma", 0, 18));
+labelLogin.setForeground(new java.awt.Color(255, 255, 255));
+labelLogin.setText("Login");
     }
 
     /**
@@ -27,7 +32,7 @@ public class Registrasi extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         btn_registrasi = new custom.Custom_ButtonRounded();
-        jLabel3 = new javax.swing.JLabel();
+        labelLogin = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         txPass = new javax.swing.JPasswordField();
         txNo = new javax.swing.JTextField();
@@ -48,16 +53,23 @@ public class Registrasi extends javax.swing.JFrame {
         });
         jPanel1.add(btn_registrasi, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 425, 70, 30));
 
-        jLabel3.setText("Login");
-        jLabel3.addMouseListener(new java.awt.event.MouseAdapter() {
+        labelLogin.setText("Login");
+        labelLogin.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel3MouseClicked(evt);
+                labelLoginMouseClicked(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                labelLoginMousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                labelLoginMouseReleased(evt);
             }
         });
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 470, -1, -1));
+        jPanel1.add(labelLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 470, -1, -1));
 
+        jLabel2.setBackground(new java.awt.Color(222, 222, 222));
         jLabel2.setText("Sudah punya akun? ");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 470, 120, -1));
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 470, 110, -1));
 
         txPass.setBorder(null);
         txPass.addActionListener(new java.awt.event.ActionListener() {
@@ -120,11 +132,12 @@ public class Registrasi extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txPassActionPerformed
 
-    private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
-         Login Loginform = new Login(); 
+    private void labelLoginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelLoginMouseClicked
+
+        Login Loginform = new Login(); 
     Loginform.setVisible(true);
     this.dispose();
-    }//GEN-LAST:event_jLabel3MouseClicked
+    }//GEN-LAST:event_labelLoginMouseClicked
 
     private void txNamaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txNamaActionPerformed
         // TODO add your handling code here:
@@ -169,6 +182,14 @@ public class Registrasi extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btn_registrasiActionPerformed
 
+    private void labelLoginMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelLoginMousePressed
+labelLogin.setForeground(Color.YELLOW); 
+    }//GEN-LAST:event_labelLoginMousePressed
+
+    private void labelLoginMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelLoginMouseReleased
+         labelLogin.setForeground(Color.WHITE);
+    }//GEN-LAST:event_labelLoginMouseReleased
+
     /**
      * @param args the command line arguments
      */
@@ -208,8 +229,8 @@ public class Registrasi extends javax.swing.JFrame {
     private custom.Custom_ButtonRounded btn_registrasi;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel labelLogin;
     private javax.swing.JTextField rfid_tag;
     private javax.swing.JTextField txNama;
     private javax.swing.JTextField txNo;

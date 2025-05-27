@@ -4,16 +4,16 @@
  */
 package gui;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import javax.swing.JOptionPane;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import control.koneksi;
 import static gui.FormUtama.totalBrg;
 import static gui.FormUtama.totalPlg;
-import static gui.FormUtama.totalTrx;
-import java.sql.Connection;
-import javax.swing.JOptionPane;
+import static gui.FormUtama.totalTrx2;
 /**
  *
  * @author handa
@@ -31,10 +31,12 @@ public class FormHome extends javax.swing.JInternalFrame {
         BasicInternalFrameUI ui=(BasicInternalFrameUI)this.getUI();
         ui.setNorthPane(null);
         
+        
         koneksi kon = new koneksi();
         kon.setKoneksi();
         conn = kon.getKoneksi();
-        FormUtama.totalTrx.setText(String.valueOf(getTotalPenjualan()));
+        
+        totalTrx2.setText(String.valueOf(getTotalPenjualan()));
         totalBrg.setText(String.valueOf(getTotalBarang()));
         totalPlg.setText(String.valueOf(getTotalPelanggan()));
     }
@@ -59,7 +61,7 @@ public class FormHome extends javax.swing.JInternalFrame {
         jLabel5 = new javax.swing.JLabel();
         kGradientPanel6 = new keeptoo.KGradientPanel();
         TotalTransaksi2 = new javax.swing.JLabel();
-        totalTrx = new javax.swing.JLabel();
+        totalTrx2 = new javax.swing.JLabel();
 
         kGradientPanel4.setkEndColor(new java.awt.Color(255, 153, 51));
         kGradientPanel4.setkGradientFocus(400);
@@ -163,10 +165,10 @@ public class FormHome extends javax.swing.JInternalFrame {
         TotalTransaksi2.setForeground(new java.awt.Color(255, 255, 255));
         TotalTransaksi2.setText("Total Transaksi");
 
-        totalTrx.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
-        totalTrx.setForeground(new java.awt.Color(255, 255, 255));
-        totalTrx.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        totalTrx.setText("0");
+        totalTrx2.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
+        totalTrx2.setForeground(new java.awt.Color(255, 255, 255));
+        totalTrx2.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        totalTrx2.setText("0");
 
         javax.swing.GroupLayout kGradientPanel6Layout = new javax.swing.GroupLayout(kGradientPanel6);
         kGradientPanel6.setLayout(kGradientPanel6Layout);
@@ -180,7 +182,7 @@ public class FormHome extends javax.swing.JInternalFrame {
                         .addGap(0, 108, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, kGradientPanel6Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(totalTrx, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(totalTrx2, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         kGradientPanel6Layout.setVerticalGroup(
@@ -189,7 +191,7 @@ public class FormHome extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(TotalTransaksi2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(totalTrx, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(totalTrx2, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(32, Short.MAX_VALUE))
         );
 
@@ -209,7 +211,7 @@ public class FormHome extends javax.swing.JInternalFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
- public int getTotalPenjualan() {
+  public int getTotalPenjualan() {
         int total = 0;
         String sql = "SELECT count(*) AS total_penjualan FROM penjualan";
 
@@ -271,7 +273,6 @@ public class FormHome extends javax.swing.JInternalFrame {
 
         return total;
     }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel TotalTransaksi2;
     private javax.swing.JLabel jLabel2;
@@ -284,6 +285,6 @@ public class FormHome extends javax.swing.JInternalFrame {
     private custom.RoundedDesktopPane roundedDesktopPane1;
     public static javax.swing.JLabel totalBrg;
     public static javax.swing.JLabel totalPlg;
-    public static javax.swing.JLabel totalTrx;
+    public static javax.swing.JLabel totalTrx2;
     // End of variables declaration//GEN-END:variables
 }

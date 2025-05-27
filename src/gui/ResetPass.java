@@ -28,7 +28,7 @@ public class ResetPass extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        btn_reset = new javax.swing.JButton();
+        btn_reset = new custom.Custom_ButtonRounded();
         checkpass = new javax.swing.JCheckBox();
         txConfirmPass = new javax.swing.JPasswordField();
         txNewPass = new javax.swing.JPasswordField();
@@ -39,16 +39,13 @@ public class ResetPass extends javax.swing.JFrame {
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        btn_reset.setBackground(new java.awt.Color(255, 255, 255));
-        btn_reset.setForeground(new java.awt.Color(0, 0, 0));
-        btn_reset.setText("RESET");
-        btn_reset.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(0, 0, 0)));
+        btn_reset.setText("Reset");
         btn_reset.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_resetActionPerformed(evt);
             }
         });
-        jPanel1.add(btn_reset, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 420, 130, 30));
+        jPanel1.add(btn_reset, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 420, 120, 30));
 
         checkpass.setBackground(new java.awt.Color(255, 255, 255));
         checkpass.setForeground(new java.awt.Color(0, 0, 0));
@@ -73,7 +70,7 @@ public class ResetPass extends javax.swing.JFrame {
         txUsername.setBorder(null);
         jPanel1.add(txUsername, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 275, 180, 20));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/RESET PASSWORD (1).png"))); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/reset password terbaru.png"))); // NOI18N
         jLabel1.setText("jLabel1");
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
@@ -93,8 +90,18 @@ public class ResetPass extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void checkpassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkpassActionPerformed
+       if (checkpass.isSelected()) {
+        txNewPass.setEchoChar((char) 0);
+        txConfirmPass.setEchoChar((char) 0);
+    } else {
+        txNewPass.setEchoChar('*'); 
+        txConfirmPass.setEchoChar('*');
+    }
+    }//GEN-LAST:event_checkpassActionPerformed
+
     private void btn_resetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_resetActionPerformed
-         String username = txUsername.getText();
+        String username = txUsername.getText();
     String newPassword = new String(txNewPass.getPassword());
     String confirmPassword = new String(txConfirmPass.getPassword());
 
@@ -124,16 +131,6 @@ public class ResetPass extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(this, "Gagal mereset password. Periksa kembali username!", "Error", JOptionPane.ERROR_MESSAGE);
     }
     }//GEN-LAST:event_btn_resetActionPerformed
-
-    private void checkpassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkpassActionPerformed
-       if (checkpass.isSelected()) {
-        txNewPass.setEchoChar((char) 0);
-        txConfirmPass.setEchoChar((char) 0);
-    } else {
-        txNewPass.setEchoChar('*'); 
-        txConfirmPass.setEchoChar('*');
-    }
-    }//GEN-LAST:event_checkpassActionPerformed
 
     /**
      * @param args the command line arguments
@@ -171,7 +168,7 @@ public class ResetPass extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btn_reset;
+    private custom.Custom_ButtonRounded btn_reset;
     private javax.swing.JCheckBox checkpass;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;

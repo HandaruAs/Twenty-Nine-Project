@@ -245,7 +245,7 @@
                           </Group>
                           <Group type="102" alignment="1" attributes="0">
                               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                              <Component id="totalTrx" min="-2" pref="95" max="-2" attributes="0"/>
+                              <Component id="totalTrx2" min="-2" pref="95" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
@@ -258,7 +258,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="TotalTransaksi2" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="totalTrx" min="-2" pref="34" max="-2" attributes="0"/>
+                      <Component id="totalTrx2" min="-2" pref="34" max="-2" attributes="0"/>
                       <EmptySpace pref="32" max="32767" attributes="0"/>
                   </Group>
               </Group>
@@ -276,7 +276,7 @@
                 <Property name="text" type="java.lang.String" value="Total Transaksi"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JLabel" name="totalTrx">
+            <Component class="javax.swing.JLabel" name="totalTrx2">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Tahoma" size="36" style="0"/>
