@@ -29,23 +29,22 @@ public class control_login extends koneksi {
     }
 
     // Fungsi untuk login, tetap mengembalikan boolean
-   public boolean login(String username, String password) throws SQLException, NoSuchAlgorithmException {
-    String sql = "SELECT * FROM user WHERE username = ?";
-    PreparedStatement ps = con.prepareStatement(sql);
-    ps.setString(1, username);
-    ResultSet rs = ps.executeQuery();
+   public String login(String username, String password) throws SQLException, NoSuchAlgorithmException {
+        String sql = "SELECT * FROM user WHERE username = ?";
+        PreparedStatement ps = con.prepareStatement(sql);
+        ps.setString(1, username);
+        ResultSet rs = ps.executeQuery();
 
-    if (rs.next()) {
-        String hashedPasswordFromDb = rs.getString("password");
-        String hashedInputPassword = hashPassword(password); // Hash input password
-
-        if (hashedPasswordFromDb.equals(hashedInputPassword)) {
-            return true; // Login berhasil
+        if (rs.next()) {
+            String hashedPasswordFromDb = rs.getString("password");
+            String hashedInputPassword = hashPassword(password);
+            if (hashedPasswordFromDb.equals(hashedInputPassword)) {
+                return rs.getString("role");
+            }
         }
+        return null;
     }
 
-    return false; // Login gagal
-}
 
 
     // Fungsi baru untuk mengambil data user berdasarkan username setelah login berhasil

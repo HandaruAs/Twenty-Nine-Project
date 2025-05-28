@@ -137,21 +137,14 @@ public class CariBarang extends javax.swing.JDialog {
             int stok = Integer.parseInt(tabel.getValueAt(row, 2).toString());
             int harga = Integer.parseInt(tabel.getValueAt(row, 3).toString());
 
-            FormTransaksi.txkode.setText(kode);
-            FormTransaksi.txnama.setText(nama);
-            FormTransaksi.harga = harga;
-            FormTransaksi.stok = stok;
-            FormTransaksi.txqty.setEditable(true);
-            FormTransaksi.btnSimpan.setEnabled(true);
-            FormTransaksi.txqty.requestFocus();
+            
             dispose();
        
         }else if(caller.equalsIgnoreCase("Pelanggan")){
             int row = tabel.getSelectedRow();
             String id = tabel.getValueAt(row, 0).toString();
             String nama = tabel.getValueAt(row, 1).toString();
-            FormTransaksi.txidPelanggan.setText(id);
-            FormTransaksi.txpelanggan.setText(nama);
+            
             dispose();
         }
     }//GEN-LAST:event_jButton1ActionPerformed

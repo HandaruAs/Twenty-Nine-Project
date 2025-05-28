@@ -3,8 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package control;
-import static gui.FormTransaksi.txNoFaktur;
-import gui.Transaksi;
+import static gui_user.FormTransaksi.txNoFaktur;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -71,7 +70,7 @@ public class control_transaksi extends koneksi{
                 txNoFaktur.setText("F0001");
             }
         } catch (SQLException ex) {
-            Logger.getLogger(Transaksi.class.getName()).log(Level.SEVERE, null, ex);
+            
         }
     }
 }

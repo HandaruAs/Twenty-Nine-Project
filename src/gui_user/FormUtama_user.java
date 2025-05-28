@@ -2,7 +2,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package gui;
+package gui_user;
+import gui.*;
 import com.jtattoo.plaf.mint.MintLookAndFeel;
 import java.awt.Color;
 import java.util.logging.Level;
@@ -50,7 +51,7 @@ import java.sql.SQLException;
  *
  * @author handa
  */
-public class FormUtama extends javax.swing.JFrame {
+public class FormUtama_user extends javax.swing.JFrame {
  
 Color DefaultColor,ClickedColor; 
     
@@ -59,16 +60,15 @@ Color DefaultColor,ClickedColor;
      * Creates new form FormUtama
      */
     Connection conn;
-    
-    public FormUtama() {
+    public FormUtama_user() {
         initComponents();
-       
         DefaultColor=new Color(102,0,0);
         ClickedColor= new Color(255,153,0);
         
         Menu1.setBackground(DefaultColor);
-        Menu2.setBackground(DefaultColor);
+        
         Menu3.setBackground(DefaultColor);
+        Menu4.setBackground(DefaultColor);
         Menu5.setBackground(DefaultColor);
         Menu6.setBackground(DefaultColor);
         
@@ -79,6 +79,10 @@ Color DefaultColor,ClickedColor;
         totalBrg.setText(String.valueOf(getTotalBarang()));
         totalPlg.setText(String.valueOf(getTotalPelanggan()));
     }
+
+   
+
+    
 
     
 
@@ -106,13 +110,10 @@ Color DefaultColor,ClickedColor;
         jLabel5 = new javax.swing.JLabel();
         logout = new javax.swing.JLabel();
         Menu6 = new javax.swing.JPanel();
-        txRiwayat = new javax.swing.JLabel();
         Menu5 = new javax.swing.JPanel();
-        txPelanggan = new javax.swing.JLabel();
+        Menu4 = new javax.swing.JPanel();
+        txTransaksi = new javax.swing.JLabel();
         Menu3 = new javax.swing.JPanel();
-        txBarang = new javax.swing.JLabel();
-        Menu2 = new javax.swing.JPanel();
-        txUser = new javax.swing.JLabel();
         Menu1 = new javax.swing.JPanel();
         txUser1 = new javax.swing.JLabel();
         pengguna = new javax.swing.JLabel();
@@ -279,30 +280,15 @@ Color DefaultColor,ClickedColor;
             }
         });
 
-        txRiwayat.setFont(new java.awt.Font("Modern No. 20", 1, 16)); // NOI18N
-        txRiwayat.setForeground(new java.awt.Color(255, 255, 255));
-        txRiwayat.setText("Riwayat");
-        txRiwayat.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                txRiwayatMouseClicked(evt);
-            }
-        });
-
         javax.swing.GroupLayout Menu6Layout = new javax.swing.GroupLayout(Menu6);
         Menu6.setLayout(Menu6Layout);
         Menu6Layout.setHorizontalGroup(
             Menu6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(Menu6Layout.createSequentialGroup()
-                .addGap(58, 58, 58)
-                .addComponent(txRiwayat, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(52, Short.MAX_VALUE))
+            .addGap(0, 180, Short.MAX_VALUE)
         );
         Menu6Layout.setVerticalGroup(
             Menu6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(Menu6Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(txRiwayat, javax.swing.GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE)
-                .addContainerGap())
+            .addGap(0, 60, Short.MAX_VALUE)
         );
 
         jPanel1.add(Menu6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 400, 180, 60));
@@ -317,33 +303,56 @@ Color DefaultColor,ClickedColor;
             }
         });
 
-        txPelanggan.setFont(new java.awt.Font("Modern No. 20", 1, 16)); // NOI18N
-        txPelanggan.setForeground(new java.awt.Color(255, 255, 255));
-        txPelanggan.setText("Pelanggan");
-        txPelanggan.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                txPelangganMouseClicked(evt);
-            }
-        });
-
         javax.swing.GroupLayout Menu5Layout = new javax.swing.GroupLayout(Menu5);
         Menu5.setLayout(Menu5Layout);
         Menu5Layout.setHorizontalGroup(
             Menu5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(Menu5Layout.createSequentialGroup()
-                .addGap(52, 52, 52)
-                .addComponent(txPelanggan)
-                .addContainerGap(55, Short.MAX_VALUE))
+            .addGap(0, 180, Short.MAX_VALUE)
         );
         Menu5Layout.setVerticalGroup(
             Menu5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(Menu5Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(txPelanggan, javax.swing.GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE)
-                .addContainerGap())
+            .addGap(0, 60, Short.MAX_VALUE)
         );
 
         jPanel1.add(Menu5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 330, 180, 60));
+
+        Menu4.setBackground(new java.awt.Color(102, 0, 0));
+        Menu4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Menu4MouseClicked(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                Menu4MousePressed(evt);
+            }
+        });
+
+        txTransaksi.setFont(new java.awt.Font("Modern No. 20", 1, 16)); // NOI18N
+        txTransaksi.setForeground(new java.awt.Color(255, 255, 255));
+        txTransaksi.setText("Transaksi");
+        txTransaksi.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txTransaksiMouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout Menu4Layout = new javax.swing.GroupLayout(Menu4);
+        Menu4.setLayout(Menu4Layout);
+        Menu4Layout.setHorizontalGroup(
+            Menu4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(Menu4Layout.createSequentialGroup()
+                .addGap(54, 54, 54)
+                .addComponent(txTransaksi, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(56, Short.MAX_VALUE))
+        );
+        Menu4Layout.setVerticalGroup(
+            Menu4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(Menu4Layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addComponent(txTransaksi, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jPanel1.add(Menu4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 260, 180, 60));
 
         Menu3.setBackground(new java.awt.Color(102, 0, 0));
         Menu3.setMaximumSize(new java.awt.Dimension(32765, 32765));
@@ -357,71 +366,18 @@ Color DefaultColor,ClickedColor;
             }
         });
 
-        txBarang.setFont(new java.awt.Font("Modern No. 20", 1, 15)); // NOI18N
-        txBarang.setForeground(new java.awt.Color(255, 255, 255));
-        txBarang.setText("Barang");
-        txBarang.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                txBarangMouseClicked(evt);
-            }
-        });
-
         javax.swing.GroupLayout Menu3Layout = new javax.swing.GroupLayout(Menu3);
         Menu3.setLayout(Menu3Layout);
         Menu3Layout.setHorizontalGroup(
             Menu3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Menu3Layout.createSequentialGroup()
-                .addContainerGap(62, Short.MAX_VALUE)
-                .addComponent(txBarang, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(49, 49, 49))
+            .addGap(0, 180, Short.MAX_VALUE)
         );
         Menu3Layout.setVerticalGroup(
             Menu3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(Menu3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(txBarang, javax.swing.GroupLayout.DEFAULT_SIZE, 26, Short.MAX_VALUE)
-                .addContainerGap())
+            .addGap(0, 50, Short.MAX_VALUE)
         );
 
         jPanel1.add(Menu3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 200, 180, 50));
-
-        Menu2.setBackground(new java.awt.Color(102, 0, 0));
-        Menu2.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                Menu2MouseClicked(evt);
-            }
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                Menu2MousePressed(evt);
-            }
-        });
-
-        txUser.setFont(new java.awt.Font("Modern No. 20", 1, 16)); // NOI18N
-        txUser.setForeground(new java.awt.Color(255, 255, 255));
-        txUser.setText("User");
-        txUser.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                txUserMouseClicked(evt);
-            }
-        });
-
-        javax.swing.GroupLayout Menu2Layout = new javax.swing.GroupLayout(Menu2);
-        Menu2.setLayout(Menu2Layout);
-        Menu2Layout.setHorizontalGroup(
-            Menu2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Menu2Layout.createSequentialGroup()
-                .addContainerGap(71, Short.MAX_VALUE)
-                .addComponent(txUser)
-                .addGap(78, 78, 78))
-        );
-        Menu2Layout.setVerticalGroup(
-            Menu2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(Menu2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(txUser, javax.swing.GroupLayout.DEFAULT_SIZE, 26, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-
-        jPanel1.add(Menu2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 140, 180, 50));
 
         Menu1.setBackground(new java.awt.Color(102, 0, 0));
         Menu1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -550,21 +506,9 @@ Color DefaultColor,ClickedColor;
 
         return total;
     }
-    private void txUserMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txUserMouseClicked
+    private void txTransaksiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txTransaksiMouseClicked
         
-    }//GEN-LAST:event_txUserMouseClicked
-
-    private void txBarangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txBarangMouseClicked
-       
-    }//GEN-LAST:event_txBarangMouseClicked
-
-    private void txPelangganMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txPelangganMouseClicked
-       
-    }//GEN-LAST:event_txPelangganMouseClicked
-
-    private void txRiwayatMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txRiwayatMouseClicked
-       
-    }//GEN-LAST:event_txRiwayatMouseClicked
+    }//GEN-LAST:event_txTransaksiMouseClicked
 
     private void penggunaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_penggunaMouseClicked
         // TODO add your handling code here:
@@ -572,54 +516,48 @@ Color DefaultColor,ClickedColor;
 
     private void Menu1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Menu1MousePressed
         Menu1.setBackground(ClickedColor);
-        Menu2.setBackground(DefaultColor);
-        Menu3.setBackground(DefaultColor);
         
+        Menu3.setBackground(DefaultColor);
+        Menu4.setBackground(DefaultColor);
         Menu5.setBackground(DefaultColor);
         Menu6.setBackground(DefaultColor);
     }//GEN-LAST:event_Menu1MousePressed
 
-    private void Menu2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Menu2MousePressed
-        Menu1.setBackground(DefaultColor);
-        Menu2.setBackground(ClickedColor);
-        Menu3.setBackground(DefaultColor);
-     
-        Menu5.setBackground(DefaultColor);
-        Menu6.setBackground(DefaultColor);
-    }//GEN-LAST:event_Menu2MousePressed
-
     private void Menu3MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Menu3MousePressed
         Menu1.setBackground(DefaultColor);
-        Menu2.setBackground(DefaultColor);
+       
         Menu3.setBackground(ClickedColor);
-        
+        Menu4.setBackground(DefaultColor);
         Menu5.setBackground(DefaultColor);
         Menu6.setBackground(DefaultColor);
     }//GEN-LAST:event_Menu3MousePressed
 
+    private void Menu4MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Menu4MousePressed
+        Menu1.setBackground(DefaultColor);
+        
+        Menu3.setBackground(DefaultColor);
+        Menu4.setBackground(ClickedColor);
+        Menu5.setBackground(DefaultColor);
+        Menu6.setBackground(DefaultColor);
+    }//GEN-LAST:event_Menu4MousePressed
+
     private void Menu5MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Menu5MousePressed
         Menu1.setBackground(DefaultColor);
-        Menu2.setBackground(DefaultColor);
+        
         Menu3.setBackground(DefaultColor);
-       
+        Menu4.setBackground(DefaultColor);
         Menu5.setBackground(ClickedColor);
         Menu6.setBackground(DefaultColor);
     }//GEN-LAST:event_Menu5MousePressed
 
     private void Menu6MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Menu6MousePressed
         Menu1.setBackground(DefaultColor);
-        Menu2.setBackground(DefaultColor);
-        Menu3.setBackground(DefaultColor);
         
+        Menu3.setBackground(DefaultColor);
+        Menu4.setBackground(DefaultColor);
         Menu5.setBackground(DefaultColor);
         Menu6.setBackground(ClickedColor);
     }//GEN-LAST:event_Menu6MousePressed
-
-    private void Menu2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Menu2MouseClicked
-        User user=new User();
-        MainPanel.removeAll();
-        MainPanel.add(user).setVisible(true);
-    }//GEN-LAST:event_Menu2MouseClicked
 
     private void Menu3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Menu3MouseClicked
         FormBarang frmBarang=new FormBarang();
@@ -627,9 +565,15 @@ Color DefaultColor,ClickedColor;
         MainPanel.add(frmBarang).setVisible(true);
     }//GEN-LAST:event_Menu3MouseClicked
 
+    private void Menu4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Menu4MouseClicked
+        Transaksi transaksi=new Transaksi();
+        MainPanel.removeAll();
+        MainPanel.add(transaksi).setVisible(true);
+    }//GEN-LAST:event_Menu4MouseClicked
+
     private void Menu1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Menu1MouseClicked
         
-        FormHome Home=new FormHome();
+        FormHome_user Home=new FormHome_user();
         MainPanel.removeAll();
         MainPanel.add(Home).setVisible(true);
        
@@ -683,7 +627,7 @@ Color DefaultColor,ClickedColor;
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FormUtama().setVisible(true);
+                new FormUtama_user().setVisible(true);
             }
         });
     }
@@ -691,8 +635,8 @@ Color DefaultColor,ClickedColor;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private custom.RoundedDesktopPane MainPanel;
     private javax.swing.JPanel Menu1;
-    private javax.swing.JPanel Menu2;
     private javax.swing.JPanel Menu3;
+    private javax.swing.JPanel Menu4;
     private javax.swing.JPanel Menu5;
     private javax.swing.JPanel Menu6;
     private javax.swing.JLabel TotalTransaksi2;
@@ -710,10 +654,7 @@ Color DefaultColor,ClickedColor;
     public static javax.swing.JLabel totalBrg;
     public static javax.swing.JLabel totalPlg;
     public static javax.swing.JLabel totalTrx2;
-    private javax.swing.JLabel txBarang;
-    private javax.swing.JLabel txPelanggan;
-    private javax.swing.JLabel txRiwayat;
-    private javax.swing.JLabel txUser;
+    private javax.swing.JLabel txTransaksi;
     private javax.swing.JLabel txUser1;
     // End of variables declaration//GEN-END:variables
 }

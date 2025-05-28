@@ -6,6 +6,7 @@ package gui;
 import com.jtattoo.plaf.DecorationHelper;
 import com.jtattoo.plaf.mint.MintLookAndFeel;
 import control.control_login;
+import gui_user.FormUtama_user;
 import java.awt.Color;
 import java.awt.KeyEventDispatcher;
 import java.awt.KeyboardFocusManager;
@@ -184,33 +185,44 @@ private void loginDenganRFID(String rfid_tag) {
 
     private void custom_ButtonRounded1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_custom_ButtonRounded1ActionPerformed
          try {
-        String user = txUsername.getText();
-        char[] passArray = txPass.getPassword();
-        String pass = new String(passArray);
-        
-        // Menggunakan metode login untuk mengecek kredensial
-        boolean loginSuccess = cl.login(user, pass); 
-        
-        // Jika login berhasil, ambil data user
-        if (loginSuccess) {
-            ResultSet rs = cl.getUserData(user); // Ambil data user setelah login berhasil
-            if (rs.next()) {
-                FormUtama frm = new FormUtama();
-                FormUtama.pengguna.setText(rs.getString("nama")); // Menampilkan nama pengguna di FormUtama
-                dispose(); // Menutup window login
-                frm.setVisible(true); // Menampilkan FormUtama
-                JOptionPane.showMessageDialog(rootPane, "Selamat Datang " + rs.getString("username"));
+    String user = txUsername.getText();
+    char[] passArray = txPass.getPassword();
+    String pass = new String(passArray);
+
+    control_login cl = new control_login();
+    String role = cl.login(user, pass); 
+ 
+    if (role != null) {
+        ResultSet rs = cl.getUserData(user);
+        if (rs.next()) {
+            String nama = rs.getString("username");
+
+            if (role.equalsIgnoreCase("admin")) {
+                // Tampilkan halaman admin
+                FormUtama adminForm = new FormUtama();
+                FormUtama.pengguna.setText(rs.getString("nama"));
+                adminForm.setVisible(true);
+            } else if (role.equalsIgnoreCase("user")) {
+                // Tampilkan halaman user
+                FormUtama_user userForm = new FormUtama_user();
+                FormUtama_user.pengguna.setText(rs.getString("nama"));
+                userForm.setVisible(true);
             }
-        } else {
-            JOptionPane.showMessageDialog(rootPane, "Username atau Password salah, Silahkan coba kembali");
+
+            dispose(); // Tutup form login
+            JOptionPane.showMessageDialog(rootPane, "Selamat Datang " + rs.getString("username"));
         }
-    } catch (SQLException ex) {
-        Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
-        JOptionPane.showMessageDialog(rootPane, "GAGAL KONEK KE DATABASE KARENA " + ex);
-    } catch (NoSuchAlgorithmException ex) {
+    } else {
+        JOptionPane.showMessageDialog(rootPane, "Username atau Password salah, Silahkan coba kembali");
+    }
+
+} catch (SQLException ex) {
+    Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+    JOptionPane.showMessageDialog(rootPane, "GAGAL KONEK KE DATABASE KARENA " + ex);
+} catch (NoSuchAlgorithmException ex) {
     Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
     JOptionPane.showMessageDialog(rootPane, "Algoritma hashing tidak tersedia.");
-    }
+}
     }//GEN-LAST:event_custom_ButtonRounded1ActionPerformed
 
     private void RegisterMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RegisterMouseClicked

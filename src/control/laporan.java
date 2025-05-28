@@ -6,7 +6,7 @@ package control;
 import control.koneksi;
 
 import gui.FormUtama;
-import gui.Transaksi;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dialog;
