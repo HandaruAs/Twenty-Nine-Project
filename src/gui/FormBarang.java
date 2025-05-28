@@ -500,7 +500,7 @@ if (selectedRow == -1) {
         btnEdit.setEnabled(false);
         btnHapus.setEnabled(false);
         btnSimpan.setEnabled(true);
-        txtKodeBarang.setEditable(true);
+        txtKodeBarang.setEditable(false);
         txNama.setEditable(true);
         txStok.setEditable(true);
         txStatus.setEditable(true);

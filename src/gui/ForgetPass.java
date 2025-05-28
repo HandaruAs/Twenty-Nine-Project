@@ -49,6 +49,11 @@ public class ForgetPass extends javax.swing.JFrame {
         jPanel1.add(btn_Verifikasi, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 415, 120, 30));
 
         btn_sendEmail.setText("Kirim Email");
+        btn_sendEmail.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_sendEmailActionPerformed(evt);
+            }
+        });
         jPanel1.add(btn_sendEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 380, 120, 30));
 
         txOTP.setBackground(new java.awt.Color(255, 255, 255));
@@ -97,6 +102,32 @@ public class ForgetPass extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Incorrect OTP. Try again!", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btn_VerifikasiActionPerformed
+
+    private void btn_sendEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_sendEmailActionPerformed
+          String email = txEmail.getText().trim();
+
+        if (email.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Please enter your email.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        if (!isValidEmail(email)) {
+            JOptionPane.showMessageDialog(null, "Invalid email format!", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // Generate OTP
+        generatedOTP = generateOTP();
+
+        // Send OTP via Email
+        boolean emailSent = sendEmail(email, generatedOTP);
+        if (emailSent) {
+            JOptionPane.showMessageDialog(null, "OTP has been sent to your email.");
+            txOTP.setEnabled(true);
+        } else {
+            JOptionPane.showMessageDialog(null, "Failed to send OTP. Try again.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btn_sendEmailActionPerformed
 
     /**
      * @param args the command line arguments

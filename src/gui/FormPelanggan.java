@@ -341,7 +341,7 @@ public class FormPelanggan extends javax.swing.JInternalFrame {
     private void btnNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNewActionPerformed
          // Mengisi ID otomatis berdasarkan jam dan menit saat ini
     java.time.LocalDateTime now = java.time.LocalDateTime.now();
-    String idPelanggan = "PLG" + now.format(java.time.format.DateTimeFormatter.ofPattern("HHmm"));
+    String idPelanggan = "PLG" + now.format(java.time.format.DateTimeFormatter.ofPattern("mmss"));
 
     txid.setText(idPelanggan);       // Set ID otomatis
     txid.setEditable(false);         // Tidak bisa diubah oleh user
@@ -425,7 +425,8 @@ public class FormPelanggan extends javax.swing.JInternalFrame {
         btnEdit.setEnabled(false);
         btnHapus.setEnabled(false);
         btnSimpan.setEnabled(true);
-         txnama.setEditable(true);
+        txid.setEditable(false);
+        txnama.setEditable(true);
         txalamat.setEditable(true);
         txnomor.setEditable(true);
         txnama.requestFocus();

@@ -67,7 +67,9 @@ public class FormTransaksi extends javax.swing.JFrame {
         ct.noFak();
         setTanggal();
     }
-
+   public void setNamaPengguna(String nama) {
+    lblNama.setText(nama); // lblNama = JLabel di FormTransaksi
+}
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -82,7 +84,7 @@ public class FormTransaksi extends javax.swing.JFrame {
         jLabel15 = new javax.swing.JLabel();
         tanggal = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
-        pengguna = new javax.swing.JLabel();
+        lblNama = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbPengeluaran = new javax.swing.JTable();
         kGradientPanel1 = new keeptoo.KGradientPanel();
@@ -152,9 +154,9 @@ public class FormTransaksi extends javax.swing.JFrame {
         jLabel16.setForeground(new java.awt.Color(255, 204, 51));
         jLabel16.setText("Kasir :");
 
-        pengguna.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        pengguna.setForeground(new java.awt.Color(0, 0, 0));
-        pengguna.setText("0000");
+        lblNama.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        lblNama.setForeground(new java.awt.Color(0, 0, 0));
+        lblNama.setText("0000");
 
         tbPengeluaran.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -435,15 +437,10 @@ public class FormTransaksi extends javax.swing.JFrame {
                     .addComponent(txGrandTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(26, 26, 26)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel9)
-                            .addComponent(jLabel10)
-                            .addComponent(txBayar, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(txKembali, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(jLabel9)
+                    .addComponent(jLabel10)
+                    .addComponent(txBayar, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txKembali, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, 117, Short.MAX_VALUE)
@@ -529,7 +526,7 @@ public class FormTransaksi extends javax.swing.JFrame {
                                         .addGap(18, 18, 18)
                                         .addComponent(jLabel16)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(pengguna)))
+                                        .addComponent(lblNama)))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(kGradientPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 481, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -546,7 +543,7 @@ public class FormTransaksi extends javax.swing.JFrame {
                             .addComponent(jLabel15)
                             .addComponent(tanggal)
                             .addComponent(jLabel16)
-                            .addComponent(pengguna)))
+                            .addComponent(lblNama)))
                     .addComponent(kGradientPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -712,7 +709,7 @@ public class FormTransaksi extends javax.swing.JFrame {
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         // TODO add your handling code here:
      String nofak = txNoFaktur.getText().trim();
-    String kasir = pengguna.getText().trim();
+    String kasir = lblNama.getText().trim();
     String id_pelanggan = txidPelanggan.getText().trim();
     String pelanggan = txpelanggan.getText().trim();
     String tanggall = tanggal.getText().trim();
@@ -818,7 +815,7 @@ public class FormTransaksi extends javax.swing.JFrame {
         // TODO add your handling code here:
         FormUtama frm = new FormUtama();
         dispose();
-        FormUtama.pengguna.setText(pengguna.getText());
+        FormUtama.pengguna.setText(lblNama.getText());
         frm.setVisible(true);
         ut.tampilCountTrx();
         dispose();
@@ -923,7 +920,7 @@ public class FormTransaksi extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
     private keeptoo.KGradientPanel kGradientPanel1;
-    public static javax.swing.JLabel pengguna;
+    public static javax.swing.JLabel lblNama;
     private javax.swing.JLabel tampilTTL;
     private javax.swing.JLabel tanggal;
     private javax.swing.JTable tbPengeluaran;
@@ -939,4 +936,6 @@ public class FormTransaksi extends javax.swing.JFrame {
     public static javax.swing.JTextField txqty;
     public static javax.swing.JTextField txtotal2;
     // End of variables declaration//GEN-END:variables
+
+    
 }

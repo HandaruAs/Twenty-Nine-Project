@@ -15,10 +15,12 @@ import javax.swing.table.DefaultTableModel;
     }
     public DefaultTableModel model = new DefaultTableModel();
     
-    public void simpan(String id,String user,String pass,String nama,String nohp) throws SQLException{
-        String sql = "INSERT INTO user VALUES ('"+id+"','"+user+"','"+pass+"','"+nama+"','"+nohp+"')";
-        st.executeUpdate(sql);
-    }
+    public void simpan(String id, String user, String pass, String nama, String nohp) throws SQLException {
+    String sql = "INSERT INTO user (id, username, password, nama, nohp) VALUES ('" 
+                 + id + "', '" + user + "', '" + pass + "', '" + nama + "', '" + nohp + "')";
+    st.executeUpdate(sql);
+}
+
     public void edit(String id,String user,String pass,String nama,String nohp) throws SQLException{
         String sql = "UPDATE user set username = '"+user+"', password = '"+pass+"', nama = '"+nama+"', nohp = '"+nohp+"' where id = '"+id+"'";
         st.executeUpdate(sql);
