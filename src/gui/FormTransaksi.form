@@ -65,7 +65,7 @@
                                           <EmptySpace type="separate" max="-2" attributes="0"/>
                                           <Component id="jLabel16" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="pengguna" min="-2" max="-2" attributes="0"/>
+                                          <Component id="lblNama" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
                                   <EmptySpace max="32767" attributes="0"/>
@@ -90,7 +90,7 @@
                               <Component id="jLabel15" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="tanggal" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel16" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="pengguna" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="lblNama" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <Component id="kGradientPanel1" min="-2" pref="101" max="-2" attributes="0"/>
@@ -151,7 +151,7 @@
             <Property name="text" type="java.lang.String" value="Kasir :"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="pengguna">
+        <Component class="javax.swing.JLabel" name="lblNama">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Tahoma" size="18" style="0"/>

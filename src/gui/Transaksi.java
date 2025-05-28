@@ -4,6 +4,7 @@
  */
 package gui;
 
+import static gui.FormUtama.pengguna;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 
 /**
@@ -80,7 +81,9 @@ public class Transaksi extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-      FormTransaksi transaksi = new FormTransaksi(); 
+     String nama = pengguna.getText(); // Ambil nama dari label pengguna
+    FormTransaksi transaksi = new FormTransaksi(); 
+    transaksi.setNamaPengguna(nama); // Kirim ke form transaksi
     transaksi.setVisible(true);
     transaksi.toFront(); 
     transaksi.requestFocus();  

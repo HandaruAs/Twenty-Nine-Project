@@ -5,21 +5,85 @@
 package gui;
 import control.registrasi;
 import java.awt.Color;
+import java.awt.KeyEventDispatcher;
+import java.awt.KeyboardFocusManager;
+import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
+import javax.swing.Timer;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 /**
  *
  * @author handa
  */
 public class Registrasi extends javax.swing.JFrame {
  
-    
+    private KeyEventDispatcher rfidDispatcher; 
     public Registrasi() {
         initComponents();
-        labelLogin = new javax.swing.JLabel();
-labelLogin.setFont(new java.awt.Font("Tahoma", 0, 18));
-labelLogin.setForeground(new java.awt.Color(255, 255, 255));
-labelLogin.setText("Login");
+        
+         labelLogin = new javax.swing.JLabel();
+    labelLogin.setFont(new java.awt.Font("Tahoma", 0, 18));
+    labelLogin.setForeground(new java.awt.Color(255, 255, 255));
+    labelLogin.setText("Login");
+    
+  KeyboardFocusManager.getCurrentKeyboardFocusManager().addKeyEventDispatcher(new KeyEventDispatcher() {
+    private StringBuilder rfidBuffer = new StringBuilder();
+    private Timer rfidTimer;
+
+    @Override
+    public boolean dispatchKeyEvent(KeyEvent e) {
+        if (!Registrasi.this.isActive()) return false; // <- Tambahkan ini juga
+
+        if (e.getID() == KeyEvent.KEY_PRESSED) {
+            char keyChar = e.getKeyChar();
+
+            if (Character.isLetterOrDigit(keyChar)) {
+                rfidBuffer.append(keyChar);
+                if (rfidTimer != null) rfidTimer.stop();
+
+                rfidTimer = new Timer(100, evt -> {
+                    if (rfidBuffer.length() >= 10) {
+                        String rfid = rfidBuffer.toString();
+                        handleRfidInput(rfid);
+                    }
+                    rfidBuffer.setLength(0);
+                });
+                rfidTimer.setRepeats(false);
+                rfidTimer.start();
+            }
+        }
+
+        return false;
     }
+});
+   
+    }
+private void handleRfidInput(String rfid_tag) {
+    try {
+        Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/sistemkasir", "root", "");
+        String query = "SELECT * FROM user WHERE rfid_tag = ?";
+        PreparedStatement ps = conn.prepareStatement(query);
+        ps.setString(1, rfid_tag);
+        ResultSet rs = ps.executeQuery();
+
+        if (rs.next()) {
+            // RFID sudah digunakan -> tampilkan peringatan
+            JOptionPane.showMessageDialog(this, "RFID sudah terdaftar untuk user: " + rs.getString("username"), "Peringatan", JOptionPane.WARNING_MESSAGE);
+        } else {
+            // RFID belum terdaftar -> masukkan ke field RFID tanpa pesan
+            txRfid.setText(rfid_tag);
+        }
+
+        rs.close();
+        ps.close();
+        conn.close();
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(this, "Terjadi kesalahan saat membaca RFID: " + e.getMessage());
+    }
+}
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -37,7 +101,7 @@ labelLogin.setText("Login");
         txPass = new javax.swing.JPasswordField();
         txNo = new javax.swing.JTextField();
         txNama = new javax.swing.JTextField();
-        rfid_tag = new javax.swing.JTextField();
+        txRfid = new javax.swing.JTextField();
         txUsername = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
 
@@ -65,11 +129,11 @@ labelLogin.setText("Login");
                 labelLoginMouseReleased(evt);
             }
         });
-        jPanel1.add(labelLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 470, -1, -1));
+        jPanel1.add(labelLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 440, -1, 40));
 
         jLabel2.setBackground(new java.awt.Color(222, 222, 222));
         jLabel2.setText("Sudah punya akun? ");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 470, 110, -1));
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 440, 110, 40));
 
         txPass.setBorder(null);
         txPass.addActionListener(new java.awt.event.ActionListener() {
@@ -90,13 +154,13 @@ labelLogin.setText("Login");
         });
         jPanel1.add(txNama, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 360, 180, 20));
 
-        rfid_tag.setBorder(null);
-        rfid_tag.addActionListener(new java.awt.event.ActionListener() {
+        txRfid.setBorder(null);
+        txRfid.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rfid_tagActionPerformed(evt);
+                txRfidActionPerformed(evt);
             }
         });
-        jPanel1.add(rfid_tag, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 245, 180, 20));
+        jPanel1.add(txRfid, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 245, 180, 20));
 
         txUsername.setBorder(null);
         txUsername.addActionListener(new java.awt.event.ActionListener() {
@@ -143,9 +207,9 @@ labelLogin.setText("Login");
         // TODO add your handling code here:
     }//GEN-LAST:event_txNamaActionPerformed
 
-    private void rfid_tagActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rfid_tagActionPerformed
+    private void txRfidActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txRfidActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_rfid_tagActionPerformed
+    }//GEN-LAST:event_txRfidActionPerformed
 
     private void txUsernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txUsernameActionPerformed
         // TODO add your handling code here:
@@ -156,7 +220,7 @@ labelLogin.setText("Login");
         String password = new String(txPass.getPassword());
         String nama = txNama.getText();
         String nomer = txNo.getText();
-        String rfid = rfid_tag.getText();
+        String rfid = txRfid.getText();
          if (password.length() < 6) {
             JOptionPane.showMessageDialog(this, "Password minimal harus 6 karakter!", "Peringatan", JOptionPane.WARNING_MESSAGE);
       
@@ -231,10 +295,10 @@ labelLogin.setForeground(Color.YELLOW);
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel labelLogin;
-    private javax.swing.JTextField rfid_tag;
     private javax.swing.JTextField txNama;
     private javax.swing.JTextField txNo;
     private javax.swing.JPasswordField txPass;
+    private javax.swing.JTextField txRfid;
     private javax.swing.JTextField txUsername;
     // End of variables declaration//GEN-END:variables
 }

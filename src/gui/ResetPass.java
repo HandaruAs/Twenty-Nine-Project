@@ -5,6 +5,9 @@
 package gui;
 import control.control_resetPass;
 import javax.swing.JOptionPane;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
 /**
  *
  * @author handa
@@ -17,6 +20,24 @@ public class ResetPass extends javax.swing.JFrame {
     public ResetPass() {
         initComponents();
     }
+   
+    public String hashPassword(String password) {
+    try {
+        MessageDigest md = MessageDigest.getInstance("SHA-256");
+        byte[] hash = md.digest(password.getBytes());
+        StringBuilder hexString = new StringBuilder();
+
+        for (byte b : hash) {
+            String hex = Integer.toHexString(0xff & b);
+            if (hex.length() == 1) hexString.append('0');
+            hexString.append(hex);
+        }
+
+        return hexString.toString();
+    } catch (NoSuchAlgorithmException e) {
+        throw new RuntimeException(e);
+    }
+}
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -101,29 +122,27 @@ public class ResetPass extends javax.swing.JFrame {
     }//GEN-LAST:event_checkpassActionPerformed
 
     private void btn_resetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_resetActionPerformed
-        String username = txUsername.getText();
+         String username = txUsername.getText();
     String newPassword = new String(txNewPass.getPassword());
     String confirmPassword = new String(txConfirmPass.getPassword());
 
-    
     if (username.isEmpty() || newPassword.isEmpty() || confirmPassword.isEmpty()) {
         JOptionPane.showMessageDialog(this, "Harap isi semua kolom!", "Peringatan", JOptionPane.WARNING_MESSAGE);
         return;
     }
 
-    
     if (!newPassword.equals(confirmPassword)) {
         JOptionPane.showMessageDialog(this, "Password baru tidak cocok!", "Error", JOptionPane.ERROR_MESSAGE);
         return;
     }
 
-       control_resetPass control = new control_resetPass();
-    boolean resetSuccess = control.resetPassword(username, newPassword);
+    String hashedPassword = hashPassword(newPassword); // hash di sini
+
+    control_resetPass control = new control_resetPass();
+    boolean resetSuccess = control.resetPassword(username, hashedPassword); // kirim hashed password
 
     if (resetSuccess) {
         JOptionPane.showMessageDialog(this, "Password berhasil direset! Silakan login kembali.", "Sukses", JOptionPane.INFORMATION_MESSAGE);
-
-        
         Login loginform = new Login(); 
         loginform.setVisible(true);
         this.dispose(); 

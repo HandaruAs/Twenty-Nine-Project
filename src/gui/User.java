@@ -19,7 +19,8 @@ import java.awt.Component;
 import java.awt.Container;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
-
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 
 /**
@@ -77,7 +78,21 @@ tabelUser.getTableHeader().setForeground(Color.BLACK);
         txPass.setText("");
         tabelUser.clearSelection();
     }
-    
+    public String hashPassword(String password) {
+    try {
+        MessageDigest md = MessageDigest.getInstance("SHA-256");
+        byte[] hash = md.digest(password.getBytes());
+        StringBuilder hexString = new StringBuilder();
+        for (byte b : hash) {
+            String hex = Integer.toHexString(0xff & b);
+            if (hex.length() == 1) hexString.append('0');
+            hexString.append(hex);
+        }
+        return hexString.toString();
+    } catch (NoSuchAlgorithmException e) {
+        throw new RuntimeException(e);
+    }
+}
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -96,9 +111,10 @@ tabelUser.getTableHeader().setForeground(Color.BLACK);
         jLabel5 = new javax.swing.JLabel();
         txId = new custom.JTextfieldRounded();
         txUser = new custom.JTextfieldRounded();
-        txPass = new custom.JTextfieldRounded();
         txNama = new custom.JTextfieldRounded();
         txNohp = new custom.JTextfieldRounded();
+        txPass = new custom.JPasswordFieldRounded();
+        checkpass = new javax.swing.JCheckBox();
         kGradientPanel11 = new keeptoo.KGradientPanel();
         jScrollPane11 = new javax.swing.JScrollPane();
         tabelUser = new javax.swing.JTable();
@@ -108,6 +124,7 @@ tabelUser.getTableHeader().setForeground(Color.BLACK);
         btnCancel = new custom.Custom_ButtonRounded();
         btnEdit = new custom.Custom_ButtonRounded();
 
+        setPreferredSize(new java.awt.Dimension(880, 490));
         addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
             public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
             }
@@ -147,15 +164,21 @@ tabelUser.getTableHeader().setForeground(Color.BLACK);
             }
         });
 
+        txNohp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txNohpActionPerformed(evt);
+            }
+        });
+
         txPass.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txPassActionPerformed(evt);
             }
         });
 
-        txNohp.addActionListener(new java.awt.event.ActionListener() {
+        checkpass.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txNohpActionPerformed(evt);
+                checkpassActionPerformed(evt);
             }
         });
 
@@ -165,19 +188,20 @@ tabelUser.getTableHeader().setForeground(Color.BLACK);
             PanelFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PanelFormLayout.createSequentialGroup()
                 .addGap(27, 27, 27)
-                .addGroup(PanelFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(PanelFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(txId, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(PanelFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jLabel2)
-                        .addComponent(jLabel5)
-                        .addComponent(jLabel4)
-                        .addComponent(jLabel3)
-                        .addComponent(jLabel1)
-                        .addComponent(txUser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(txPass, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(txNama, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(txNohp, javax.swing.GroupLayout.DEFAULT_SIZE, 221, Short.MAX_VALUE)))
-                .addContainerGap(34, Short.MAX_VALUE))
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel5)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel1)
+                    .addComponent(txUser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txNama, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txNohp, javax.swing.GroupLayout.DEFAULT_SIZE, 221, Short.MAX_VALUE)
+                    .addComponent(txPass, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(checkpass, javax.swing.GroupLayout.DEFAULT_SIZE, 31, Short.MAX_VALUE)
+                .addContainerGap())
         );
         PanelFormLayout.setVerticalGroup(
             PanelFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -193,7 +217,9 @@ tabelUser.getTableHeader().setForeground(Color.BLACK);
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txPass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(PanelFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(txPass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(checkpass))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -294,14 +320,13 @@ tabelUser.getTableHeader().setForeground(Color.BLACK);
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(65, 65, 65)
-                        .addComponent(btnNew, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(126, 126, 126))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .addComponent(btnNew, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(PanelForm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(33, 33, 33)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(19, 19, 19)
                         .addComponent(btnSimpan, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btnHapus, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -309,10 +334,8 @@ tabelUser.getTableHeader().setForeground(Color.BLACK);
                         .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(kGradientPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, 546, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(54, Short.MAX_VALUE))
+                    .addComponent(kGradientPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, 546, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(110, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -367,12 +390,12 @@ boolean edit = false;
     }//GEN-LAST:event_formInternalFrameClosing
 
     private void btnNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNewActionPerformed
-  // Membuat ID otomatis berdasarkan waktu
+  
     java.time.LocalDateTime now = java.time.LocalDateTime.now();
-    String idUser = "USR" + now.format(java.time.format.DateTimeFormatter.ofPattern("HHmm"));
+    String idUser = "USR" + now.format(java.time.format.DateTimeFormatter.ofPattern("mmss"));
 
-    txId.setText(idUser);           // Isi otomatis ID
-    txId.setEditable(false);        // Tidak bisa diubah manual
+    txId.setText(idUser);         
+    txId.setEditable(false);        
 
     txUser.setEditable(true);
     txPass.setEditable(true);
@@ -387,56 +410,47 @@ boolean edit = false;
     }//GEN-LAST:event_btnNewActionPerformed
 
     private void btnSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSimpanActionPerformed
-   if(edit==true){
+   String id = txId.getText();
+    String user = txUser.getText();
+    String pass = txPass.getText();
+    String nama = txNama.getText();
+    String nohp = txNohp.getText();
 
-            String id = txId.getText();
-            String user = txUser.getText();
-            String pass = txPass.getText();
-            String nama = txNama.getText();
-            String nohp = txNohp.getText();
+    String hashedPass = hashPassword(pass); // <-- HASH DI SINI
 
-            try {
-                ur.edit(id,user,pass,nama,nohp);
-                JOptionPane.showMessageDialog(rootPane, "DATA BERHASIL DI UPDATE");
-                tampil();
-                clear();
-                txUser.setEditable(false);
-                txPass.setEditable(false);
-                txNama.setEditable(false);
-                txNohp.setEditable(false);
-                btnSimpan.setEnabled(false);
-                btnCancel.setEnabled(false);
-                btnNew.setEnabled(true);
-            } catch (SQLException ex) {
-                Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }else{
-            String id = txId.getText();
-            String user = txUser.getText();
-            String pass = txPass.getText();
-            String nama = txNama.getText();
-            String nohp = txNohp.getText();
-            
-            try {
-                ur.simpan(id, user, pass, nama, nohp);
-                JOptionPane.showMessageDialog(rootPane, "DATA BERHASIL DISIMPAN");
-                tampil();
-
-                clear();
-                btnSimpan.setEnabled(false);
-                btnCancel.setEnabled(false);
-                btnNew.setEnabled(true);
-                txUser.setEditable(false);
-                txPass.setEditable(false);
-                txNama.setEditable(false);
-                txNohp.setEditable(false);
-                btnSimpan.setEnabled(false);
-                btnCancel.setEnabled(false);
-                btnNew.setEnabled(true);
-            } catch (SQLException ex) {
-                Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
-            }
+    if (edit == true) {
+        try {
+            ur.edit(id, user, hashedPass, nama, nohp); // simpan password yg sudah dihash
+            JOptionPane.showMessageDialog(rootPane, "DATA BERHASIL DI UPDATE");
+            tampil();
+            clear();
+            txUser.setEditable(false);
+            txPass.setEditable(false);
+            txNama.setEditable(false);
+            txNohp.setEditable(false);
+            btnSimpan.setEnabled(false);
+            btnCancel.setEnabled(false);
+            btnNew.setEnabled(true);
+        } catch (SQLException ex) {
+            Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
         }
+    } else {
+        try {
+            ur.simpan(id, user, hashedPass, nama, nohp); // simpan password yg sudah dihash
+            JOptionPane.showMessageDialog(rootPane, "DATA BERHASIL DISIMPAN");
+            tampil();
+            clear();
+            btnSimpan.setEnabled(false);
+            btnCancel.setEnabled(false);
+            btnNew.setEnabled(true);
+            txUser.setEditable(false);
+            txPass.setEditable(false);
+            txNama.setEditable(false);
+            txNohp.setEditable(false);
+        } catch (SQLException ex) {
+            Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     }//GEN-LAST:event_btnSimpanActionPerformed
 
     private void btnHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHapusActionPerformed
@@ -453,7 +467,8 @@ boolean edit = false;
     }//GEN-LAST:event_btnHapusActionPerformed
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
-     txUser.setEditable(false);
+        txId.setEditable(false);
+        txUser.setEditable(false);
         txPass.setEditable(false);
         txNama.setEditable(false);
         btnHapus.setEnabled(false);
@@ -463,6 +478,7 @@ boolean edit = false;
         btnCancel.setEnabled(false);
         btnNew.setEnabled(true);
         clear();
+        txId.setText(""); 
         tabelUser.clearSelection();
     }//GEN-LAST:event_btnCancelActionPerformed
 
@@ -472,7 +488,9 @@ boolean edit = false;
         btnEdit.setEnabled(false);
         btnHapus.setEnabled(false);
         btnSimpan.setEnabled(true);
-         txPass.setEditable(true);
+        txId.setEditable(false);
+        txUser.setEditable(true);
+        txPass.setEditable(true);
         txNama.setEditable(true);
         txNohp.setEditable(true);
         txPass.requestFocus();
@@ -482,13 +500,21 @@ boolean edit = false;
         // TODO add your handling code here:
     }//GEN-LAST:event_txUserActionPerformed
 
-    private void txPassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txPassActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txPassActionPerformed
-
     private void txNohpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txNohpActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txNohpActionPerformed
+
+    private void checkpassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkpassActionPerformed
+        if (checkpass.isSelected()) {
+        txPass.setEchoChar((char) 0);
+    } else {
+        txPass.setEchoChar('*'); 
+    }
+    }//GEN-LAST:event_checkpassActionPerformed
+
+    private void txPassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txPassActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txPassActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -498,6 +524,7 @@ boolean edit = false;
     private custom.Custom_ButtonRounded btnHapus;
     private custom.Custom_ButtonRounded btnNew;
     private custom.Custom_ButtonRounded btnSimpan;
+    private javax.swing.JCheckBox checkpass;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -510,7 +537,7 @@ boolean edit = false;
     private custom.JTextfieldRounded txId;
     private custom.JTextfieldRounded txNama;
     private custom.JTextfieldRounded txNohp;
-    private custom.JTextfieldRounded txPass;
+    private custom.JPasswordFieldRounded txPass;
     private custom.JTextfieldRounded txUser;
     // End of variables declaration//GEN-END:variables
 
