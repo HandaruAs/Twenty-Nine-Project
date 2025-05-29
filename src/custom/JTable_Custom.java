@@ -35,7 +35,7 @@ public class JTable_Custom extends JTable {
         setShowGrid(true);
         setGridColor(Color.BLACK);
         setShowHorizontalLines(true);
-        setShowVerticalLines(false);
+        setShowVerticalLines(true);
         setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
         // Setting untuk header tabel
@@ -139,6 +139,7 @@ public class JTable_Custom extends JTable {
             super.paintComponent(g);
             g.setColor(Color.BLACK);
             g.drawLine(0, getHeight() - 1, getWidth(), getHeight() - 1); // Border bawah header
+             g.drawLine(getWidth() - 1, 0, getWidth() - 1, getHeight());  // garis kanan
         }
     }
 }
