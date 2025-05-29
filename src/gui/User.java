@@ -35,29 +35,11 @@ public class User extends javax.swing.JInternalFrame {
      */
     public User() {
         initComponents();
+
         
-         // Font global manual (kalau mau override)
-    Font font = new Font("Poppins", Font.PLAIN, 10);
+    Font font = new Font("Poppins", Font.PLAIN, 11);
     setFontKeSemuaKomponen(this, font);
 
-     // TABLE STYLE
-tabelUser.setFont(font);
-tabelUser.setRowHeight(30);
-tabelUser.setBackground(new Color(255, 255, 180)); // kuning
-tabelUser.setForeground(Color.BLACK);
-tabelUser.setSelectionBackground(new Color(255, 204, 0)); // kuning gelap
-tabelUser.setSelectionForeground(Color.BLACK);
-
-// Menampilkan garis antar kolom dan baris
-tabelUser.setShowGrid(true);
-tabelUser.setGridColor(Color.BLACK); // warna garis
-
-// HEADER STYLE
-tabelUser.getTableHeader().setFont(font);
-tabelUser.getTableHeader().setBackground(new Color(255, 235, 150));
-tabelUser.getTableHeader().setForeground(Color.BLACK);
-
-   
         
         this.setBorder(javax.swing.BorderFactory.createEmptyBorder(0,0,0,0));
         BasicInternalFrameUI ui=(BasicInternalFrameUI)this.getUI();
@@ -65,7 +47,21 @@ tabelUser.getTableHeader().setForeground(Color.BLACK);
         ut = new utama();
         ur = new control_user();
         tampil();
+       
+        txRFID.setEnabled(false);
+        txUser.setEditable(false);
+        txPass.setEditable(false);
+        txNama.setEditable(false);
+        txNohp.setEditable(false);
+
+
+        btnSimpan.setEnabled(false);
+        btnEdit.setEnabled(false);
+        btnHapus.setEnabled(false);
+        btnCancel.setEnabled(false);
+
     }
+    
     public void tampil(){
          tabelUser.setModel(ur.model);
         ur.model.setRowCount(0);
@@ -93,6 +89,7 @@ tabelUser.getTableHeader().setForeground(Color.BLACK);
         throw new RuntimeException(e);
     }
 }
+     
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -109,15 +106,15 @@ tabelUser.getTableHeader().setForeground(Color.BLACK);
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        txId = new custom.JTextfieldRounded();
+        txRFID = new custom.JTextfieldRounded();
         txUser = new custom.JTextfieldRounded();
         txNama = new custom.JTextfieldRounded();
         txNohp = new custom.JTextfieldRounded();
         txPass = new custom.JPasswordFieldRounded();
         checkpass = new javax.swing.JCheckBox();
         kGradientPanel11 = new keeptoo.KGradientPanel();
-        jScrollPane11 = new javax.swing.JScrollPane();
-        tabelUser = new javax.swing.JTable();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tabelUser = new custom.JTable_Custom();
         btnNew = new custom.Custom_ButtonRounded();
         btnSimpan = new custom.Custom_ButtonRounded();
         btnHapus = new custom.Custom_ButtonRounded();
@@ -156,7 +153,7 @@ tabelUser.getTableHeader().setForeground(Color.BLACK);
 
         jLabel4.setText("NO HP");
 
-        jLabel5.setText("ID");
+        jLabel5.setText("RFID");
 
         txUser.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -189,7 +186,7 @@ tabelUser.getTableHeader().setForeground(Color.BLACK);
             .addGroup(PanelFormLayout.createSequentialGroup()
                 .addGap(27, 27, 27)
                 .addGroup(PanelFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txId, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txRFID, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2)
                     .addComponent(jLabel5)
                     .addComponent(jLabel4)
@@ -200,7 +197,7 @@ tabelUser.getTableHeader().setForeground(Color.BLACK);
                     .addComponent(txNohp, javax.swing.GroupLayout.DEFAULT_SIZE, 221, Short.MAX_VALUE)
                     .addComponent(txPass, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(checkpass, javax.swing.GroupLayout.DEFAULT_SIZE, 31, Short.MAX_VALUE)
+                .addComponent(checkpass, javax.swing.GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE)
                 .addContainerGap())
         );
         PanelFormLayout.setVerticalGroup(
@@ -209,7 +206,7 @@ tabelUser.getTableHeader().setForeground(Color.BLACK);
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txId, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txRFID, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -217,9 +214,9 @@ tabelUser.getTableHeader().setForeground(Color.BLACK);
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(PanelFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(txPass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(checkpass))
+                .addGroup(PanelFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(checkpass, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txPass, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -237,44 +234,31 @@ tabelUser.getTableHeader().setForeground(Color.BLACK);
 
         tabelUser.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        tabelUser.setGridColor(new java.awt.Color(102, 102, 102));
-        tabelUser.setSelectionBackground(new java.awt.Color(0, 204, 153));
+        ));
         tabelUser.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tabelUserMouseClicked(evt);
             }
         });
-        jScrollPane11.setViewportView(tabelUser);
+        jScrollPane1.setViewportView(tabelUser);
 
         javax.swing.GroupLayout kGradientPanel11Layout = new javax.swing.GroupLayout(kGradientPanel11);
         kGradientPanel11.setLayout(kGradientPanel11Layout);
         kGradientPanel11Layout.setHorizontalGroup(
             kGradientPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(kGradientPanel11Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane11, javax.swing.GroupLayout.PREFERRED_SIZE, 522, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 499, Short.MAX_VALUE)
         );
         kGradientPanel11Layout.setVerticalGroup(
             kGradientPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(kGradientPanel11Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane11, javax.swing.GroupLayout.DEFAULT_SIZE, 313, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 351, Short.MAX_VALUE)
         );
 
         btnNew.setText("Baru");
@@ -319,48 +303,48 @@ tabelUser.getTableHeader().setForeground(Color.BLACK);
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(65, 65, 65)
-                        .addComponent(btnNew, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(22, 22, 22)
+                        .addComponent(PanelForm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(PanelForm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(33, 33, 33)
+                        .addGap(116, 116, 116)
+                        .addComponent(btnNew, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(24, 24, 24)
                         .addComponent(btnSimpan, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btnHapus, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(kGradientPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, 546, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(110, Short.MAX_VALUE))
+                        .addGap(27, 27, 27)
+                        .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .addGap(25, 25, 25)
+                        .addComponent(kGradientPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, 499, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(41, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(24, 24, 24)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(kGradientPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, 337, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(PanelForm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(26, 26, 26)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnSimpan, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnHapus, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnNew, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(37, Short.MAX_VALUE))
+                    .addComponent(PanelForm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(kGradientPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, 351, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnSimpan, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
+                    .addComponent(btnNew, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnHapus, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnCancel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnEdit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(26, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -369,19 +353,6 @@ tabelUser.getTableHeader().setForeground(Color.BLACK);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void tabelUserMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelUserMouseClicked
-        // TODO add your handling code here:
-        int row = tabelUser.getSelectedRow();
-        txId.setText(tabelUser.getValueAt(row, 0).toString());
-        txUser.setText(tabelUser.getValueAt(row, 1).toString());
-        txPass.setText(tabelUser.getValueAt(row, 2).toString());
-        txNama.setText(tabelUser.getValueAt(row, 3).toString());
-        txNohp.setText(tabelUser.getValueAt(row, 4).toString());
-        btnEdit.setEnabled(true);
-        btnHapus.setEnabled(true);
-        btnCancel.setEnabled(true);
-    }//GEN-LAST:event_tabelUserMouseClicked
 boolean edit = false;
     private void formInternalFrameClosing(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameClosing
         ut.tampilCountBrg();
@@ -390,13 +361,7 @@ boolean edit = false;
     }//GEN-LAST:event_formInternalFrameClosing
 
     private void btnNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNewActionPerformed
-  
-    java.time.LocalDateTime now = java.time.LocalDateTime.now();
-    String idUser = "USR" + now.format(java.time.format.DateTimeFormatter.ofPattern("mmss"));
-
-    txId.setText(idUser);         
-    txId.setEditable(false);        
-
+    txRFID.setEditable(true);        
     txUser.setEditable(true);
     txPass.setEditable(true);
     txNama.setEditable(true);
@@ -410,17 +375,16 @@ boolean edit = false;
     }//GEN-LAST:event_btnNewActionPerformed
 
     private void btnSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSimpanActionPerformed
-   String id = txId.getText();
+    String id = txRFID.getText();
     String user = txUser.getText();
     String pass = txPass.getText();
     String nama = txNama.getText();
     String nohp = txNohp.getText();
 
-    String hashedPass = hashPassword(pass); // <-- HASH DI SINI
-
+    String hashedPass = hashPassword(pass); 
     if (edit == true) {
         try {
-            ur.edit(id, user, hashedPass, nama, nohp); // simpan password yg sudah dihash
+            ur.edit(id, user, hashedPass, nama, nohp); 
             JOptionPane.showMessageDialog(rootPane, "DATA BERHASIL DI UPDATE");
             tampil();
             clear();
@@ -436,13 +400,14 @@ boolean edit = false;
         }
     } else {
         try {
-            ur.simpan(id, user, hashedPass, nama, nohp); // simpan password yg sudah dihash
+            ur.simpan(id, user, hashedPass, nama, nohp); 
             JOptionPane.showMessageDialog(rootPane, "DATA BERHASIL DISIMPAN");
             tampil();
             clear();
             btnSimpan.setEnabled(false);
             btnCancel.setEnabled(false);
             btnNew.setEnabled(true);
+            
             txUser.setEditable(false);
             txPass.setEditable(false);
             txNama.setEditable(false);
@@ -454,7 +419,7 @@ boolean edit = false;
     }//GEN-LAST:event_btnSimpanActionPerformed
 
     private void btnHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHapusActionPerformed
-   String id = txId.getText();
+   String id = txRFID.getText();
         try {
             ur.hapus(id);
                    JOptionPane.showMessageDialog(rootPane, "DATA BERHASIL DI HAPUS");
@@ -467,7 +432,7 @@ boolean edit = false;
     }//GEN-LAST:event_btnHapusActionPerformed
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
-        txId.setEditable(false);
+        txRFID.setEditable(false);
         txUser.setEditable(false);
         txPass.setEditable(false);
         txNama.setEditable(false);
@@ -478,7 +443,7 @@ boolean edit = false;
         btnCancel.setEnabled(false);
         btnNew.setEnabled(true);
         clear();
-        txId.setText(""); 
+        txRFID.setText(""); 
         tabelUser.clearSelection();
     }//GEN-LAST:event_btnCancelActionPerformed
 
@@ -488,7 +453,7 @@ boolean edit = false;
         btnEdit.setEnabled(false);
         btnHapus.setEnabled(false);
         btnSimpan.setEnabled(true);
-        txId.setEditable(false);
+        txRFID.setEditable(false);
         txUser.setEditable(true);
         txPass.setEditable(true);
         txNama.setEditable(true);
@@ -516,6 +481,18 @@ boolean edit = false;
         // TODO add your handling code here:
     }//GEN-LAST:event_txPassActionPerformed
 
+    private void tabelUserMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelUserMouseClicked
+        int row = tabelUser.getSelectedRow();
+        txRFID.setText(tabelUser.getValueAt(row, 0).toString());
+        txUser.setText(tabelUser.getValueAt(row, 1).toString());
+        txPass.setText(tabelUser.getValueAt(row, 2).toString());
+        txNama.setText(tabelUser.getValueAt(row, 3).toString());
+        txNohp.setText(tabelUser.getValueAt(row, 4).toString());
+        btnEdit.setEnabled(true);
+        btnHapus.setEnabled(true);
+        btnCancel.setEnabled(true);
+    }//GEN-LAST:event_tabelUserMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel PanelForm;
@@ -531,13 +508,13 @@ boolean edit = false;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JScrollPane jScrollPane11;
+    private javax.swing.JScrollPane jScrollPane1;
     private keeptoo.KGradientPanel kGradientPanel11;
-    private javax.swing.JTable tabelUser;
-    private custom.JTextfieldRounded txId;
+    private custom.JTable_Custom tabelUser;
     private custom.JTextfieldRounded txNama;
     private custom.JTextfieldRounded txNohp;
     private custom.JPasswordFieldRounded txPass;
+    private custom.JTextfieldRounded txRFID;
     private custom.JTextfieldRounded txUser;
     // End of variables declaration//GEN-END:variables
 

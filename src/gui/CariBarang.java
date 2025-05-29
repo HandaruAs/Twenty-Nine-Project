@@ -18,7 +18,7 @@ public class CariBarang extends javax.swing.JDialog {
      */
     
      public CariBarang(java.awt.Frame parent, boolean modal) {
-        this(parent, modal, "Transaksi"); // Default ke "Transaksi"
+        this(parent, modal, "Transaksi"); 
     }
     
     

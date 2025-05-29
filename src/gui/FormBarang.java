@@ -31,52 +31,35 @@ public class FormBarang extends javax.swing.JInternalFrame {
     /**
      * Creates new form FormBarang
      */
-    public FormBarang() {
-        initComponents();
-        
-            // Font global manual (kalau mau override)
-    Font font = new Font("Poppins", Font.PLAIN, 10);
-    setFontKeSemuaKomponen(this, font);
+        public FormBarang() {
+            initComponents();
 
-    // TABLE STYLE
-TabelBarang.setFont(font);
-TabelBarang.setRowHeight(30);
-TabelBarang.setBackground(new Color(255, 255, 180)); // kuning
-TabelBarang.setForeground(Color.BLACK);
-TabelBarang.setSelectionBackground(new Color(255, 204, 0)); // kuning gelap
-TabelBarang.setSelectionForeground(Color.BLACK);
+               
+        Font font = new Font("Poppins", Font.PLAIN, 11);
+        setFontKeSemuaKomponen(this, font);
 
-// Menampilkan garis antar kolom dan baris
-TabelBarang.setShowGrid(true);
-TabelBarang.setGridColor(Color.BLACK); // warna garis
 
-// HEADER STYLE
-TabelBarang.getTableHeader().setFont(font);
-TabelBarang.getTableHeader().setBackground(new Color(255, 235, 150));
-TabelBarang.getTableHeader().setForeground(Color.BLACK);
+            this.setBorder(javax.swing.BorderFactory.createEmptyBorder(0,0,0,0));
+            BasicInternalFrameUI ui=(BasicInternalFrameUI)this.getUI();
+            ui.setNorthPane(null);
+            ut = new utama();
+            mb = new MasterBarang();
+            tampil();
 
-        
-        this.setBorder(javax.swing.BorderFactory.createEmptyBorder(0,0,0,0));
-        BasicInternalFrameUI ui=(BasicInternalFrameUI)this.getUI();
-        ui.setNorthPane(null);
-        ut = new utama();
-        mb = new MasterBarang();
-        tampil();
-        
-    txtKodeBarang.setEnabled(false);
-    txNama.setEnabled(false);
-    txStok.setEnabled(false);
-    txHarga.setEnabled(false);
-    txStatus.setEnabled(false);
+        txtKodeBarang.setEditable(false);
+        txNama.setEditable(false);
+        txStok.setEditable(false);
+        txHarga.setEditable(false);
+        txStatus.setEnabled(false);
 
-    
-    btnSimpan.setEnabled(false);
-    btnEdit.setEnabled(false);
-    btnHapus.setEnabled(false);
-    btnBatal.setEnabled(false);
-    
-    
-    }
+
+        btnSimpan.setEnabled(false);
+        btnEdit.setEnabled(false);
+        btnHapus.setEnabled(false);
+        btnBatal.setEnabled(false);
+
+
+        }
     public void tampil(){
          TabelBarang.setModel(mb.modelBarang);
         mb.modelBarang.setRowCount(0);
@@ -92,7 +75,7 @@ TabelBarang.getTableHeader().setForeground(Color.BLACK);
     }
     private String generateKodeBarang() {
     String prefix = "BRG";
-    int randomNumber = (int) (Math.random() * 90000) + 10000; // 5 digit angka acak
+    int randomNumber = (int) (Math.random() * 90000) + 10000; 
     return prefix + randomNumber;
 }
 
@@ -119,8 +102,8 @@ TabelBarang.getTableHeader().setForeground(Color.BLACK);
         txStok = new custom.JTextfieldRounded();
         txHarga = new custom.JTextfieldRounded();
         kGradientPanel1 = new keeptoo.KGradientPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        TabelBarang = new javax.swing.JTable();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        TabelBarang = new custom.JTable_Custom();
         cetak = new custom.Custom_ButtonRounded();
         btnBaru = new custom.Custom_ButtonRounded();
         btnSimpan = new custom.Custom_ButtonRounded();
@@ -216,44 +199,31 @@ TabelBarang.getTableHeader().setForeground(Color.BLACK);
 
         TabelBarang.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        TabelBarang.setGridColor(new java.awt.Color(102, 102, 102));
-        TabelBarang.setSelectionBackground(new java.awt.Color(0, 204, 153));
+        ));
         TabelBarang.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 TabelBarangMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(TabelBarang);
+        jScrollPane2.setViewportView(TabelBarang);
 
         javax.swing.GroupLayout kGradientPanel1Layout = new javax.swing.GroupLayout(kGradientPanel1);
         kGradientPanel1.setLayout(kGradientPanel1Layout);
         kGradientPanel1Layout.setHorizontalGroup(
             kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(kGradientPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 520, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 497, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         kGradientPanel1Layout.setVerticalGroup(
             kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(kGradientPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 333, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
         );
 
         cetak.setText("Cetak Barcode");
@@ -304,32 +274,32 @@ TabelBarang.getTableHeader().setForeground(Color.BLACK);
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(btnBaru, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(cetak, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(28, 28, 28)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(btnSimpan, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnBaru, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(66, 66, 66)
+                        .addComponent(cetak, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(37, 37, 37)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(btnSimpan, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(28, 28, 28)
                         .addComponent(btnHapus, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(26, 26, 26)
                         .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(btnBatal, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(kGradientPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 544, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(32, Short.MAX_VALUE))
+                        .addComponent(btnBatal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(kGradientPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 497, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(70, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(kGradientPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 357, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 348, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(21, 21, 21)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 348, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(kGradientPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 348, Short.MAX_VALUE))
                 .addGap(29, 29, 29)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btnHapus, javax.swing.GroupLayout.DEFAULT_SIZE, 32, Short.MAX_VALUE)
@@ -354,25 +324,7 @@ TabelBarang.getTableHeader().setForeground(Color.BLACK);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void TabelBarangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TabelBarangMouseClicked
-        int row = TabelBarang.getSelectedRow();
-
-        txtKodeBarang.setText(TabelBarang.getValueAt(row, 0).toString());
-        txNama.setText(TabelBarang.getValueAt(row, 1).toString());
-        txStok.setText(TabelBarang.getValueAt(row, 2).toString());
-        txHarga.setText(TabelBarang.getValueAt(row, 3).toString());
-
-        // Ambil nilai status dari kolom yang sesuai
-        String status = TabelBarang.getValueAt(row, 4).toString(); // Pastikan kolom ke-4 untuk status
-
-        // Set JComboBox berdasarkan nilai status
-        txStatus.setSelectedItem(status);
-
-        btnEdit.setEnabled(true);
-        btnHapus.setEnabled(true);
-        btnBatal.setEnabled(true);
-    }//GEN-LAST:event_TabelBarangMouseClicked
+boolean edit = false;
 
     private void formInternalFrameClosing(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameClosing
         ut.tampilCountBrg();
@@ -399,26 +351,25 @@ TabelBarang.getTableHeader().setForeground(Color.BLACK);
     }//GEN-LAST:event_cetakActionPerformed
 
     private void btnBaruActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBaruActionPerformed
-   // Aktifkan input
-    txtKodeBarang.setEnabled(true);
-    txNama.setEnabled(true);
-    txStok.setEnabled(true);
-    txHarga.setEnabled(true);
+   
+    txtKodeBarang.setEditable(true);
+    txNama.setEditable(true);
+    txStok.setEditable(true);
+    txHarga.setEditable(true);
     txStatus.setEnabled(true);
 
-    // Kosongkan semua input
+   
     txtKodeBarang.setText("");
     txNama.setText("");
     txStok.setText("");
     txHarga.setText("");
-    txStatus.setSelectedIndex(0); // Mengatur ke pilihan pertama
-
-    // Aktifkan tombol Simpan & Batal, Nonaktifkan tombol Baru
+    txStatus.setSelectedIndex(0); 
+    
     btnSimpan.setEnabled(true);
     btnBatal.setEnabled(true);
     btnBaru.setEnabled(false);
 
-    // Fokus ke input pertama
+    
     txtKodeBarang.requestFocus();
     txtKodeBarang.setText(generateKodeBarang());
     }//GEN-LAST:event_btnBaruActionPerformed
@@ -428,13 +379,13 @@ TabelBarang.getTableHeader().setForeground(Color.BLACK);
 String kode = txtKodeBarang.getText();
 String nama = txNama.getText();
 
-// Cek apakah ada input kosong
+
 if (kode.isEmpty() || nama.isEmpty() || txStok.getText().isEmpty() || txHarga.getText().isEmpty()) {
     JOptionPane.showMessageDialog(this, "Semua kolom harus diisi!");
     return;
 }
 
-// Cek apakah stok & harga valid
+
 int stok, harga;
 try {
     stok = Integer.parseInt(txStok.getText());
@@ -456,17 +407,17 @@ try {
     tampil();
     clear();
 
-    // Nonaktifkan input kembali
-    txtKodeBarang.setEnabled(false);
-    txNama.setEnabled(false);
-    txStok.setEnabled(false);
-    txHarga.setEnabled(false);
-    txStatus.setEnabled(false); // Nonaktifkan JComboBox
-
-    // Pastikan tombol Baru aktif kembali agar bisa input data baru
+   
+    txtKodeBarang.setEditable(false);
+    txNama.setEditable(false);
+    txStok.setEditable(false);
+    txHarga.setEditable(false);
+    txStatus.setEnabled(false); 
+    
+    btnBaru.setEnabled(true); 
     btnSimpan.setEnabled(false);
     btnBatal.setEnabled(false);
-    btnBaru.setEnabled(true); 
+   
 
 } catch (SQLException ex) {
     JOptionPane.showMessageDialog(this, "Terjadi kesalahan saat menyimpan data: " + ex.getMessage());
@@ -481,11 +432,11 @@ if (selectedRow == -1) {
 } else {
     int confirm = JOptionPane.showConfirmDialog(rootPane, "Apakah Anda yakin ingin menghapus data ini?", "Konfirmasi", JOptionPane.YES_NO_OPTION);
     if (confirm == JOptionPane.YES_OPTION) {
-        String kodeBarang = TabelBarang.getValueAt(selectedRow, 0).toString(); // Ambil kode barang dari tabel
+        String kodeBarang = TabelBarang.getValueAt(selectedRow, 0).toString(); 
         try {
-            mb.hapus(kodeBarang); // Panggil metode hapus
+            mb.hapus(kodeBarang); 
             JOptionPane.showMessageDialog(rootPane, "DATA BERHASIL DI HAPUS");
-            tampil(); // Refresh tabel setelah penghapusan
+            tampil(); 
         } catch (SQLException ex) {
             Logger.getLogger(FormBarang.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -500,10 +451,11 @@ if (selectedRow == -1) {
         btnEdit.setEnabled(false);
         btnHapus.setEnabled(false);
         btnSimpan.setEnabled(true);
+        
         txtKodeBarang.setEditable(false);
         txNama.setEditable(true);
         txStok.setEditable(true);
-        txStatus.setEditable(true);
+        txStatus.setEnabled(true);
         txHarga.setEditable(true);
         txNama.requestFocus();
     }//GEN-LAST:event_btnEditActionPerformed
@@ -522,10 +474,27 @@ if (selectedRow == -1) {
         clear();
         TabelBarang.clearSelection();
     }//GEN-LAST:event_btnBatalActionPerformed
-   boolean edit = false;
 
+    private void TabelBarangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TabelBarangMouseClicked
+        int row = TabelBarang.getSelectedRow();
+
+        txtKodeBarang.setText(TabelBarang.getValueAt(row, 0).toString());
+        txNama.setText(TabelBarang.getValueAt(row, 1).toString());
+        txStok.setText(TabelBarang.getValueAt(row, 2).toString());
+        txHarga.setText(TabelBarang.getValueAt(row, 3).toString());
+
+        
+        String status = TabelBarang.getValueAt(row, 4).toString(); 
+
+        txStatus.setSelectedItem(status);
+
+        btnEdit.setEnabled(true);
+        btnHapus.setEnabled(true);
+        btnBatal.setEnabled(true);
+    }//GEN-LAST:event_TabelBarangMouseClicked
+   
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    public static javax.swing.JTable TabelBarang;
+    public static custom.JTable_Custom TabelBarang;
     private custom.Custom_ButtonRounded btnBaru;
     private custom.Custom_ButtonRounded btnBatal;
     private custom.Custom_ButtonRounded btnEdit;
@@ -539,7 +508,7 @@ if (selectedRow == -1) {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private keeptoo.KGradientPanel kGradientPanel1;
     private custom.JTextfieldRounded txHarga;
     private custom.JTextfieldRounded txNama;

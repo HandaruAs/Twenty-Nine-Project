@@ -116,10 +116,10 @@ public class ForgetPass extends javax.swing.JFrame {
             return;
         }
 
-        // Generate OTP
+        
         generatedOTP = generateOTP();
 
-        // Send OTP via Email
+        
         boolean emailSent = sendEmail(email, generatedOTP);
         if (emailSent) {
             JOptionPane.showMessageDialog(null, "OTP has been sent to your email.");

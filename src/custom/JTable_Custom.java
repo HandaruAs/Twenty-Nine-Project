@@ -21,16 +21,26 @@ public class JTable_Custom extends JTable {
 
     private int selectedRow = -1;
     private int hoveredRow = -1;
+    private final Font font = new Font("Poppins", Font.PLAIN, 12);
 
     public JTable_Custom() {
+        setFont(font);
+        setFontKeSemuaKomponen(this, font);
+        setRowHeight(30);
+        setBackground(new Color(255, 255, 180));
+        setForeground(Color.BLACK);
+        setSelectionBackground(new Color(255, 204, 0));
+        setSelectionForeground(Color.BLACK);
+
+        setShowGrid(true);
+        setGridColor(Color.BLACK);
         setShowHorizontalLines(true);
-        setShowVerticalLines(false); // Untuk tampilan yang lebih bersih
-        setGridColor(new Color(230, 230, 230));
-        setRowHeight(40);
+        setShowVerticalLines(false);
         setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        
+
         // Setting untuk header tabel
         getTableHeader().setReorderingAllowed(false);
+        getTableHeader().setFont(font);
         getTableHeader().setDefaultRenderer(new DefaultTableCellRenderer() {
             @Override
             public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
@@ -39,30 +49,30 @@ public class JTable_Custom extends JTable {
                 return header;
             }
         });
-        
+
         // Renderer default untuk sel
         setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
             @Override
             public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
                 Component com = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-                com.setFont(new Font("SansSerif", Font.PLAIN, 12));
-                
+                com.setFont(font);
+
                 if (isSelected) {
-                    com.setBackground(new Color(204, 229, 255));  // Warna saat dipilih
-                    com.setForeground(new Color(0, 76, 153));
+                    com.setBackground(new Color(255, 204, 0));
+                    com.setForeground(Color.BLACK);
                 } else if (row == hoveredRow) {
-                    com.setBackground(new Color(245, 245, 245)); // Warna saat hover
-                    com.setForeground(new Color(102, 102, 102));
+                    com.setBackground(new Color(255, 255, 200));
+                    com.setForeground(Color.BLACK);
                 } else {
-                    com.setBackground(Color.WHITE);
-                    com.setForeground(new Color(102, 102, 102));
+                    com.setBackground(new Color(255, 255, 180));
+                    com.setForeground(Color.BLACK);
                 }
-                
+
                 setBorder(noFocusBorder);
                 return com;
             }
         });
-        
+
         // Event listener untuk efek hover dan klik
         addMouseListener(new MouseAdapter() {
             @Override
@@ -101,15 +111,25 @@ public class JTable_Custom extends JTable {
         model.addRow(row);
     }
 
+    // Fungsi untuk menerapkan font ke semua komponen
+    private void setFontKeSemuaKomponen(Component comp, Font font) {
+        comp.setFont(font);
+        if (comp instanceof java.awt.Container) {
+            for (Component child : ((java.awt.Container) comp).getComponents()) {
+                setFontKeSemuaKomponen(child, font);
+            }
+        }
+    }
+
     // Custom header class
     private class TablezHeader extends JLabel {
 
         public TablezHeader(String text) {
             super(text);
             setOpaque(true);
-            setBackground(new Color(240, 240, 240));
-            setFont(new Font("SansSerif", Font.BOLD, 13));
-            setForeground(new Color(102, 102, 102));
+            setBackground(new Color(255, 235, 150));
+            setFont(font);
+            setForeground(Color.BLACK);
             setBorder(new EmptyBorder(10, 5, 10, 5));
             setHorizontalAlignment(CENTER);
         }
@@ -117,7 +137,7 @@ public class JTable_Custom extends JTable {
         @Override
         protected void paintComponent(Graphics g) {
             super.paintComponent(g);
-            g.setColor(new Color(200, 200, 200));
+            g.setColor(Color.BLACK);
             g.drawLine(0, getHeight() - 1, getWidth(), getHeight() - 1); // Border bawah header
         }
     }

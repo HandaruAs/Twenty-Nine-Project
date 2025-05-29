@@ -30,27 +30,9 @@ public class FormPelanggan extends javax.swing.JInternalFrame {
     public FormPelanggan() {
         initComponents();
         
-           // Font global manual (kalau mau override)
-    Font font = new Font("Poppins", Font.PLAIN, 10);
+        
+    Font font = new Font("Poppins", Font.PLAIN, 11);
     setFontKeSemuaKomponen(this, font);
-
-    // TABLE STYLE
-    TabelPelanggan.setFont(font);
-    TabelPelanggan.setRowHeight(30);
-    TabelPelanggan.setBackground(new Color(255, 255, 180)); // kuning
-    TabelPelanggan.setForeground(Color.BLACK);
-    TabelPelanggan.setSelectionBackground(new Color(255, 204, 0)); // kuning gelap
-    TabelPelanggan.setSelectionForeground(Color.BLACK);
-
-    // Menampilkan garis antar kolom dan baris
-    TabelPelanggan.setShowGrid(true);
-    TabelPelanggan.setGridColor(Color.BLACK); // warna garis
-
-    // HEADER STYLE
-    TabelPelanggan.getTableHeader().setFont(font);
-    TabelPelanggan.getTableHeader().setBackground(new Color(255, 235, 150));
-    TabelPelanggan.getTableHeader().setForeground(Color.BLACK);
-   
         
         this.setBorder(javax.swing.BorderFactory.createEmptyBorder(0,0,0,0));
         BasicInternalFrameUI ui=(BasicInternalFrameUI)this.getUI();
@@ -58,6 +40,20 @@ public class FormPelanggan extends javax.swing.JInternalFrame {
         ut = new utama();
         pl = new pelanggan();
         tampil();
+        
+        txid.setEnabled(false);
+        txnama.setEditable(false);
+        txalamat.setEditable(false);
+        txnomor.setEditable(false);
+        
+
+
+        btnSimpan.setEnabled(false);
+        btnEdit.setEnabled(false);
+        btnHapus.setEnabled(false);
+        btnCancel.setEnabled(false);
+
+        
     }
    
    public void tampil(){
@@ -92,8 +88,8 @@ public class FormPelanggan extends javax.swing.JInternalFrame {
         txalamat = new custom.JTextfieldRounded();
         txnomor = new custom.JTextfieldRounded();
         kGradientPanel1 = new keeptoo.KGradientPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        TabelPelanggan = new javax.swing.JTable();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        TabelPelanggan = new custom.JTable_Custom();
         btnNew = new custom.Custom_ButtonRounded();
         btnSimpan = new custom.Custom_ButtonRounded();
         btnHapus = new custom.Custom_ButtonRounded();
@@ -152,7 +148,7 @@ public class FormPelanggan extends javax.swing.JInternalFrame {
                     .addComponent(txnama, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(txalamat, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(txnomor, javax.swing.GroupLayout.DEFAULT_SIZE, 228, Short.MAX_VALUE))
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addContainerGap(32, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -173,7 +169,7 @@ public class FormPelanggan extends javax.swing.JInternalFrame {
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txnomor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(61, Short.MAX_VALUE))
+                .addContainerGap(27, Short.MAX_VALUE))
         );
 
         kGradientPanel1.setkBorderRadius(0);
@@ -182,44 +178,31 @@ public class FormPelanggan extends javax.swing.JInternalFrame {
 
         TabelPelanggan.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        TabelPelanggan.setGridColor(new java.awt.Color(102, 102, 102));
-        TabelPelanggan.setSelectionBackground(new java.awt.Color(0, 204, 153));
+        ));
         TabelPelanggan.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 TabelPelangganMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(TabelPelanggan);
+        jScrollPane2.setViewportView(TabelPelanggan);
 
         javax.swing.GroupLayout kGradientPanel1Layout = new javax.swing.GroupLayout(kGradientPanel1);
         kGradientPanel1.setLayout(kGradientPanel1Layout);
         kGradientPanel1Layout.setHorizontalGroup(
             kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(kGradientPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 543, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 498, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         kGradientPanel1Layout.setVerticalGroup(
             kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(kGradientPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
         );
 
         btnNew.setText("New");
@@ -264,42 +247,41 @@ public class FormPelanggan extends javax.swing.JInternalFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(97, 97, 97)
-                        .addComponent(btnNew, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(btnNew, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(122, 122, 122))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(btnSimpan, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(29, 29, 29)
                         .addComponent(btnHapus, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(30, 30, 30)
+                        .addGap(20, 20, 20)
+                        .addComponent(btnSimpan, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
                         .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(37, 37, 37)
-                        .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(38, 38, 38))
-                    .addComponent(kGradientPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 567, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(41, Short.MAX_VALUE))
+                        .addGap(27, 27, 27)
+                        .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(kGradientPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 498, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(52, 52, 52))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(kGradientPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 391, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
+                .addGap(21, 21, 21)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(btnSimpan, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnHapus, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(btnNew, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(kGradientPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 345, Short.MAX_VALUE))
+                .addGap(32, 32, 32)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnNew, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnHapus, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnSimpan, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(47, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -310,23 +292,14 @@ public class FormPelanggan extends javax.swing.JInternalFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void TabelPelangganMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TabelPelangganMouseClicked
-        // TODO add your handling code here:
-        int row = TabelPelanggan.getSelectedRow();
-        txid.setText(TabelPelanggan.getValueAt(row, 0).toString());
-        txnama.setText(TabelPelanggan.getValueAt(row, 1).toString());
-        txalamat.setText(TabelPelanggan.getValueAt(row, 2).toString());
-        txnomor.setText(TabelPelanggan.getValueAt(row, 3).toString());
-        btnEdit.setEnabled(true);
-        btnHapus.setEnabled(true);
-        btnCancel.setEnabled(true);
-    }//GEN-LAST:event_TabelPelangganMouseClicked
+boolean edit = false;
 
     private void formInternalFrameClosing(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameClosing
         ut.tampilCountBrg();
@@ -339,12 +312,12 @@ public class FormPelanggan extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_txnamaActionPerformed
 
     private void btnNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNewActionPerformed
-         // Mengisi ID otomatis berdasarkan jam dan menit saat ini
+        
     java.time.LocalDateTime now = java.time.LocalDateTime.now();
     String idPelanggan = "PLG" + now.format(java.time.format.DateTimeFormatter.ofPattern("mmss"));
 
-    txid.setText(idPelanggan);       // Set ID otomatis
-    txid.setEditable(false);         // Tidak bisa diubah oleh user
+    txid.setText(idPelanggan);      
+    txid.setEditable(false);         
 
     txnama.setEditable(true);
     txalamat.setEditable(true);
@@ -446,10 +419,21 @@ public class FormPelanggan extends javax.swing.JInternalFrame {
         clear();
         TabelPelanggan.clearSelection();
     }//GEN-LAST:event_btnCancelActionPerformed
-boolean edit = false;
+
+    private void TabelPelangganMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TabelPelangganMouseClicked
+         int row = TabelPelanggan.getSelectedRow();
+        txid.setText(TabelPelanggan.getValueAt(row, 0).toString());
+        txnama.setText(TabelPelanggan.getValueAt(row, 1).toString());
+        txalamat.setText(TabelPelanggan.getValueAt(row, 2).toString());
+        txnomor.setText(TabelPelanggan.getValueAt(row, 3).toString());
+        btnEdit.setEnabled(true);
+        btnHapus.setEnabled(true);
+        btnCancel.setEnabled(true);
+    }//GEN-LAST:event_TabelPelangganMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTable TabelPelanggan;
+    private custom.JTable_Custom TabelPelanggan;
     private custom.Custom_ButtonRounded btnCancel;
     private custom.Custom_ButtonRounded btnEdit;
     private custom.Custom_ButtonRounded btnHapus;
@@ -461,7 +445,7 @@ boolean edit = false;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private keeptoo.KGradientPanel kGradientPanel1;
     private custom.JTextfieldRounded txalamat;
     private custom.JTextfieldRounded txid;
