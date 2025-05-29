@@ -205,6 +205,11 @@ public class FormTransaksi extends javax.swing.JFrame {
         jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder("ITEM BARANG"));
 
         txkode.setEditable(false);
+        txkode.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txkodeActionPerformed(evt);
+            }
+        });
 
         txnama.setEditable(false);
 
@@ -847,6 +852,35 @@ public class FormTransaksi extends javax.swing.JFrame {
         ut.tampilCountBrg();
         ut.tampilCountPlg();
     }//GEN-LAST:event_formWindowClosing
+
+    private void txkodeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txkodeActionPerformed
+       koneksi konek = new koneksi();
+        konek.setKoneksi();
+        
+        Connection conn = konek.getKoneksi();
+ 
+        
+        try{
+            String query = "SELECT * FROM masterbarang WHERE kode_barang = '" + txkode.getText() + "'";
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery(query);
+            
+            if(rs.next()){
+                String nama = rs.getString("nama_barang");
+                Integer hargaa = rs.getInt("harga");
+                Integer stokk = rs.getInt("stok");
+                txnama.setText(nama);
+                harga = hargaa;
+                btnSimpan.setEnabled(true);
+                txqty.setEnabled(true);
+                stok = stokk;
+            }else{
+                JOptionPane.showMessageDialog(this, "Kode Barang Tidak Ditemukan");
+            }
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(this, "GAGAL MENYIMPAN DATA\n" + e.getMessage());
+        }
+    }//GEN-LAST:event_txkodeActionPerformed
 
     /**
      * @param args the command line arguments
