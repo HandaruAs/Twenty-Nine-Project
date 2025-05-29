@@ -35,7 +35,7 @@ public class Registrasi extends javax.swing.JFrame {
 
     @Override
     public boolean dispatchKeyEvent(KeyEvent e) {
-        if (!Registrasi.this.isActive()) return false; // <- Tambahkan ini juga
+        if (!Registrasi.this.isActive()) return false; 
 
         if (e.getID() == KeyEvent.KEY_PRESSED) {
             char keyChar = e.getKeyChar();
@@ -70,10 +70,10 @@ private void handleRfidInput(String rfid_tag) {
         ResultSet rs = ps.executeQuery();
 
         if (rs.next()) {
-            // RFID sudah digunakan -> tampilkan peringatan
+           
             JOptionPane.showMessageDialog(this, "RFID sudah terdaftar untuk user: " + rs.getString("username"), "Peringatan", JOptionPane.WARNING_MESSAGE);
         } else {
-            // RFID belum terdaftar -> masukkan ke field RFID tanpa pesan
+            
             txRfid.setText(rfid_tag);
         }
 

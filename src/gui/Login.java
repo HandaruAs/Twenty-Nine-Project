@@ -44,7 +44,7 @@ control_login cl;
 
     @Override
     public boolean dispatchKeyEvent(KeyEvent e) {
-        if (!Login.this.isActive()) return false; // <- Tambahkan ini
+        if (!Login.this.isActive()) return false; 
 
         if (e.getID() == KeyEvent.KEY_PRESSED) {
             char keyChar = e.getKeyChar();
@@ -194,17 +194,17 @@ control_login cl;
         char[] passArray = txPass.getPassword();
         String pass = new String(passArray);
         
-        // Menggunakan metode login untuk mengecek kredensial
+       
         boolean loginSuccess = cl.login(user, pass); 
         
-        // Jika login berhasil, ambil data user
+        
         if (loginSuccess) {
-            ResultSet rs = cl.getUserData(user); // Ambil data user setelah login berhasil
+            ResultSet rs = cl.getUserData(user); 
             if (rs.next()) {
                 FormUtama frm = new FormUtama();
-                FormUtama.pengguna.setText(rs.getString("nama")); // Menampilkan nama pengguna di FormUtama
-                dispose(); // Menutup window login
-                frm.setVisible(true); // Menampilkan FormUtama
+                FormUtama.pengguna.setText(rs.getString("nama")); 
+                dispose(); 
+                frm.setVisible(true); 
                 JOptionPane.showMessageDialog(rootPane, "Selamat Datang " + rs.getString("username"));
             }
         } else {

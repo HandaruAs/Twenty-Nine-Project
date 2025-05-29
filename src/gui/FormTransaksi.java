@@ -741,10 +741,10 @@ public class FormTransaksi extends javax.swing.JFrame {
     }
 
     try {
-        // Simpan ke tabel penjualan
+       
         ct.simpanPenjualan(nofak, kasir, id_pelanggan, pelanggan, diskon, total, bayar, kembali, tanggall);
 
-        // Simpan ke tabel barangpenjualan dan update stok
+        
         for (int n = 0; n < tbPengeluaran.getRowCount(); n++) {
             String kode_barang = tbPengeluaran.getValueAt(n, 0).toString();
             String nama_barang = tbPengeluaran.getValueAt(n, 1).toString();
@@ -769,14 +769,14 @@ public class FormTransaksi extends javax.swing.JFrame {
 
         JOptionPane.showMessageDialog(rootPane, "DATA BERHASIL DI SIMPAN");
 
-        // Reset tampilan
+       
         ct.noFak();
         ((DefaultTableModel) tbPengeluaran.getModel()).setRowCount(0);
 
-        // Cetak nota
+       
         servisReport.printNota(nofak);
 
-        // Disable tombol
+  
         btnSave.setEnabled(false);
         btnCariPlg.setEnabled(false);
         btnNew.setEnabled(false);
