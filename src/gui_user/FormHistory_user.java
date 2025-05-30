@@ -2,11 +2,13 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JInternalFrame.java to edit this template
  */
-package gui;
+package gui_user;
 
+import gui.*;
 import control.histori;
 import control.laporan;
 import static gui.FormBarang.TabelBarang;
+import static gui.FormHistory.tglAwal;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
@@ -39,7 +41,7 @@ import java.sql.Connection;
  *
  * @author handa
  */
-public class FormHistory extends javax.swing.JInternalFrame {
+public class FormHistory_user extends javax.swing.JInternalFrame {
     Connection conn;
     histori hh;
     laporan lp;
@@ -49,7 +51,7 @@ public class FormHistory extends javax.swing.JInternalFrame {
      * Creates new form FormHistory
      */
     
-    public FormHistory() {
+    public FormHistory_user() {
         initComponents();
         
         Font font = new Font("Poppins", Font.PLAIN, 13);
@@ -69,8 +71,9 @@ public class FormHistory extends javax.swing.JInternalFrame {
     public void setTglAwal(String text) {
         tglAwal.setText(text);
     }
-
-    
+    public void setTglAkhir(String text) {
+    tglAkhir.setText(text);
+}
     
     
     
@@ -91,8 +94,6 @@ public class FormHistory extends javax.swing.JInternalFrame {
         tglAwal = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         tglAkhir = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         dateAkhir = new com.toedter.calendar.JDateChooser();
@@ -100,8 +101,6 @@ public class FormHistory extends javax.swing.JInternalFrame {
         filter = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         TabelHistory = new custom.JTable_Custom();
-        jLabel7 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
 
         jPanel1.setBackground(new java.awt.Color(102, 0, 0));
 
@@ -122,18 +121,6 @@ public class FormHistory extends javax.swing.JInternalFrame {
         tglAkhir.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         tglAkhir.setForeground(new java.awt.Color(255, 204, 51));
         tglAkhir.setText("00-00-0000");
-
-        jLabel5.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel5.setText("CETAK NOTA");
-
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/printer_machine_icon_logo_vector_design_template-removebg-preview (1) 2.png"))); // NOI18N
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
 
         jLabel4.setBackground(new java.awt.Color(255, 255, 255));
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
@@ -170,18 +157,6 @@ public class FormHistory extends javax.swing.JInternalFrame {
         });
         jScrollPane2.setViewportView(TabelHistory);
 
-        jLabel7.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel7.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel7.setText("CETAK KE EXCEL");
-
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/printer_machine_icon_logo_vector_design_template-removebg-preview (1) 2.png"))); // NOI18N
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -198,28 +173,18 @@ public class FormHistory extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(tglAkhir))
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 532, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(filter)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel4)
-                                    .addComponent(jLabel6))
-                                .addGap(26, 26, 26)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(dateAkhir, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(dateAwal, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(151, 151, 151))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(filter)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(69, 69, 69)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton1)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel7)
-                            .addComponent(jButton2))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel6))
+                        .addGap(26, 26, 26)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(dateAkhir, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(dateAwal, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(151, 151, 151))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -244,15 +209,7 @@ public class FormHistory extends javax.swing.JInternalFrame {
                             .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(dateAkhir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(filter)
-                        .addGap(57, 57, 57)
-                        .addComponent(jLabel5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(43, 43, 43)
-                        .addComponent(jLabel7)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(filter)))
                 .addContainerGap(106, Short.MAX_VALUE))
         );
 
@@ -272,19 +229,6 @@ public class FormHistory extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 boolean cetak = false;
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-       if(cetak==true){
-            lp.printNota(nofak);
-            jButton1.setFocusable(false);
-            jButton1.setSelected(false);
-            TabelHistory.clearSelection();
-
-        }else{
-            JOptionPane.showMessageDialog(rootPane, "PILIH TRANSAKSI TERLEBIH DAHULU");
-        }
-
-    }//GEN-LAST:event_jButton1ActionPerformed
-
     private void filterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_filterActionPerformed
    hh.tampilTbFilter(dateAwal.getDate(), dateAkhir.getDate());
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -297,10 +241,6 @@ boolean cetak = false;
         int row = TabelHistory.getSelectedRow();
         nofak = TabelHistory.getValueAt(row, 1).toString();
     }//GEN-LAST:event_TabelHistoryMouseClicked
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-     exportToExcelWithSaveDialog(TabelHistory);
-    }//GEN-LAST:event_jButton2ActionPerformed
 public void exportToExcelWithSaveDialog(JTable table) {
     try {
         JFileChooser fileChooser = new JFileChooser();
@@ -363,14 +303,10 @@ public void exportToExcelWithSaveDialog(JTable table) {
     private com.toedter.calendar.JDateChooser dateAkhir;
     private com.toedter.calendar.JDateChooser dateAwal;
     private javax.swing.JButton filter;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane2;
     public static javax.swing.JLabel tglAkhir;
@@ -385,10 +321,6 @@ public void exportToExcelWithSaveDialog(JTable table) {
                 setFontKeSemuaKomponen((Container) comp, font);
             }
         }
-    }
-
-    public void setTglAkhir(String tanggal) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
 }

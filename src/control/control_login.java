@@ -28,31 +28,30 @@ public class control_login extends koneksi {
         return hexString.toString();
     }
 
-    // Fungsi untuk login, tetap mengembalikan boolean
-   public boolean login(String username, String password) throws SQLException, NoSuchAlgorithmException {
-    String sql = "SELECT * FROM user WHERE username = ?";
-    PreparedStatement ps = con.prepareStatement(sql);
-    ps.setString(1, username);
-    ResultSet rs = ps.executeQuery();
+    // Mengembalikan role (admin/user) jika login berhasil, null jika gagal
+    public String login(String username, String password) throws SQLException, NoSuchAlgorithmException {
+        String sql = "SELECT * FROM user WHERE username = ?";
+        PreparedStatement ps = con.prepareStatement(sql);
+        ps.setString(1, username);
+        ResultSet rs = ps.executeQuery();
 
-    if (rs.next()) {
-        String hashedPasswordFromDb = rs.getString("password");
-        String hashedInputPassword = hashPassword(password); // Hash input password
+        if (rs.next()) {
+            String hashedPasswordFromDb = rs.getString("password");
+            String hashedInputPassword = hashPassword(password);
 
-        if (hashedPasswordFromDb.equals(hashedInputPassword)) {
-            return true; // Login berhasil
+            if (hashedPasswordFromDb.equals(hashedInputPassword)) {
+                return rs.getString("role"); // Misalnya "admin" atau "user"
+            }
         }
+
+        return null; // Login gagal
     }
 
-    return false; // Login gagal
-}
-
-
-    // Fungsi baru untuk mengambil data user berdasarkan username setelah login berhasil
+    // Mengambil data user berdasarkan username
     public ResultSet getUserData(String username) throws SQLException {
         String sql = "SELECT * FROM user WHERE username = ?";
         PreparedStatement ps = con.prepareStatement(sql);
         ps.setString(1, username);
-        return ps.executeQuery(); // Mengembalikan ResultSet
+        return ps.executeQuery();
     }
 }
