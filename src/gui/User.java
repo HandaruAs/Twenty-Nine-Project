@@ -48,7 +48,7 @@ public class User extends javax.swing.JInternalFrame {
         ur = new control_user();
         tampil();
        
-        txRFID.setEnabled(false);
+        txRFID.setEditable(false);
         txUser.setEditable(false);
         txPass.setEditable(false);
         txNama.setEditable(false);
@@ -154,6 +154,12 @@ public class User extends javax.swing.JInternalFrame {
         jLabel4.setText("NO HP");
 
         jLabel5.setText("RFID");
+
+        txRFID.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txRFIDActionPerformed(evt);
+            }
+        });
 
         txUser.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -371,7 +377,7 @@ boolean edit = false;
     btnCancel.setEnabled(true);
     btnNew.setEnabled(false);
 
-    txUser.requestFocus();
+    txRFID.requestFocus();
     }//GEN-LAST:event_btnNewActionPerformed
 
     private void btnSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSimpanActionPerformed
@@ -492,6 +498,10 @@ boolean edit = false;
         btnHapus.setEnabled(true);
         btnCancel.setEnabled(true);
     }//GEN-LAST:event_tabelUserMouseClicked
+
+    private void txRFIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txRFIDActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txRFIDActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
