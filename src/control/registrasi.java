@@ -8,17 +8,19 @@ import java.security.NoSuchAlgorithmException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.nio.charset.StandardCharsets;
+
 
 public class registrasi extends koneksi {
-    
+
     public registrasi() {
-        super.setKoneksi(); 
+        super.setKoneksi();
     }
 
     // Fungsi untuk menghasilkan hash dari password menggunakan SHA-256
     public static String hashPassword(String password) throws NoSuchAlgorithmException {
         MessageDigest digest = MessageDigest.getInstance("SHA-256");
-        byte[] hash = digest.digest(password.getBytes());
+        byte[] hash = digest.digest(password.getBytes(StandardCharsets.UTF_8));
         StringBuilder hexString = new StringBuilder();
         for (byte b : hash) {
             hexString.append(String.format("%02x", b));
@@ -26,22 +28,29 @@ public class registrasi extends koneksi {
         return hexString.toString();
     }
 
-    // Fungsi untuk registrasi pengguna dengan password yang di-hash
-    public boolean registerUser(String username, String password, String nama, String nohp, String rfid) {
+    // Fungsi untuk registrasi pengguna dengan password yang di-hash dan role
+    public boolean registerUser(String username, String password, String nama, String nohp, String rfid, String role) {
         try {
+            // Validasi role
+            if (!role.equalsIgnoreCase("admin") && !role.equalsIgnoreCase("user")) {
+                System.out.println("Role tidak valid. Harus 'admin' atau 'user'.");
+                return false;
+            }
+
             // Hash password sebelum disimpan
             String hashedPassword = hashPassword(password);
 
-            String sql = "INSERT INTO user (username, password, nama, nohp, rfid_tag) VALUES (?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO user (username, password, nama, nohp, rfid_tag, role) VALUES (?, ?, ?, ?, ?, ?)";
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, username);
-            ps.setString(2, hashedPassword); // Gunakan hashed password
+            ps.setString(2, hashedPassword);
             ps.setString(3, nama);
             ps.setString(4, nohp);
             ps.setString(5, rfid);
+            ps.setString(6, role.toLowerCase()); // role harus dalam lowercase agar sesuai ENUM di DB
 
-            int result = ps.executeUpdate(); 
-            return result > 0; 
+            int result = ps.executeUpdate();
+            return result > 0;
         } catch (SQLException | NoSuchAlgorithmException ex) {
             ex.printStackTrace();
             return false;
@@ -55,7 +64,7 @@ public class registrasi extends koneksi {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, username);
             ResultSet rs = ps.executeQuery();
-            return rs.next(); // Jika ada baris yang ditemukan, berarti username sudah ada
+            return rs.next();
         } catch (SQLException ex) {
             ex.printStackTrace();
             return false;

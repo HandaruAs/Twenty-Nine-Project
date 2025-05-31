@@ -2,14 +2,16 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
  */
-package gui;
+package gui_user;
+
 import control.MasterBarang;
 import control.pelanggan;
+
 /**
  *
  * @author handa
  */
-public class CariBarang extends javax.swing.JDialog {
+public class CariBarang_user extends javax.swing.JDialog {
     MasterBarang mb;
     pelanggan pl;
     String caller ="";
@@ -17,13 +19,13 @@ public class CariBarang extends javax.swing.JDialog {
      * Creates new form CariBarang
      */
     
-     public CariBarang(java.awt.Frame parent, boolean modal) {
+     public CariBarang_user(java.awt.Frame parent, boolean modal) {
         this(parent, modal, "Transaksi"); 
     }
     
     
     
-    public CariBarang(java.awt.Frame parent, boolean modal, String tipe) {
+    public CariBarang_user(java.awt.Frame parent, boolean modal, String tipe) {
         super(parent, modal);
         initComponents();
         this.setLocationRelativeTo(null);
@@ -49,6 +51,7 @@ public class CariBarang extends javax.swing.JDialog {
          
     }
     
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -59,12 +62,12 @@ public class CariBarang extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tabel = new custom.JTable_Custom();
         jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(684, 334));
 
         tabel.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -86,70 +89,59 @@ public class CariBarang extends javax.swing.JDialog {
             }
         });
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 593, Short.MAX_VALUE)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane2))
-                .addContainerGap())
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 51, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 666, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(55, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-     //harus diubah
-        
+        //harus diubah
+
         if(caller.equalsIgnoreCase("Transaksi")){
             int row = tabel.getSelectedRow();
-        String kode = tabel.getValueAt(row, 0).toString();
-        String nama = tabel.getValueAt(row, 1).toString();
-        int stok = Integer.parseInt(tabel.getValueAt(row, 2).toString());
-        int harga = Integer.parseInt(tabel.getValueAt(row, 3).toString());
-        String ukuran = tabel.getValueAt(row, 5).toString(); // Ambil ukuran dari kolom 4
+            String kode = tabel.getValueAt(row, 0).toString();
+            String nama = tabel.getValueAt(row, 1).toString();
+            int stok = Integer.parseInt(tabel.getValueAt(row, 2).toString());
+            int harga = Integer.parseInt(tabel.getValueAt(row, 3).toString());
+            String ukuran = tabel.getValueAt(row, 5).toString(); // Ambil ukuran dari kolom 4
 
-        FormTransaksi.txkode.setText(kode);
-        FormTransaksi.txnama.setText(nama);
-        FormTransaksi.txUkuran.setText(ukuran);       // Set ukuran ke textfield txUkuran
-        FormTransaksi.harga = harga;
-        FormTransaksi.stok = stok;
-        FormTransaksi.txqty.setEditable(true);
-        FormTransaksi.btnSimpan.setEnabled(true);
-        FormTransaksi.txqty.requestFocus();
-        dispose();
-       
+            FormTransaksi_user.txkode.setText(kode);
+            FormTransaksi_user.txnama.setText(nama);
+            FormTransaksi_user.txUkuran.setText(ukuran);       // Set ukuran ke textfield txUkuran
+            FormTransaksi_user.harga = harga;
+            FormTransaksi_user.stok = stok;
+            FormTransaksi_user.txqty.setEditable(true);
+            FormTransaksi_user.btnSimpan.setEnabled(true);
+            FormTransaksi_user.txqty.requestFocus();
+            dispose();
+
         }else if(caller.equalsIgnoreCase("Pelanggan")){
             int row = tabel.getSelectedRow();
             String id = tabel.getValueAt(row, 0).toString();
             String nama = tabel.getValueAt(row, 1).toString();
-            FormTransaksi.txidPelanggan.setText(id);
-            FormTransaksi.txpelanggan.setText(nama);
+            FormTransaksi_user.txidPelanggan.setText(id);
+            FormTransaksi_user.txpelanggan.setText(nama);
             dispose();
         }
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -171,20 +163,20 @@ public class CariBarang extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(CariBarang.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CariBarang_user.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(CariBarang.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CariBarang_user.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(CariBarang.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CariBarang_user.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(CariBarang.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CariBarang_user.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                CariBarang dialog = new CariBarang(new javax.swing.JFrame(), true);
+                CariBarang_user dialog = new CariBarang_user(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -198,7 +190,6 @@ public class CariBarang extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane2;
     private custom.JTable_Custom tabel;
     // End of variables declaration//GEN-END:variables

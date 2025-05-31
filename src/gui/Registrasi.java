@@ -95,6 +95,7 @@ private void handleRfidInput(String rfid_tag) {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
+        txRole = new javax.swing.JTextField();
         btn_registrasi = new custom.Custom_ButtonRounded();
         labelLogin = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -109,13 +110,22 @@ private void handleRfidInput(String rfid_tag) {
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        txRole.setBackground(new java.awt.Color(255, 255, 255));
+        txRole.setBorder(null);
+        txRole.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txRoleActionPerformed(evt);
+            }
+        });
+        jPanel1.add(txRole, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 230, 180, 20));
+
         btn_registrasi.setText("Registrasi");
         btn_registrasi.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_registrasiActionPerformed(evt);
             }
         });
-        jPanel1.add(btn_registrasi, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 425, 70, 30));
+        jPanel1.add(btn_registrasi, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 470, 140, 30));
 
         labelLogin.setText("Login");
         labelLogin.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -129,48 +139,53 @@ private void handleRfidInput(String rfid_tag) {
                 labelLoginMouseReleased(evt);
             }
         });
-        jPanel1.add(labelLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 440, -1, 40));
+        jPanel1.add(labelLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 490, -1, 40));
 
         jLabel2.setBackground(new java.awt.Color(222, 222, 222));
         jLabel2.setText("Sudah punya akun? ");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 440, 110, 40));
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 490, 110, 40));
 
+        txPass.setBackground(new java.awt.Color(255, 255, 255));
         txPass.setBorder(null);
         txPass.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txPassActionPerformed(evt);
             }
         });
-        jPanel1.add(txPass, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 320, 180, 20));
+        jPanel1.add(txPass, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 355, 180, 20));
 
+        txNo.setBackground(new java.awt.Color(255, 255, 255));
         txNo.setBorder(null);
-        jPanel1.add(txNo, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 400, 180, 20));
+        jPanel1.add(txNo, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 440, 180, -1));
 
+        txNama.setBackground(new java.awt.Color(255, 255, 255));
         txNama.setBorder(null);
         txNama.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txNamaActionPerformed(evt);
             }
         });
-        jPanel1.add(txNama, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 360, 180, 20));
+        jPanel1.add(txNama, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 395, 180, 20));
 
+        txRfid.setBackground(new java.awt.Color(255, 255, 255));
         txRfid.setBorder(null);
         txRfid.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txRfidActionPerformed(evt);
             }
         });
-        jPanel1.add(txRfid, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 245, 180, 20));
+        jPanel1.add(txRfid, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 270, 180, 20));
 
+        txUsername.setBackground(new java.awt.Color(255, 255, 255));
         txUsername.setBorder(null);
         txUsername.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txUsernameActionPerformed(evt);
             }
         });
-        jPanel1.add(txUsername, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 280, 180, 20));
+        jPanel1.add(txUsername, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 310, 180, 20));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/REGISTER PALING BARU .png"))); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/REGISTER Terbaru.png"))); // NOI18N
         jLabel1.setText("jLabel1");
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
@@ -221,18 +236,25 @@ private void handleRfidInput(String rfid_tag) {
         String nama = txNama.getText();
         String nomer = txNo.getText();
         String rfid = txRfid.getText();
+        String role = txRole.getText().trim().toLowerCase();
          if (password.length() < 6) {
             JOptionPane.showMessageDialog(this, "Password minimal harus 6 karakter!", "Peringatan", JOptionPane.WARNING_MESSAGE);
       
             return; 
         }
 
+         
+          if (!role.equals("admin") && !role.equals("user")) {
+        JOptionPane.showMessageDialog(this, "Role hanya boleh 'admin' atau 'user'!", "Peringatan", JOptionPane.WARNING_MESSAGE);
+        return;
+    }
+         
        registrasi registerControl = new registrasi();
 
         if (registerControl.checkUsernameExists(username)) {
             JOptionPane.showMessageDialog(this, "Username sudah digunakan!", "Peringatan", JOptionPane.WARNING_MESSAGE);
         } else {
-            boolean success = registerControl.registerUser(username, password, nama, nomer, rfid);
+            boolean success = registerControl.registerUser(username, password, nama, nomer, rfid, role);
             if (success) {
                 JOptionPane.showMessageDialog(this, "Registrasi berhasil! Silakan login.", "Sukses", JOptionPane.INFORMATION_MESSAGE);
                 
@@ -253,6 +275,10 @@ labelLogin.setForeground(Color.YELLOW);
     private void labelLoginMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelLoginMouseReleased
          labelLogin.setForeground(Color.WHITE);
     }//GEN-LAST:event_labelLoginMouseReleased
+
+    private void txRoleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txRoleActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txRoleActionPerformed
 
     /**
      * @param args the command line arguments
@@ -299,6 +325,7 @@ labelLogin.setForeground(Color.YELLOW);
     private javax.swing.JTextField txNo;
     private javax.swing.JPasswordField txPass;
     private javax.swing.JTextField txRfid;
+    private javax.swing.JTextField txRole;
     private javax.swing.JTextField txUsername;
     // End of variables declaration//GEN-END:variables
 }

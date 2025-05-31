@@ -111,7 +111,7 @@ control_login cl;
 
         jPanel1 = new javax.swing.JPanel();
         checkpass = new javax.swing.JCheckBox();
-        custom_ButtonRounded1 = new custom.Custom_ButtonRounded();
+        btn_login = new custom.Custom_ButtonRounded();
         Register = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         ForgetPass = new javax.swing.JLabel();
@@ -130,13 +130,13 @@ control_login cl;
         });
         jPanel1.add(checkpass, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 330, 30, -1));
 
-        custom_ButtonRounded1.setText("Login");
-        custom_ButtonRounded1.addActionListener(new java.awt.event.ActionListener() {
+        btn_login.setText("Login");
+        btn_login.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                custom_ButtonRounded1ActionPerformed(evt);
+                btn_loginActionPerformed(evt);
             }
         });
-        jPanel1.add(custom_ButtonRounded1, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 360, 140, 40));
+        jPanel1.add(btn_login, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 360, 140, 40));
 
         Register.setText("Registrasi");
         Register.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -189,7 +189,7 @@ control_login cl;
     this.dispose();
     }//GEN-LAST:event_ForgetPassMouseClicked
 
-    private void custom_ButtonRounded1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_custom_ButtonRounded1ActionPerformed
+    private void btn_loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_loginActionPerformed
          try {
     String user = txUsername.getText();
     char[] passArray = txPass.getPassword();
@@ -229,7 +229,7 @@ control_login cl;
     Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
     JOptionPane.showMessageDialog(rootPane, "Algoritma hashing tidak tersedia.");
 }
-    }//GEN-LAST:event_custom_ButtonRounded1ActionPerformed
+    }//GEN-LAST:event_btn_loginActionPerformed
 
     private void RegisterMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RegisterMouseClicked
         Registrasi Registrasi = new Registrasi();
@@ -283,8 +283,8 @@ control_login cl;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel ForgetPass;
     private javax.swing.JLabel Register;
+    private custom.Custom_ButtonRounded btn_login;
     private javax.swing.JCheckBox checkpass;
-    private custom.Custom_ButtonRounded custom_ButtonRounded1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
