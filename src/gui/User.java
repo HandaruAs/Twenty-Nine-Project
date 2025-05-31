@@ -386,6 +386,12 @@ boolean edit = false;
     String pass = txPass.getText();
     String nama = txNama.getText();
     String nohp = txNohp.getText();
+    
+    if (pass.length() < 6) {
+        JOptionPane.showMessageDialog(this, "Password minimal harus 6 karakter!", "Peringatan", JOptionPane.WARNING_MESSAGE);
+        return; // hentikan proses penyimpanan
+    }
+
 
     String hashedPass = hashPassword(pass); 
     if (edit == true) {

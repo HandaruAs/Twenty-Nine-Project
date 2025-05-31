@@ -15,37 +15,46 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author handa
  */
-public class MasterBarang extends koneksi{
-    public MasterBarang(){
+public class MasterBarang extends koneksi {
+
+    public MasterBarang() {
         super.setKoneksi();
     }
-    public DefaultTableModel modelBarang = new  DefaultTableModel();
-    
-    public void simpan(String kode, String nama, int stok, int harga, String status) throws SQLException{
-        String sql = "INSERT INTO masterbarang VALUES('"+kode+"','"+nama+"','"+stok+"','"+harga+"','"+status+"')";
+
+    public DefaultTableModel modelBarang = new DefaultTableModel();
+
+    // Fungsi simpan termasuk ukuran
+    public void simpan(String kode, String nama, int stok, int harga, String status, int ukuran) throws SQLException {
+        String sql = "INSERT INTO masterbarang VALUES('" + kode + "','" + nama + "','" + stok + "','" + harga + "','" + status + "','" + ukuran + "')";
         st.executeUpdate(sql);
     }
-    public void edit(String kode, String nama, int stok, int harga, String status) throws SQLException{
-        String sql = "UPDATE masterbarang SET nama_barang = '"+nama+"', stok = '"+stok+"', harga = '"+harga+"', status = '"+status+"' WHERE kode_barang = '"+kode+"'";
+
+    // Fungsi edit termasuk ukuran
+    public void edit(String kode, String nama, int stok, int harga, String status, int ukuran) throws SQLException {
+        String sql = "UPDATE masterbarang SET nama_barang = '" + nama + "', stok = '" + stok + "', harga = '" + harga + "', status = '" + status + "', ukuran = '" + ukuran + "' WHERE kode_barang = '" + kode + "'";
         st.executeUpdate(sql);
     }
-    public void hapus(String kode) throws SQLException{
-        String sql = "DELETE FROM masterbarang WHERE kode_barang = '"+kode+"'";
+
+    public void hapus(String kode) throws SQLException {
+        String sql = "DELETE FROM masterbarang WHERE kode_barang = '" + kode + "'";
         st.executeUpdate(sql);
     }
-    public void tampil(){
+
+    // Fungsi tampil termasuk ukuran
+    public void tampil() {
         try {
-            String sqli= "SELECT * FROM masterbarang";
-            String[] kolom = {"Kode Barang", "Nama Barang", "Stok", "Harga", "Status"};
+            String sqli = "SELECT * FROM masterbarang";
+            String[] kolom = {"Kode Barang", "Nama Barang", "Stok", "Harga", "Status", "Ukuran"};
             modelBarang.setColumnIdentifiers(kolom);
             rs = st.executeQuery(sqli);
-            while(rs.next()){
-                Object[] data = new Object[5];
+            while (rs.next()) {
+                Object[] data = new Object[6];
                 data[0] = rs.getString("kode_barang");
                 data[1] = rs.getString("nama_barang");
-                data[2] = rs.getString("stok");
-                data[3] = rs.getString("harga");
+                data[2] = rs.getInt("stok");
+                data[3] = rs.getInt("harga");
                 data[4] = rs.getString("status");
+                data[5] = rs.getInt("ukuran");
                 modelBarang.addRow(data);
             }
         } catch (SQLException ex) {
@@ -53,4 +62,5 @@ public class MasterBarang extends koneksi{
         }
     }
 }
+
 
