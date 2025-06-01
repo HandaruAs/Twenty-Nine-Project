@@ -193,11 +193,13 @@
                                   <Component id="jLabel9" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" max="-2" attributes="0">
-                                  <Component id="txidPelanggan" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                   <Component id="btnCariPlg" alignment="0" min="-2" pref="37" max="-2" attributes="0"/>
-                                  <Component id="txBayar" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="txDiskon" alignment="0" max="32767" attributes="0"/>
+                                  <Group type="103" groupAlignment="3" attributes="0">
+                                      <Component id="txidPelanggan" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="txBayar" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  </Group>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
@@ -210,12 +212,12 @@
                               <EmptySpace max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="txKembali" alignment="0" pref="31" max="32767" attributes="0"/>
-                          <Group type="102" attributes="0">
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="txGrandTotal" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="txKembali" alignment="0" max="32767" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="txpelanggan" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="txGrandTotal" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           </Group>
@@ -429,18 +431,16 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Component id="btncancel" max="32767" attributes="0"/>
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="btnSimpan" max="32767" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="txkode" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="txnama" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="txUkuran" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="txqty" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <Component id="btnCari" max="32767" attributes="0"/>
-                              <Component id="btnNew" alignment="0" max="32767" attributes="0"/>
-                              <Component id="btnhapus" alignment="0" max="32767" attributes="0"/>
+                          <Component id="btnSimpan" max="32767" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="txkode" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="txnama" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="txUkuran" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="txqty" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
+                          <Component id="btnCari" max="32767" attributes="0"/>
+                          <Component id="btnNew" alignment="0" max="32767" attributes="0"/>
+                          <Component id="btnhapus" alignment="0" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
                   </Group>

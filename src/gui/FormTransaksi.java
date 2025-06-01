@@ -40,13 +40,14 @@ import javax.swing.table.DefaultTableModel;
  * @author handa
  */
 public class FormTransaksi extends javax.swing.JFrame {
+
     //ecak
     private laporan servisReport = new laporan();
     control_transaksi ct;
     laporan lp;
     koneksi db;
     utama ut;
-    
+
     public String kode_barang;
     public String nama_barang;
     public String ukuran;
@@ -54,18 +55,43 @@ public class FormTransaksi extends javax.swing.JFrame {
     public static int harga;
     public static int stok;
     public int total;
-   
-    
+
     public FormTransaksi() {
         initComponents();
-        
-       
-      setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-      Dimension dmax = Toolkit.getDefaultToolkit().getScreenSize();
+        txDiskon.getDocument().addDocumentListener(new javax.swing.event.DocumentListener() {
+            public void insertUpdate(javax.swing.event.DocumentEvent e) {
+                hitungGrandTotal();
+            }
+
+            public void removeUpdate(javax.swing.event.DocumentEvent e) {
+                hitungGrandTotal();
+            }
+
+            public void changedUpdate(javax.swing.event.DocumentEvent e) {
+                hitungGrandTotal();
+            }
+        });
+
+        txBayar.getDocument().addDocumentListener(new javax.swing.event.DocumentListener() {
+            public void insertUpdate(javax.swing.event.DocumentEvent e) {
+                hitungKembali();
+            }
+
+            public void removeUpdate(javax.swing.event.DocumentEvent e) {
+                hitungKembali();
+            }
+
+            public void changedUpdate(javax.swing.event.DocumentEvent e) {
+                hitungKembali();
+            }
+        });
+
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        Dimension dmax = Toolkit.getDefaultToolkit().getScreenSize();
         this.setMaximumSize(dmax);
-           this.setSize(dmax.width,dmax.height);
-    setLocationRelativeTo(null);
-    db = new koneksi();
+        this.setSize(dmax.width, dmax.height);
+        setLocationRelativeTo(null);
+        db = new koneksi();
         ct = new control_transaksi();
         lp = new laporan();
         ut = new utama();
@@ -74,9 +100,43 @@ public class FormTransaksi extends javax.swing.JFrame {
         ct.noFak();
         setTanggal();
     }
-   public void setNamaPengguna(String nama) {
-    lblNama.setText(nama); // lblNama = JLabel di FormTransaksi
-}
+
+    public void setNamaPengguna(String nama) {
+        lblNama.setText(nama); // lblNama = JLabel di FormTransaksi
+    }
+
+    public int parseAngka(String teks) throws NumberFormatException {
+        if (teks == null) {
+            return 0;
+        }
+        teks = teks.replaceAll("[^\\d]", ""); // hapus simbol, koma, titik
+        if (teks.isEmpty()) {
+            return 0;
+        }
+        return Integer.parseInt(teks);
+    }
+
+    public void hitungGrandTotal() {
+        try {
+            int subTotal = parseAngka(txtotal2.getText());
+            int diskon = parseAngka(txDiskon.getText());
+            int grandTotal = subTotal - (subTotal * diskon / 100);
+            txGrandTotal.setText(String.valueOf(grandTotal));
+        } catch (Exception e) {
+            txGrandTotal.setText("0");
+        }
+    }
+
+    public void hitungKembali() {
+        try {
+            int bayar = parseAngka(txBayar.getText());
+            int grandTotal = parseAngka(txGrandTotal.getText());
+            int kembali = bayar - grandTotal;
+            txKembali.setText(String.valueOf(kembali));
+        } catch (Exception e) {
+            txKembali.setText("0");
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -332,11 +392,12 @@ public class FormTransaksi extends javax.swing.JFrame {
                             .addComponent(jLabel7)
                             .addComponent(jLabel9))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE, false)
-                            .addComponent(txidPelanggan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(btnCariPlg, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txBayar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txDiskon, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(txDiskon, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(txidPelanggan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txBayar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel5)
@@ -344,12 +405,12 @@ public class FormTransaksi extends javax.swing.JFrame {
                                 .addComponent(jLabel8)
                                 .addComponent(jLabel10)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txKembali, javax.swing.GroupLayout.PREFERRED_SIZE, 31, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txKembali, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txGrandTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txpelanggan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txpelanggan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txGrandTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -453,16 +514,15 @@ public class FormTransaksi extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btncancel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(btnSimpan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txkode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txnama, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txUkuran, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txqty, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(btnCari, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnNew, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnhapus, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(btnSimpan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(txkode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txnama, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txUkuran, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txqty, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnCari, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnNew, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnhapus, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(25, 25, 25))
         );
 
@@ -734,12 +794,13 @@ public class FormTransaksi extends javax.swing.JFrame {
             ct.simpanPenjualan(nofak, kasir, id_pelanggan, pelanggan, diskon, total, bayar, kembali, tanggall);
 
             for (int n = 0; n < tbPengeluaran.getRowCount(); n++) {
-                String kode_barang = tbPengeluaran.getValueAt(n, 0).toString();
-                String nama_barang = tbPengeluaran.getValueAt(n, 1).toString();
-                int harga = Integer.parseInt(tbPengeluaran.getValueAt(n, 2).toString());
-                int qty = Integer.parseInt(tbPengeluaran.getValueAt(n, 3).toString());
-                int totall = Integer.parseInt(tbPengeluaran.getValueAt(n, 4).toString());
-                String ukuran = tbPengeluaran.getValueAt(n, 5).toString(); // ambil dari kolom ke-6 tabel
+                String kode_barang = tbPengeluaran.getValueAt(n, 0).toString(); // Kode Barang
+                String nama_barang = tbPengeluaran.getValueAt(n, 1).toString(); // Nama Barang
+                String ukuran = tbPengeluaran.getValueAt(n, 2).toString();      // Ukuran
+                int harga = Integer.parseInt(tbPengeluaran.getValueAt(n, 3).toString()); // Harga
+                int qty = Integer.parseInt(tbPengeluaran.getValueAt(n, 4).toString());   // Qty
+                int totall = Integer.parseInt(tbPengeluaran.getValueAt(n, 5).toString()); // Total
+
 
                 db.setKoneksi();
                 String sqli = "SELECT stok FROM masterBarang WHERE kode_barang = ?";
@@ -749,6 +810,10 @@ public class FormTransaksi extends javax.swing.JFrame {
 
                 if (rs.next()) {
                     int stok = rs.getInt("stok");
+                    if (qty > stok) {
+                        JOptionPane.showMessageDialog(rootPane, "Stok barang " + nama_barang + " tidak mencukupi!");
+                        return;
+        }
                     int sisa = stok - qty;
                     ct.updateStok(sisa, kode_barang);
                 }
