@@ -217,6 +217,9 @@
             <Component class="custom.JTextfieldRounded" name="txStok">
             </Component>
             <Component class="custom.JTextfieldRounded" name="txHarga">
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txHargaActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel7">
               <Properties>

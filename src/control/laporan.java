@@ -111,6 +111,7 @@ public class laporan extends koneksi{
         con = DriverManager.getConnection("jdbc:mysql://localhost:3306/sistemkasir", "root", "");
 
         InputStream reportStream = getClass().getClassLoader().getResourceAsStream("report2/ASW.jrxml");
+        
 
         if (reportStream == null) {
             throw new FileNotFoundException("File report2/ASW.jrxml tidak ditemukan.");

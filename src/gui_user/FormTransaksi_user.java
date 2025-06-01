@@ -9,6 +9,10 @@ import control.control_transaksi;
 import control.koneksi;
 import control.laporan;
 import control.utama;
+import static gui.FormTransaksi.lblNama;
+import static gui.FormTransaksi.txNoFaktur;
+import static gui.FormTransaksi.txidPelanggan;
+import static gui.FormTransaksi.txpelanggan;
 import static gui_user.FormTransaksi_user.btnSimpan;
 import java.awt.Component;
 import java.awt.Container;
@@ -736,12 +740,13 @@ public class FormTransaksi_user extends javax.swing.JFrame {
             ct.simpanPenjualan(nofak, kasir, id_pelanggan, pelanggan, diskon, total, bayar, kembali, tanggall);
 
             for (int n = 0; n < tbPengeluaran.getRowCount(); n++) {
-                String kode_barang = tbPengeluaran.getValueAt(n, 0).toString();
-                String nama_barang = tbPengeluaran.getValueAt(n, 1).toString();
-                int harga = Integer.parseInt(tbPengeluaran.getValueAt(n, 2).toString());
-                int qty = Integer.parseInt(tbPengeluaran.getValueAt(n, 3).toString());
-                int totall = Integer.parseInt(tbPengeluaran.getValueAt(n, 4).toString());
-                String ukuran = tbPengeluaran.getValueAt(n, 5).toString(); // ambil dari kolom ke-6 tabel
+                String kode_barang = tbPengeluaran.getValueAt(n, 0).toString(); // Kode Barang
+                String nama_barang = tbPengeluaran.getValueAt(n, 1).toString(); // Nama Barang
+                String ukuran = tbPengeluaran.getValueAt(n, 2).toString();      // Ukuran
+                int harga = Integer.parseInt(tbPengeluaran.getValueAt(n, 3).toString()); // Harga
+                int qty = Integer.parseInt(tbPengeluaran.getValueAt(n, 4).toString());   // Qty
+                int totall = Integer.parseInt(tbPengeluaran.getValueAt(n, 5).toString()); // Total
+
 
                 db.setKoneksi();
                 String sqli = "SELECT stok FROM masterBarang WHERE kode_barang = ?";
@@ -751,6 +756,10 @@ public class FormTransaksi_user extends javax.swing.JFrame {
 
                 if (rs.next()) {
                     int stok = rs.getInt("stok");
+                    if (qty > stok) {
+                        JOptionPane.showMessageDialog(rootPane, "Stok barang " + nama_barang + " tidak mencukupi!");
+                        return;
+        }
                     int sisa = stok - qty;
                     ct.updateStok(sisa, kode_barang);
                 }

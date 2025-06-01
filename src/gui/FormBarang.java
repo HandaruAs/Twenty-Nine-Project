@@ -158,6 +158,12 @@ public class FormBarang extends javax.swing.JInternalFrame {
             }
         });
 
+        txHarga.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txHargaActionPerformed(evt);
+            }
+        });
+
         jLabel7.setText("UKURAN");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -518,6 +524,10 @@ if (selectedRow == -1) {
     private void txNamaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txNamaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txNamaActionPerformed
+
+    private void txHargaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txHargaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txHargaActionPerformed
    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public static custom.JTable_Custom TabelBarang;

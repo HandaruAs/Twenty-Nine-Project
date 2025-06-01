@@ -12,9 +12,7 @@ import java.util.logging.Logger;
  * @author handa
  */
 public class koneksi {
-    static Connection getConnection() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
+    
     Connection con;
     Statement st;
     ResultSet rs;

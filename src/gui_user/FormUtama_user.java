@@ -14,7 +14,6 @@ import com.jtattoo.plaf.mint.MintLookAndFeel;
 import control.koneksi;
 import control.laporan;
 import control.utama;
-
 import java.awt.Dialog;
 import java.awt.event.ActionListener;
 import java.io.File;
