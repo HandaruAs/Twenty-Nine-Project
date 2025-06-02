@@ -58,7 +58,8 @@ public class FormTransaksi extends javax.swing.JFrame {
     public FormTransaksi() {
         initComponents();
          resetForm(); 
-        txkode.setEditable(false);
+       
+        txqty.setEditable(true);
         txnama.setEditable(false);
         txUkuran.setEditable(false);
         txidPelanggan.setEditable(false);
@@ -655,6 +656,7 @@ public class FormTransaksi extends javax.swing.JFrame {
                 Integer hargaa = rs.getInt("harga");
                 Integer stokk = rs.getInt("stok");
                 txnama.setText(nama);
+                txUkuran.setText(ukurann);
                 harga = hargaa;
                 ukuran = ukurann;
                 btnSimpan.setEnabled(true);
@@ -683,6 +685,7 @@ public class FormTransaksi extends javax.swing.JFrame {
         btnCari.setEnabled(true);
         btnNew.setEnabled(false);
         btncancel.setEnabled(true);
+        txkode.requestFocus();
          resetForm();
     }//GEN-LAST:event_btnNewActionPerformed
 
@@ -780,7 +783,7 @@ public class FormTransaksi extends javax.swing.JFrame {
     txDiskon.setEditable(true);
     txBayar.setEditable(true);
     btnCariPlg.setEnabled(true);
-    txqty.setEditable(false);
+    txqty.setEditable(true);
     txqty.setText("");
     txBayar.requestFocus();
     }//GEN-LAST:event_btnSimpanActionPerformed
