@@ -97,11 +97,9 @@ Color DefaultColor,ClickedColor;
         kGradientPanel4 = new keeptoo.KGradientPanel();
         jLabel3 = new javax.swing.JLabel();
         totalBrg = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
         kGradientPanel5 = new keeptoo.KGradientPanel();
         jLabel2 = new javax.swing.JLabel();
         totalPlg = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
         logout = new javax.swing.JLabel();
         Menu5 = new javax.swing.JPanel();
         txRiwayat = new javax.swing.JLabel();
@@ -166,9 +164,9 @@ Color DefaultColor,ClickedColor;
         TotalTransaksi2.setForeground(new java.awt.Color(255, 255, 255));
         TotalTransaksi2.setText("Total Transaksi");
 
-        totalTrx2.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
+        totalTrx2.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         totalTrx2.setForeground(new java.awt.Color(255, 255, 255));
-        totalTrx2.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        totalTrx2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         totalTrx2.setText("0");
 
         javax.swing.GroupLayout kGradientPanel6Layout = new javax.swing.GroupLayout(kGradientPanel6);
@@ -181,9 +179,7 @@ Color DefaultColor,ClickedColor;
                     .addGroup(kGradientPanel6Layout.createSequentialGroup()
                         .addComponent(TotalTransaksi2)
                         .addGap(0, 108, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, kGradientPanel6Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(totalTrx2, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(totalTrx2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         kGradientPanel6Layout.setVerticalGroup(
@@ -191,9 +187,9 @@ Color DefaultColor,ClickedColor;
             .addGroup(kGradientPanel6Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(TotalTransaksi2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
                 .addComponent(totalTrx2, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(32, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         MainPanel.add(kGradientPanel6);
@@ -212,11 +208,6 @@ Color DefaultColor,ClickedColor;
         totalBrg.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         totalBrg.setText("0");
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel4.setText("Rp.");
-
         javax.swing.GroupLayout kGradientPanel4Layout = new javax.swing.GroupLayout(kGradientPanel4);
         kGradientPanel4.setLayout(kGradientPanel4Layout);
         kGradientPanel4Layout.setHorizontalGroup(
@@ -224,12 +215,11 @@ Color DefaultColor,ClickedColor;
             .addGroup(kGradientPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(kGradientPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3)
                     .addGroup(kGradientPanel4Layout.createSequentialGroup()
-                        .addComponent(jLabel4)
-                        .addGap(18, 18, 18)
-                        .addComponent(totalBrg, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addGap(23, 23, 23))
+                        .addComponent(jLabel3)
+                        .addGap(0, 142, Short.MAX_VALUE))
+                    .addComponent(totalBrg, javax.swing.GroupLayout.DEFAULT_SIZE, 236, Short.MAX_VALUE))
+                .addContainerGap())
         );
         kGradientPanel4Layout.setVerticalGroup(
             kGradientPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -237,9 +227,7 @@ Color DefaultColor,ClickedColor;
                 .addContainerGap()
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
-                .addGroup(kGradientPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(totalBrg)
-                    .addComponent(jLabel4))
+                .addComponent(totalBrg)
                 .addContainerGap())
         );
 
@@ -258,11 +246,6 @@ Color DefaultColor,ClickedColor;
         totalPlg.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         totalPlg.setText("0");
 
-        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel5.setText("Rp.");
-
         javax.swing.GroupLayout kGradientPanel5Layout = new javax.swing.GroupLayout(kGradientPanel5);
         kGradientPanel5.setLayout(kGradientPanel5Layout);
         kGradientPanel5Layout.setHorizontalGroup(
@@ -272,12 +255,9 @@ Color DefaultColor,ClickedColor;
                 .addGroup(kGradientPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(kGradientPanel5Layout.createSequentialGroup()
                         .addComponent(jLabel2)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(kGradientPanel5Layout.createSequentialGroup()
-                        .addComponent(jLabel5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(totalPlg, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 80, Short.MAX_VALUE))))
+                        .addGap(0, 141, Short.MAX_VALUE))
+                    .addComponent(totalPlg, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         kGradientPanel5Layout.setVerticalGroup(
             kGradientPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -285,9 +265,7 @@ Color DefaultColor,ClickedColor;
                 .addContainerGap()
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
-                .addGroup(kGradientPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(totalPlg)
-                    .addComponent(jLabel5))
+                .addComponent(totalPlg)
                 .addContainerGap())
         );
 
@@ -690,8 +668,6 @@ Color DefaultColor,ClickedColor;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private keeptoo.KGradientPanel kGradientPanel4;
     private keeptoo.KGradientPanel kGradientPanel5;
