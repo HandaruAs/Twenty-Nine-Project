@@ -124,7 +124,7 @@ public class CariBarang extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-     //harus diubah
+     
         
         if(caller.equalsIgnoreCase("Transaksi")){
             int row = tabel.getSelectedRow();
@@ -132,11 +132,11 @@ public class CariBarang extends javax.swing.JDialog {
         String nama = tabel.getValueAt(row, 1).toString();
         int stok = Integer.parseInt(tabel.getValueAt(row, 2).toString());
         int harga = Integer.parseInt(tabel.getValueAt(row, 3).toString());
-        String ukuran = tabel.getValueAt(row, 5).toString(); // Ambil ukuran dari kolom 4
+        String ukuran = tabel.getValueAt(row, 5).toString(); 
 
         FormTransaksi.txkode.setText(kode);
         FormTransaksi.txnama.setText(nama);
-        FormTransaksi.txUkuran.setText(ukuran);       // Set ukuran ke textfield txUkuran
+        FormTransaksi.txUkuran.setText(ukuran);       
         FormTransaksi.harga = harga;
         FormTransaksi.stok = stok;
         FormTransaksi.txqty.setEditable(true);

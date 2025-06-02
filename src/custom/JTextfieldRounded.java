@@ -48,8 +48,7 @@ public class JTextfieldRounded extends JTextField {
             border = new Border(10);
             border.setRound(round);
 
-            Color boldYellow = new Color(255, 204, 0); // Warna kuning tebal
-
+            Color boldYellow = new Color(255, 204, 0); 
             border.setColor(boldYellow);
             border.setFocusColor(boldYellow);
 
@@ -125,7 +124,7 @@ public class JTextfieldRounded extends JTextField {
             public void paintBorder(Component c, Graphics g, int x, int y, int width, int height) {
                 Graphics2D g2 = (Graphics2D) g.create();
                 g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-                g2.setStroke(new BasicStroke(2.5f)); // Pertebal garis border
+                g2.setStroke(new BasicStroke(2.5f)); 
                 if (c.isFocusOwner()) {
                     g2.setColor(focusColor);
                 } else {

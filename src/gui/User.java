@@ -370,7 +370,7 @@ public class User extends javax.swing.JInternalFrame {
                     .addComponent(btnHapus, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnCancel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnEdit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(13, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -420,6 +420,11 @@ boolean edit = false;
     String nama = txNama.getText();
     String nohp = txNohp.getText();
      
+     if (rfid.isEmpty() || role.isEmpty() || txUser.getText().isEmpty() || txPass.getText().isEmpty() || txNama.getText().isEmpty() || txNohp.getText().isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Semua kolom harus diisi!");
+        return;
+    }
+    
      control_user cu = new control_user();
 if (cu.cekDuplikatRfid(txRFID.getText().trim())) {
     JOptionPane.showMessageDialog(this, "RFID sudah terdaftar", "Peringatan", JOptionPane.WARNING_MESSAGE);
@@ -519,7 +524,7 @@ if (cu.cekDuplikatRfid(txRFID.getText().trim())) {
         txPass.setEditable(true);
         txNama.setEditable(true);
         txNohp.setEditable(true);
-        txPass.requestFocus();
+        txRFID.requestFocus();
     }//GEN-LAST:event_btnEditActionPerformed
 
     private void txUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txUserActionPerformed

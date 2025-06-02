@@ -17,7 +17,7 @@ public class registrasi extends koneksi {
         super.setKoneksi();
     }
 
-    // Fungsi untuk menghasilkan hash dari password menggunakan SHA-256
+    
     public static String hashPassword(String password) throws NoSuchAlgorithmException {
         MessageDigest digest = MessageDigest.getInstance("SHA-256");
         byte[] hash = digest.digest(password.getBytes(StandardCharsets.UTF_8));
@@ -28,16 +28,16 @@ public class registrasi extends koneksi {
         return hexString.toString();
     }
 
-    // Fungsi untuk registrasi pengguna dengan password yang di-hash dan role
+    
     public boolean registerUser(String username, String password, String nama, String nohp, String rfid, String role) {
         try {
-            // Validasi role
+            
             if (!role.equalsIgnoreCase("admin") && !role.equalsIgnoreCase("user")) {
                 System.out.println("Role tidak valid. Harus 'admin' atau 'user'.");
                 return false;
             }
 
-            // Hash password sebelum disimpan
+           
             String hashedPassword = hashPassword(password);
 
             String sql = "INSERT INTO user (username, password, nama, nohp, rfid_tag, role) VALUES (?, ?, ?, ?, ?, ?)";
@@ -47,7 +47,7 @@ public class registrasi extends koneksi {
             ps.setString(3, nama);
             ps.setString(4, nohp);
             ps.setString(5, rfid);
-            ps.setString(6, role.toLowerCase()); // role harus dalam lowercase agar sesuai ENUM di DB
+            ps.setString(6, role.toLowerCase()); 
 
             int result = ps.executeUpdate();
             return result > 0;
@@ -57,7 +57,7 @@ public class registrasi extends koneksi {
         }
     }
 
-    // Fungsi untuk mengecek apakah username sudah ada dalam database
+   
     public boolean checkUsernameExists(String username) {
         try {
             String sql = "SELECT * FROM user WHERE username = ?";

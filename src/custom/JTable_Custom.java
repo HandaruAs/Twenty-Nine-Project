@@ -38,7 +38,7 @@ public class JTable_Custom extends JTable {
         setShowVerticalLines(true);
         setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
-        // Setting untuk header tabel
+        
         getTableHeader().setReorderingAllowed(false);
         getTableHeader().setFont(font);
         getTableHeader().setDefaultRenderer(new DefaultTableCellRenderer() {
@@ -50,7 +50,7 @@ public class JTable_Custom extends JTable {
             }
         });
 
-        // Renderer default untuk sel
+        
         setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
             @Override
             public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
@@ -73,7 +73,7 @@ public class JTable_Custom extends JTable {
             }
         });
 
-        // Event listener untuk efek hover dan klik
+       
         addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -105,13 +105,13 @@ public class JTable_Custom extends JTable {
         });
     }
 
-    // Fungsi untuk menambah baris
+   
     public void addRow(Object[] row) {
         DefaultTableModel model = (DefaultTableModel) getModel();
         model.addRow(row);
     }
 
-    // Fungsi untuk menerapkan font ke semua komponen
+   
     private void setFontKeSemuaKomponen(Component comp, Font font) {
         comp.setFont(font);
         if (comp instanceof java.awt.Container) {
@@ -121,7 +121,7 @@ public class JTable_Custom extends JTable {
         }
     }
 
-    // Custom header class
+   
     private class TablezHeader extends JLabel {
 
         public TablezHeader(String text) {
@@ -138,8 +138,8 @@ public class JTable_Custom extends JTable {
         protected void paintComponent(Graphics g) {
             super.paintComponent(g);
             g.setColor(Color.BLACK);
-            g.drawLine(0, getHeight() - 1, getWidth(), getHeight() - 1); // Border bawah header
-             g.drawLine(getWidth() - 1, 0, getWidth() - 1, getHeight());  // garis kanan
+            g.drawLine(0, getHeight() - 1, getWidth(), getHeight() - 1); 
+             g.drawLine(getWidth() - 1, 0, getWidth() - 1, getHeight());  
         }
     }
 }

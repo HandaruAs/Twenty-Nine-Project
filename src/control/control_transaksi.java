@@ -28,7 +28,7 @@ public class control_transaksi extends koneksi {
 
     public DefaultTableModel model = new DefaultTableModel();
 
-    // ⬇️ Tambahkan parameter 'ukuran'
+   
    public void tampilPengeluaran(String kodebarang, String namaBarang, String ukuran, int harga, int qty, int total) {
     if (!(kodebarang.equals(""))) {
         System.out.println("DEBUG tampilPengeluaran -> harga: " + harga + ", qty: " + qty + ", total: " + total);
@@ -60,7 +60,7 @@ public class control_transaksi extends koneksi {
         pst.executeUpdate();
     }
 
-    // ✅ Gunakan kolom eksplisit agar aman
+    
     public void insertBarang(String nofak, String kodeBarang, String namaBarang, String ukuran, int harga, int qty, int total) throws SQLException {
         String sql = "INSERT INTO barangPenjualan (no_faktur, kode_barang, nama_barang, ukuran, harga, qty, total1) VALUES (?, ?, ?, ?, ?, ?, ?)";
         PreparedStatement pst = con.prepareStatement(sql);

@@ -122,7 +122,6 @@ public class laporan extends koneksi{
         jasRep = JasperCompileManager.compileReport(jasdes);
         jasPri = JasperFillManager.fillReport(jasRep, param, con);
 
-        // Tampilkan hanya sekali
         JasperViewer viewer = new JasperViewer(jasPri, false);
         viewer.setTitle("NOTA");
         viewer.setVisible(true);
@@ -157,7 +156,7 @@ public class laporan extends koneksi{
          jasRep = JasperCompileManager.compileReport(jasdes);
          jasPri = JasperFillManager.fillReport(jasRep,param, con);
          JasperViewer jasperViewer = new JasperViewer(jasPri, false);
-           JDialog dialog = new JDialog();//the owner
+           JDialog dialog = new JDialog();
             dialog.setContentPane(jasperViewer.getContentPane());
             dialog.setSize(jasperViewer.getSize());
             dialog.setTitle("Laporan");

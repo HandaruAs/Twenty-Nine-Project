@@ -59,24 +59,25 @@ public class FormTransaksi_user extends javax.swing.JFrame {
     public FormTransaksi_user() {
         initComponents();
          resetForm(); 
-        txkode.setEditable(false);
+        btnCari.setEnabled(false);
+        btnhapus.setEnabled(false);
+        btnSimpan.setEnabled(false);
+        btncancel.setEnabled(false);
+        btnReset.setEnabled(false);
+         
+        txqty.setEditable(true);
         txnama.setEditable(false);
         txUkuran.setEditable(false);
         txidPelanggan.setEditable(false);
         txNoFaktur.setEditable(false);
         txpelanggan.setEditable(false);
         txtotal2.setEditable(false);
+        txkode.setEditable(false);
         txGrandTotal.setEditable(false);
         txKembali.setEditable(false);
         txDiskon.setEditable(false);
         txBayar.setEditable(false);
-        
-        btnCari.setEnabled(false);
-        btnhapus.setEnabled(false);
-        btnSimpan.setEnabled(false);
-        btncancel.setEnabled(false);
-        
-        
+               
         txDiskon.getDocument().addDocumentListener(new javax.swing.event.DocumentListener() {
             public void insertUpdate(javax.swing.event.DocumentEvent e) {
                 hitungGrandTotal();
@@ -121,14 +122,14 @@ public class FormTransaksi_user extends javax.swing.JFrame {
     }
 
     public void setNamaPengguna(String nama) {
-        lblNama.setText(nama); // lblNama = JLabel di FormTransaksi
+        lblNama.setText(nama); 
     }
 
-    public int parseAngka(String teks) throws NumberFormatException {
+     public int parseAngka(String teks) throws NumberFormatException {
         if (teks == null) {
             return 0;
         }
-        teks = teks.replaceAll("[^\\d]", ""); // hapus simbol, koma, titik
+        teks = teks.replaceAll("[^\\d]", ""); 
         if (teks.isEmpty()) {
             return 0;
         }
@@ -168,6 +169,30 @@ public class FormTransaksi_user extends javax.swing.JFrame {
     txKembali.setText("");
    
 }
+    public void hitungSubtotalDariTable() {
+    int subTotal = 0;
+    for (int i = 0; i < tbPengeluaran.getRowCount(); i++) {
+        try {
+            int harga = Integer.parseInt(tbPengeluaran.getValueAt(i, 2).toString());
+            int qty = Integer.parseInt(tbPengeluaran.getValueAt(i, 3).toString());
+            int total = harga * qty;
+            subTotal += total;
+
+            
+            tbPengeluaran.setValueAt(total, i, 4);
+        } catch (Exception e) {
+          
+            continue;
+        }
+    }
+
+    tampilTTL.setText(String.valueOf(subTotal));
+    txtotal2.setText(String.valueOf(subTotal));
+
+    hitungGrandTotal();
+    hitungKembali();
+}
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -533,7 +558,7 @@ public class FormTransaksi_user extends javax.swing.JFrame {
                 .addComponent(btnSimpan, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btncancel, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(27, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -559,7 +584,7 @@ public class FormTransaksi_user extends javax.swing.JFrame {
                 .addGap(25, 25, 25))
         );
 
-        jPanel3.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 340, -1, 110));
+        jPanel3.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 340, 1190, 110));
 
         kGradientPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)), "TOTAL", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 0, 11), new java.awt.Color(255, 255, 255))); // NOI18N
         kGradientPanel1.setkBorderRadius(0);
@@ -567,7 +592,6 @@ public class FormTransaksi_user extends javax.swing.JFrame {
         kGradientPanel1.setkStartColor(new java.awt.Color(255, 204, 51));
 
         tampilTTL.setFont(new java.awt.Font("Segoe UI", 1, 50)); // NOI18N
-        tampilTTL.setForeground(new java.awt.Color(0, 0, 0));
         tampilTTL.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         tampilTTL.setText("0");
 
@@ -655,6 +679,7 @@ public class FormTransaksi_user extends javax.swing.JFrame {
                 Integer hargaa = rs.getInt("harga");
                 Integer stokk = rs.getInt("stok");
                 txnama.setText(nama);
+                txUkuran.setText(ukurann);
                 harga = hargaa;
                 ukuran = ukurann;
                 btnSimpan.setEnabled(true);
@@ -675,6 +700,7 @@ public class FormTransaksi_user extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCariActionPerformed
 
     private void btnNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNewActionPerformed
+        txkode.setEditable(true);
         txDiskon.setEditable(true);
         txBayar.setEditable(true);
 
@@ -683,84 +709,96 @@ public class FormTransaksi_user extends javax.swing.JFrame {
         btnCari.setEnabled(true);
         btnNew.setEnabled(false);
         btncancel.setEnabled(true);
+        txkode.requestFocus();
          resetForm();
     }//GEN-LAST:event_btnNewActionPerformed
 
     private void btnhapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnhapusActionPerformed
-        int row = tbPengeluaran.getSelectedRow();
+      int row = tbPengeluaran.getSelectedRow();
+    if (row >= 0) {
         ct.model.removeRow(row);
-        btnhapus.setEnabled(false);
-        btncancel.setEnabled(false);
-        btnNew.setEnabled(true);
-        btnCari.setEnabled(false);
-        tampilTTL.setText("0");
-        txtotal2.setText("");
-        txGrandTotal.setText("");
-        int subTotal = 0;
-        for(int n =0;n<tbPengeluaran.getRowCount();n++){
-            int hargajual = (int) tbPengeluaran.getValueAt(n, 2);
-            int  qty1 = (int) tbPengeluaran.getValueAt(n, 3);
-            int  total1 = hargajual*qty;
-            int total2 = (int) tbPengeluaran.getValueAt(n, 4);
+    }
 
-            subTotal += total2;
+    btnhapus.setEnabled(false);
+    btncancel.setEnabled(false);
+    btnNew.setEnabled(true);
+    btnCari.setEnabled(false);
 
-        }
-        tampilTTL.setText(Integer.toString(subTotal));
-        txtotal2.setText(Integer.toString(subTotal));
-        txDiskon.setText("0");
+    hitungSubtotalDariTable(); 
     }//GEN-LAST:event_btnhapusActionPerformed
 
     private void btnSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSimpanActionPerformed
-    kode_barang = txkode.getText();
-        nama_barang = txnama.getText();
-        ukuran = txUkuran.getText(); // Ambil nilai ukuran
-        qty = Integer.parseInt(txqty.getText());
-        total = harga * qty;
+       kode_barang = txkode.getText();
+    nama_barang = txnama.getText();
+    ukuran = txUkuran.getText(); 
+    
+    if(txqty.getText().isEmpty()){
+        JOptionPane.showMessageDialog(this, "ISI QTY TERLEBIH DAHULU");
+        return; 
+    }
 
-        int total1 = 0;
-        int subTotal = 0;
-        int hargajual;
-        int qty1;
-        int total2 = 0;
+    qty = Integer.parseInt(txqty.getText());
 
-        if(txqty.getText().isEmpty()){
-            JOptionPane.showMessageDialog(this, "ISI QTY TERLEBIH DAHULU");
-        } else if(qty >= stok){
-            JOptionPane.showMessageDialog(this, "STOK TIDAK MENCUKUPI");
-        } else {
-            // Tambahkan ukuran sebagai parameter baru
-            ct.tampilPengeluaran(kode_barang, nama_barang, ukuran, harga, qty, total);
+    if(qty >= stok){
+        JOptionPane.showMessageDialog(this, "STOK TIDAK MENCUKUPI");
+        return;
+    }
 
-            txkode.setText("");
-            txnama.setText("");
-            txUkuran.setText(""); // Reset ukuran
-            txqty.setText("");
+    total = harga * qty;
 
-            for(int n = 0; n < tbPengeluaran.getRowCount(); n++){
-                hargajual = (int) tbPengeluaran.getValueAt(n, 3); // Index harga setelah ukuran (kolom ke-3)
-                qty1 = (int) tbPengeluaran.getValueAt(n, 4);      // Index qty (kolom ke-4)
-                total1 = hargajual * qty1;
-                total2 = (int) tbPengeluaran.getValueAt(n, 5);    // Index total (kolom ke-5)
+    boolean itemSudahAda = false;
 
-                subTotal += total2;
-            }
+    for (int i = 0; i < tbPengeluaran.getRowCount(); i++) {
+        String kodeBarangTabel = tbPengeluaran.getValueAt(i, 0).toString();
+        String ukuranTabel = tbPengeluaran.getValueAt(i, 2).toString();
+        int hargaTabel = Integer.parseInt(tbPengeluaran.getValueAt(i, 3).toString());
 
-            tampilTTL.setText(Integer.toString(subTotal));
-            txtotal2.setText(Integer.toString(subTotal));
-            txDiskon.setText("0");
+        if (kode_barang.equals(kodeBarangTabel) && ukuran.equals(ukuranTabel) && harga == hargaTabel) {
+            int qtyLama = Integer.parseInt(tbPengeluaran.getValueAt(i, 4).toString());
+            int qtyBaru = qtyLama + qty;
+            int totalBaru = harga * qtyBaru;
+
+            tbPengeluaran.setValueAt(qtyBaru, i, 4);
+            tbPengeluaran.setValueAt(totalBaru, i, 5);
+
+            itemSudahAda = true;
+            break;
         }
+    }
 
-        btnNew.setEnabled(true);
-        btnCari.setEnabled(false);
-        btnSimpan.setEnabled(false);
-        btncancel.setEnabled(false);
-        txDiskon.setEditable(true);
-        txBayar.setEditable(true);
-        btnCariPlg.setEnabled(true);
-        txqty.setEditable(false);
-        txqty.setText("");
-        txBayar.requestFocus();
+    if (!itemSudahAda) {
+        ct.tampilPengeluaran(kode_barang, nama_barang, ukuran, harga, qty, total);
+    }
+
+    txkode.setText("");
+    txnama.setText("");
+    txUkuran.setText("");
+    txqty.setText("");
+
+    int subTotal = 0;
+
+    for(int n = 0; n < tbPengeluaran.getRowCount(); n++){
+        int total2 = (int) tbPengeluaran.getValueAt(n, 5); 
+        subTotal += total2;
+    }
+
+    tampilTTL.setText(Integer.toString(subTotal));
+    txtotal2.setText(Integer.toString(subTotal));
+    txDiskon.setText("0");
+
+    btnNew.setEnabled(true);
+    btnCari.setEnabled(false);
+    btnSimpan.setEnabled(false);
+    btncancel.setEnabled(false);
+    btnSave.setEnabled(true);
+    btnReset.setEnabled(true);
+    
+    txDiskon.setEditable(true);
+    txBayar.setEditable(true);
+    btnCariPlg.setEnabled(true);
+    txqty.setEditable(true);
+    txqty.setText("");
+    txBayar.requestFocus();
     }//GEN-LAST:event_btnSimpanActionPerformed
 
     private void btncancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btncancelActionPerformed
@@ -769,8 +807,12 @@ public class FormTransaksi_user extends javax.swing.JFrame {
         btnNew.setEnabled(true);
         btnCari.setEnabled(false);
         btnhapus.setEnabled(false);
+               
         txqty.setEditable(false);
         txqty.setText("");
+        txkode.setText("");
+        txnama.setText("");
+        txUkuran.setText("");
         tbPengeluaran.clearSelection();
     }//GEN-LAST:event_btncancelActionPerformed
 
@@ -834,13 +876,12 @@ public class FormTransaksi_user extends javax.swing.JFrame {
             ct.simpanPenjualan(nofak, kasir, id_pelanggan, pelanggan, diskon, total, bayar, kembali, tanggall);
 
             for (int n = 0; n < tbPengeluaran.getRowCount(); n++) {
-                String kode_barang = tbPengeluaran.getValueAt(n, 0).toString(); // Kode Barang
-                String nama_barang = tbPengeluaran.getValueAt(n, 1).toString(); // Nama Barang
-                String ukuran = tbPengeluaran.getValueAt(n, 2).toString();      // Ukuran
-                int harga = Integer.parseInt(tbPengeluaran.getValueAt(n, 3).toString()); // Harga
-                int qty = Integer.parseInt(tbPengeluaran.getValueAt(n, 4).toString());   // Qty
-                int totall = Integer.parseInt(tbPengeluaran.getValueAt(n, 5).toString()); // Total
-
+                String kode_barang = tbPengeluaran.getValueAt(n, 0).toString(); 
+                String nama_barang = tbPengeluaran.getValueAt(n, 1).toString(); 
+                String ukuran = tbPengeluaran.getValueAt(n, 2).toString();      
+                int harga = Integer.parseInt(tbPengeluaran.getValueAt(n, 3).toString()); 
+                int qty = Integer.parseInt(tbPengeluaran.getValueAt(n, 4).toString());   
+                int totall = Integer.parseInt(tbPengeluaran.getValueAt(n, 5).toString()); 
 
                 db.setKoneksi();
                 String sqli = "SELECT stok FROM masterBarang WHERE kode_barang = ?";
@@ -869,13 +910,14 @@ public class FormTransaksi_user extends javax.swing.JFrame {
 
             servisReport.printNota(nofak);
 
+            
+            btnReset.setEnabled(false);
             btnSave.setEnabled(false);
-            btnCariPlg.setEnabled(false);
-            btnNew.setEnabled(false);
+            btnNew.setEnabled(true);
 
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(rootPane, "GAGAL MENYIMPAN DATA\n" + ex.getMessage());
-            Logger.getLogger(Transaksi.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(FormTransaksi_user.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnSaveActionPerformed
 
@@ -897,9 +939,12 @@ public class FormTransaksi_user extends javax.swing.JFrame {
         btnReset.setEnabled(false);
         btnCariPlg.setEnabled(false);
         btnSave.setEnabled(false);
+        btnhapus.setEnabled(false);
+        btnSimpan.setEnabled(false);
+        btncancel.setEnabled(false);
 
         btnNew.setEnabled(true);
-      
+        
     }//GEN-LAST:event_btnResetActionPerformed
 
     private void custom_ButtonRounded1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_custom_ButtonRounded1ActionPerformed

@@ -59,7 +59,7 @@ public class control_user extends koneksi {
         try {
             rs = st.executeQuery(sql);
             model.setColumnIdentifiers(kolom);
-            model.setRowCount(0); // bersihkan isi tabel lama
+            model.setRowCount(0); 
 
             while (rs.next()) {
                 Object[] data = new Object[6];
@@ -77,14 +77,14 @@ public class control_user extends koneksi {
         }
     }
 
-    // ✅ CEK DUPLIKAT RFID
+    
     public boolean cekDuplikatRfid(String rfid_tag) {
         try {
             String sql = "SELECT rfid_tag FROM user WHERE rfid_tag = ?";
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, rfid_tag);
             rs = ps.executeQuery();
-            return rs.next(); // true jika sudah ada
+            return rs.next();
         } catch (SQLException ex) {
             Logger.getLogger(control_user.class.getName()).log(Level.SEVERE, null, ex);
             return false;

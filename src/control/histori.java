@@ -21,17 +21,17 @@ public class histori extends koneksi {
     public DefaultTableModel model = new DefaultTableModel();
     private FormHistory_user formHistory;
 
-    // Constructor
+   
     public histori() {
         super.setKoneksi();
     }
 
-    // Setter agar bisa akses form (wajib dipanggil dari form utama)
+    
     public void setFormHistory(FormHistory_user formHistory) {
         this.formHistory = formHistory;
     }
 
-    // Tampilkan semua data
+    
     public void tampilTb() {
         try {
             String sql = "SELECT no_faktur, kasir, id_pelanggan, nama_pelanggan, total, " +
@@ -40,7 +40,7 @@ public class histori extends koneksi {
 
             String[] kolom = {"Tanggal", "No Faktur", "Kasir", "ID Pelanggan", "Nama Pelanggan", "Total"};
             model.setColumnIdentifiers(kolom);
-            model.setRowCount(0); // clear isi lama
+            model.setRowCount(0);
 
             while (rs.next()) {
                 Object[] data = {
@@ -58,7 +58,7 @@ public class histori extends koneksi {
         }
     }
 
-    // Tampilkan data berdasarkan filter tanggal
+    
     public void tampilTbFilter(Date tanggalAwal, Date tanggalAkhir) {
         try {
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -94,7 +94,7 @@ public class histori extends koneksi {
         }
     }
 
-    // Ambil tanggal awal dari database
+   
     public void tglAwal() {
         try {
             String sql = "SELECT tanggal FROM penjualan ORDER BY tanggal ASC LIMIT 1";
@@ -107,7 +107,7 @@ public class histori extends koneksi {
         }
     }
 
-    // Ambil tanggal akhir dari database
+  
     public void tglAkhir() {
         try {
             String sql = "SELECT tanggal FROM penjualan ORDER BY tanggal DESC LIMIT 1";
