@@ -72,6 +72,7 @@ public class User extends javax.swing.JInternalFrame {
         txUser.setText("");
         txNama.setText("");
         txPass.setText("");
+        txRFID.setText("");
         tabelUser.clearSelection();
     }
     public String hashPassword(String password) {
@@ -398,12 +399,13 @@ boolean edit = false;
         try {
             ur.edit(id, user, hashedPass, nama, nohp); 
             JOptionPane.showMessageDialog(rootPane, "DATA BERHASIL DI UPDATE");
+            clear();  
             tampil();
-            clear();
             txUser.setEditable(false);
             txPass.setEditable(false);
             txNama.setEditable(false);
             txNohp.setEditable(false);
+            txRFID.setEditable(false);
             btnSimpan.setEnabled(false);
             btnCancel.setEnabled(false);
             btnNew.setEnabled(true);
@@ -424,6 +426,7 @@ boolean edit = false;
             txPass.setEditable(false);
             txNama.setEditable(false);
             txNohp.setEditable(false);
+            txRFID.setEditable(false);
         } catch (SQLException ex) {
             Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
         }

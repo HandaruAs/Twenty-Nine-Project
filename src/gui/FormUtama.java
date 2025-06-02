@@ -505,7 +505,7 @@ Color DefaultColor,ClickedColor;
                 penggunaMouseClicked(evt);
             }
         });
-        jPanel1.add(pengguna, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 20, 50, 30));
+        jPanel1.add(pengguna, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 20, 100, 30));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/DASHBOARD (2).png"))); // NOI18N
         jLabel1.setText("jLabel1");
