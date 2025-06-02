@@ -46,7 +46,7 @@ public class FormBarang extends javax.swing.JInternalFrame {
             mb = new MasterBarang();
             tampil();
 
-        txtKodeBarang.setEditable(false);
+        txtKodeBarang.setEditable(true);
         txNama.setEditable(false);
         txStok.setEditable(false);
         txHarga.setEditable(false);
@@ -376,7 +376,7 @@ boolean edit = false;
 
     private void btnBaruActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBaruActionPerformed
    
-    txtKodeBarang.setEditable(false);
+    txtKodeBarang.setEditable(true);
     txNama.setEditable(true);
     txStok.setEditable(true);
     txHarga.setEditable(true);
@@ -397,7 +397,7 @@ boolean edit = false;
 
     
     txtKodeBarang.requestFocus();
-    txtKodeBarang.setText(generateKodeBarang());
+    
     }//GEN-LAST:event_btnBaruActionPerformed
 
     private void btnSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSimpanActionPerformed
