@@ -136,10 +136,10 @@ public class ResetPass extends javax.swing.JFrame {
         return;
     }
 
-    String hashedPassword = hashPassword(newPassword); // hash di sini
+    String hashedPassword = hashPassword(newPassword); 
 
     control_resetPass control = new control_resetPass();
-    boolean resetSuccess = control.resetPassword(username, hashedPassword); // kirim hashed password
+    boolean resetSuccess = control.resetPassword(username, hashedPassword); 
 
     if (resetSuccess) {
         JOptionPane.showMessageDialog(this, "Password berhasil direset! Silakan login kembali.", "Sukses", JOptionPane.INFORMATION_MESSAGE);

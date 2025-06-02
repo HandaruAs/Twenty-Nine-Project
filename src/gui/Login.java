@@ -8,6 +8,9 @@ import com.jtattoo.plaf.mint.MintLookAndFeel;
 import control.control_login;
 import gui_user.FormUtama_user;
 import java.awt.Color;
+import java.awt.Component;
+import java.awt.Container;
+import java.awt.Font;
 import java.awt.KeyEventDispatcher;
 import java.awt.KeyboardFocusManager;
 import java.awt.event.KeyEvent;
@@ -35,6 +38,9 @@ control_login cl;
      */
     public Login() {
         initComponents();
+        Font font = new Font("Poppins", Font.PLAIN, 12);
+        setFontKeSemuaKomponen(this, font);
+
            cl = new control_login();
         this.setLocationRelativeTo(null);
         setTitle("LOGIN");
@@ -81,17 +87,17 @@ control_login cl;
         if (rs.next()) {
             String nama = rs.getString("nama");
             String userRFID = rs.getString("username");
-            String role = rs.getString("role"); // role: admin / user
+            String role = rs.getString("role"); 
 
             if (role.equalsIgnoreCase("admin")) {
                 FormUtama frm = new FormUtama();
                 frm.setVisible(true);
-                frm.pengguna.setText(nama); // set label nama
+                frm.pengguna.setText(nama); 
                 JOptionPane.showMessageDialog(this, "Login berhasil sebagai ADMIN: " + userRFID);
             } else if (role.equalsIgnoreCase("user")) {
                 FormUtama_user frmUser = new FormUtama_user();
                 frmUser.setVisible(true);
-                frmUser.pengguna_user.setText(nama); // set label nama
+                frmUser.pengguna_user.setText(nama); 
                 JOptionPane.showMessageDialog(this, "Login berhasil sebagai USER: " + userRFID);
             } else {
                 JOptionPane.showMessageDialog(this, "Role tidak dikenali!", "Login Gagal", JOptionPane.ERROR_MESSAGE);
@@ -155,6 +161,12 @@ control_login cl;
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 RegisterMouseClicked(evt);
             }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                RegisterMousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                RegisterMouseReleased(evt);
+            }
         });
         jPanel1.add(Register, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 420, -1, 20));
 
@@ -165,6 +177,12 @@ control_login cl;
         ForgetPass.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 ForgetPassMouseClicked(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                ForgetPassMousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                ForgetPassMouseReleased(evt);
             }
         });
         jPanel1.add(ForgetPass, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 400, 100, 20));
@@ -216,18 +234,18 @@ control_login cl;
             String nama = rs.getString("username");
 
             if (role.equalsIgnoreCase("admin")) {
-                // Tampilkan halaman admin
+               
                 FormUtama adminForm = new FormUtama();
                 FormUtama.pengguna.setText(rs.getString("nama"));
                 adminForm.setVisible(true);
             } else if (role.equalsIgnoreCase("user")) {
-                // Tampilkan halaman user
+              
                 FormUtama_user userForm = new FormUtama_user();
                 FormUtama_user.pengguna_user.setText(rs.getString("nama"));
                 userForm.setVisible(true);
             }
 
-            dispose(); // Tutup form login
+            dispose(); 
             JOptionPane.showMessageDialog(rootPane, "Selamat Datang " + rs.getString("username"));
         }
     } else {
@@ -256,6 +274,22 @@ control_login cl;
         txPass.setEchoChar('*'); 
     }
     }//GEN-LAST:event_checkpassActionPerformed
+
+    private void RegisterMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RegisterMousePressed
+      Register.setForeground(Color.YELLOW); 
+    }//GEN-LAST:event_RegisterMousePressed
+
+    private void RegisterMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RegisterMouseReleased
+       Register.setForeground(Color.WHITE); 
+    }//GEN-LAST:event_RegisterMouseReleased
+
+    private void ForgetPassMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ForgetPassMousePressed
+        ForgetPass.setForeground(Color.YELLOW); 
+    }//GEN-LAST:event_ForgetPassMousePressed
+
+    private void ForgetPassMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ForgetPassMouseReleased
+      ForgetPass.setForeground(Color.YELLOW); 
+    }//GEN-LAST:event_ForgetPassMouseReleased
 
    /**
      * @param args the command line arguments
@@ -303,4 +337,12 @@ control_login cl;
     private javax.swing.JPasswordField txPass;
     private javax.swing.JTextField txUsername;
     // End of variables declaration//GEN-END:variables
+private void setFontKeSemuaKomponen(Container container, Font font) {
+    for (Component comp : container.getComponents()) {
+        comp.setFont(font);
+        if (comp instanceof Container) {
+            setFontKeSemuaKomponen((Container) comp, font);
+        }
+    }
+}
 }

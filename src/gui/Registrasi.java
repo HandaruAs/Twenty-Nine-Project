@@ -5,6 +5,9 @@
 package gui;
 import control.registrasi;
 import java.awt.Color;
+import java.awt.Component;
+import java.awt.Container;
+import java.awt.Font;
 import java.awt.KeyEventDispatcher;
 import java.awt.KeyboardFocusManager;
 import java.awt.event.KeyEvent;
@@ -24,10 +27,8 @@ public class Registrasi extends javax.swing.JFrame {
     public Registrasi() {
         initComponents();
         
-         labelLogin = new javax.swing.JLabel();
-    labelLogin.setFont(new java.awt.Font("Tahoma", 0, 18));
-    labelLogin.setForeground(new java.awt.Color(255, 255, 255));
-    labelLogin.setText("Login");
+          Font font = new Font("Poppins", Font.PLAIN, 12);
+        setFontKeSemuaKomponen(this, font);
     
   KeyboardFocusManager.getCurrentKeyboardFocusManager().addKeyEventDispatcher(new KeyEventDispatcher() {
     private StringBuilder rfidBuffer = new StringBuilder();
@@ -328,4 +329,13 @@ labelLogin.setForeground(Color.YELLOW);
     private javax.swing.JTextField txRole;
     private javax.swing.JTextField txUsername;
     // End of variables declaration//GEN-END:variables
+private void setFontKeSemuaKomponen(Container container, Font font) {
+    for (Component comp : container.getComponents()) {
+        comp.setFont(font);
+        if (comp instanceof Container) {
+            setFontKeSemuaKomponen((Container) comp, font);
+        }
+    }
 }
+}
+

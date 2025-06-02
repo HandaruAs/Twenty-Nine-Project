@@ -3,6 +3,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package gui;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Container;
+import java.awt.Font;
 import java.util.Properties;
 import java.util.Random;
 import javax.mail.*;
@@ -17,6 +21,9 @@ public class ForgetPass extends javax.swing.JFrame {
   private String generatedOTP;
   public ForgetPass() {
         initComponents();
+                Font font = new Font("Poppins", Font.PLAIN, 11);
+        setFontKeSemuaKomponen(this, font);
+        
         setLocationRelativeTo(null); 
     }
 
@@ -30,6 +37,8 @@ public class ForgetPass extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
+        Login = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
         btn_Verifikasi = new custom.Custom_ButtonRounded();
         btn_sendEmail = new custom.Custom_ButtonRounded();
         txOTP = new javax.swing.JTextField();
@@ -39,6 +48,23 @@ public class ForgetPass extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        Login.setText("Login");
+        Login.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                LoginMouseClicked(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                LoginMousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                LoginMouseReleased(evt);
+            }
+        });
+        jPanel1.add(Login, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 450, -1, -1));
+
+        jLabel2.setText("Sudah punya akun?");
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 450, 100, -1));
 
         btn_Verifikasi.setText("Verifikasi");
         btn_Verifikasi.addActionListener(new java.awt.event.ActionListener() {
@@ -129,6 +155,20 @@ public class ForgetPass extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btn_sendEmailActionPerformed
 
+    private void LoginMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LoginMousePressed
+      Login.setForeground(Color.YELLOW); 
+    }//GEN-LAST:event_LoginMousePressed
+
+    private void LoginMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LoginMouseReleased
+       Login.setForeground(Color.WHITE); 
+    }//GEN-LAST:event_LoginMouseReleased
+
+    private void LoginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LoginMouseClicked
+      Login LOGIN = new Login();
+        LOGIN.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_LoginMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -165,14 +205,25 @@ public class ForgetPass extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel Login;
     private custom.Custom_ButtonRounded btn_Verifikasi;
     private custom.Custom_ButtonRounded btn_sendEmail;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField txEmail;
     private javax.swing.JTextField txOTP;
     // End of variables declaration//GEN-END:variables
- private String generateOTP() {
+  private void setFontKeSemuaKomponen(Container container, Font font) {
+    for (Component comp : container.getComponents()) {
+        comp.setFont(font);
+        if (comp instanceof Container) {
+            setFontKeSemuaKomponen((Container) comp, font);
+        }
+    }
+}
+    
+    private String generateOTP() {
     Random random = new Random();
         int otp = 100000 + random.nextInt(900000);
         return String.valueOf(otp); 

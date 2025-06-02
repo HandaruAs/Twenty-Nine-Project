@@ -75,11 +75,7 @@ public class FormBarang extends javax.swing.JInternalFrame {
         txStatus.setSelectedIndex(0);
         TabelBarang.clearSelection();
     }
-    private String generateKodeBarang() {
-    String prefix = "BRG";
-    int randomNumber = (int) (Math.random() * 90000) + 10000; 
-    return prefix + randomNumber;
-}
+  
 
 
     /**
@@ -108,7 +104,6 @@ public class FormBarang extends javax.swing.JInternalFrame {
         kGradientPanel1 = new keeptoo.KGradientPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         TabelBarang = new custom.JTable_Custom();
-        cetak = new custom.Custom_ButtonRounded();
         btnBaru = new custom.Custom_ButtonRounded();
         btnSimpan = new custom.Custom_ButtonRounded();
         btnHapus = new custom.Custom_ButtonRounded();
@@ -147,7 +142,6 @@ public class FormBarang extends javax.swing.JInternalFrame {
         jLabel5.setText("HARGA");
 
         txStatus.setBackground(new java.awt.Color(255, 204, 0));
-        txStatus.setForeground(new java.awt.Color(0, 0, 0));
         txStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Bagus", "Rusak", " " }));
 
         jLabel6.setText("STATUS");
@@ -193,7 +187,7 @@ public class FormBarang extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtKodeBarang, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(txtKodeBarang, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -250,13 +244,6 @@ public class FormBarang extends javax.swing.JInternalFrame {
             .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
         );
 
-        cetak.setText("Cetak Barcode");
-        cetak.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cetakActionPerformed(evt);
-            }
-        });
-
         btnBaru.setText("Baru");
         btnBaru.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -299,11 +286,10 @@ public class FormBarang extends javax.swing.JInternalFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(21, 21, 21)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(btnBaru, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(54, 54, 54)
-                        .addComponent(cetak, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(95, 95, 95)
+                        .addComponent(btnBaru, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(kGradientPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 475, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -323,14 +309,13 @@ public class FormBarang extends javax.swing.JInternalFrame {
                 .addGap(21, 21, 21)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(kGradientPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 398, Short.MAX_VALUE))
+                    .addComponent(kGradientPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 402, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSimpan, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnHapus, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnBatal, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cetak, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnBaru, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -355,24 +340,6 @@ boolean edit = false;
         ut.tampilCountPlg();
         ut.tampilCountTrx();
     }//GEN-LAST:event_formInternalFrameClosing
-
-    private void cetakActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cetakActionPerformed
-         String a = (String) TabelBarang.getValueAt(TabelBarang.getSelectedRow(), 0);
-        System.out.println("a = " + a);
-        try {
-            Linear barcode = new Linear();
-            barcode.setType(Linear.CODE128B);
-            barcode.setData (a);
-            barcode.setI(11.0f);
-            String fname = a;
-            barcode.renderBarcode("src/image/" + fname + ".png");
-        } catch (Exception e){
-           JOptionPane.showMessageDialog(null, "gagal mencetak barcode"+ e);
-        }
-        String imagePath = "src/image/" + a + ".png";
-       ha haha = new ha();
-       haha.ha(imagePath);
-    }//GEN-LAST:event_cetakActionPerformed
 
     private void btnBaruActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBaruActionPerformed
    
@@ -536,7 +503,6 @@ if (selectedRow == -1) {
     private custom.Custom_ButtonRounded btnEdit;
     private custom.Custom_ButtonRounded btnHapus;
     private custom.Custom_ButtonRounded btnSimpan;
-    private custom.Custom_ButtonRounded cetak;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

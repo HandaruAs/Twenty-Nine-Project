@@ -23,13 +23,13 @@ public class MasterBarang extends koneksi {
 
     public DefaultTableModel modelBarang = new DefaultTableModel();
 
-    // Fungsi simpan termasuk ukuran
+    
     public void simpan(String kode, String nama, int stok, int harga, String status, int ukuran) throws SQLException {
         String sql = "INSERT INTO masterbarang VALUES('" + kode + "','" + nama + "','" + stok + "','" + harga + "','" + status + "','" + ukuran + "')";
         st.executeUpdate(sql);
     }
 
-    // Fungsi edit termasuk ukuran
+    
     public void edit(String kode, String nama, int stok, int harga, String status, int ukuran) throws SQLException {
         String sql = "UPDATE masterbarang SET nama_barang = '" + nama + "', stok = '" + stok + "', harga = '" + harga + "', status = '" + status + "', ukuran = '" + ukuran + "' WHERE kode_barang = '" + kode + "'";
         st.executeUpdate(sql);
@@ -40,7 +40,7 @@ public class MasterBarang extends koneksi {
         st.executeUpdate(sql);
     }
 
-    // Fungsi tampil termasuk ukuran
+    
     public void tampil() {
         try {
             String sqli = "SELECT * FROM masterbarang";

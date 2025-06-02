@@ -13,10 +13,10 @@ import java.awt.*;
 public class RoundedDesktopPane extends JDesktopPane {
 
     private int cornerRadius = 25;
-    private Color backgroundColor = new Color(255, 255, 204); // kuning muda
+    private Color backgroundColor = new Color(255, 255, 204); 
 
     public RoundedDesktopPane() {
-        setOpaque(false); // agar paintComponent bisa menggambar latar
+        setOpaque(false); 
     }
 
     public void setCornerRadius(int radius) {
@@ -33,11 +33,11 @@ public class RoundedDesktopPane extends JDesktopPane {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-        // Antialiasing untuk tampilan halus
+       
         Graphics2D g2 = (Graphics2D) g.create();
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
-        // Gambar latar belakang bulat
+       
         g2.setColor(backgroundColor);
         g2.fillRoundRect(0, 0, getWidth(), getHeight(), cornerRadius, cornerRadius);
 

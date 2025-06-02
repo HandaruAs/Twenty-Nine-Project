@@ -17,7 +17,7 @@ public class control_login extends koneksi {
         super.setKoneksi();
     }
 
-    // Fungsi untuk menghasilkan hash dari password menggunakan SHA-256
+   
     public static String hashPassword(String password) throws NoSuchAlgorithmException {
         MessageDigest digest = MessageDigest.getInstance("SHA-256");
         byte[] hash = digest.digest(password.getBytes());
@@ -28,7 +28,7 @@ public class control_login extends koneksi {
         return hexString.toString();
     }
 
-    // Mengembalikan role (admin/user) jika login berhasil, null jika gagal
+    
     public String login(String username, String password) throws SQLException, NoSuchAlgorithmException {
         String sql = "SELECT * FROM user WHERE username = ?";
         PreparedStatement ps = con.prepareStatement(sql);
@@ -40,14 +40,14 @@ public class control_login extends koneksi {
             String hashedInputPassword = hashPassword(password);
 
             if (hashedPasswordFromDb.equals(hashedInputPassword)) {
-                return rs.getString("role"); // Misalnya "admin" atau "user"
+                return rs.getString("role"); 
             }
         }
 
-        return null; // Login gagal
+        return null; 
     }
 
-    // Mengambil data user berdasarkan username
+   
     public ResultSet getUserData(String username) throws SQLException {
         String sql = "SELECT * FROM user WHERE username = ?";
         PreparedStatement ps = con.prepareStatement(sql);

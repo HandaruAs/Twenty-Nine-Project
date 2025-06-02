@@ -100,10 +100,10 @@ public class Custom_ButtonRounded extends JButton {
     }
 
     public Custom_ButtonRounded() {
-        // Dark mode API design + yellow highlights
-        fillOriginal = new Color(30, 30, 30);     // Hitam latar belakang
-        fillOver = new Color(255, 215, 0);        // Hover: kuning terang (gold)
-        fillClick = new Color(230, 194, 0);       // Click: kuning lebih gelap
+       
+        fillOriginal = new Color(30, 30, 30);     
+        fillOver = new Color(255, 215, 0);        
+        fillClick = new Color(230, 194, 0);       
         strokeWidth = 2;
         roundedCorner = 12;
         fill = fillOriginal;
@@ -114,14 +114,14 @@ public class Custom_ButtonRounded extends JButton {
         setFocusPainted(false);
         setContentAreaFilled(false);
         setBackground(fillOriginal);
-        setForeground(Color.WHITE); // Teks putih
+        setForeground(Color.WHITE); 
 
         addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
                 fill = fillOver;
                 over = true;
-                setForeground(Color.BLACK); // Teks hitam saat hover di kuning
+                setForeground(Color.BLACK); 
                 repaint();
             }
 
@@ -146,7 +146,7 @@ public class Custom_ButtonRounded extends JButton {
             public void mouseExited(MouseEvent e) {
                 fill = fillOriginal;
                 over = false;
-                setForeground(Color.WHITE); // Kembali ke putih saat keluar
+                setForeground(Color.WHITE); 
                 repaint();
             }
         });
