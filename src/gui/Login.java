@@ -70,7 +70,7 @@ control_login cl;
     }
 });
     }
-    private void loginDenganRFID(String rfid_tag) {
+  private void loginDenganRFID(String rfid_tag) {
     try {
         Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/sistemkasir", "root", "");
         String query = "SELECT * FROM user WHERE rfid_tag = ?";
@@ -81,12 +81,22 @@ control_login cl;
         if (rs.next()) {
             String nama = rs.getString("nama");
             String userRFID = rs.getString("username");
+            String role = rs.getString("role"); // role: admin / user
 
-            FormUtama frm = new FormUtama();
-            frm.setVisible(true);
-            frm.pengguna.setText(nama);
+            if (role.equalsIgnoreCase("admin")) {
+                FormUtama frm = new FormUtama();
+                frm.setVisible(true);
+                frm.pengguna.setText(nama); // set label nama
+                JOptionPane.showMessageDialog(this, "Login berhasil sebagai ADMIN: " + userRFID);
+            } else if (role.equalsIgnoreCase("user")) {
+                FormUtama_user frmUser = new FormUtama_user();
+                frmUser.setVisible(true);
+                frmUser.pengguna_user.setText(nama); // set label nama
+                JOptionPane.showMessageDialog(this, "Login berhasil sebagai USER: " + userRFID);
+            } else {
+                JOptionPane.showMessageDialog(this, "Role tidak dikenali!", "Login Gagal", JOptionPane.ERROR_MESSAGE);
+            }
 
-            JOptionPane.showMessageDialog(this, "Login berhasil via RFID untuk " + userRFID);
             this.dispose();
         } else {
             JOptionPane.showMessageDialog(this, "RFID tidak terdaftar!", "Login Gagal", JOptionPane.ERROR_MESSAGE);
@@ -99,6 +109,8 @@ control_login cl;
         JOptionPane.showMessageDialog(this, "Terjadi kesalahan saat login RFID: " + e.getMessage());
     }
 }
+
+
 
     /**
      * This method is called from within the constructor to initialize the form.
