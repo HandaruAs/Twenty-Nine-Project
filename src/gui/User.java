@@ -60,8 +60,8 @@ public class User extends javax.swing.JInternalFrame {
 
 
         btnSimpan.setEnabled(false);
-        btnEdit.setEnabled(false);
-        btnHapus.setEnabled(false);
+        btnEdit.setEnabled(true);
+        btnHapus.setEnabled(true);
         btnCancel.setEnabled(false);
 
     }

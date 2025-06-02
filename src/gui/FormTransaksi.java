@@ -74,6 +74,7 @@ public class FormTransaksi extends javax.swing.JFrame {
         btnhapus.setEnabled(false);
         btnSimpan.setEnabled(false);
         btncancel.setEnabled(false);
+        btnReset.setEnabled(false);
         
         
         txDiskon.getDocument().addDocumentListener(new javax.swing.event.DocumentListener() {
@@ -711,55 +712,77 @@ public class FormTransaksi extends javax.swing.JFrame {
     }//GEN-LAST:event_btnhapusActionPerformed
 
     private void btnSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSimpanActionPerformed
-    kode_barang = txkode.getText();
-        nama_barang = txnama.getText();
-        ukuran = txUkuran.getText(); // Ambil nilai ukuran
-        qty = Integer.parseInt(txqty.getText());
-        total = harga * qty;
+       kode_barang = txkode.getText();
+    nama_barang = txnama.getText();
+    ukuran = txUkuran.getText(); // Ambil nilai ukuran
 
-        int total1 = 0;
-        int subTotal = 0;
-        int hargajual;
-        int qty1;
-        int total2 = 0;
+    if(txqty.getText().isEmpty()){
+        JOptionPane.showMessageDialog(this, "ISI QTY TERLEBIH DAHULU");
+        return; // Stop eksekusi
+    }
 
-        if(txqty.getText().isEmpty()){
-            JOptionPane.showMessageDialog(this, "ISI QTY TERLEBIH DAHULU");
-        } else if(qty >= stok){
-            JOptionPane.showMessageDialog(this, "STOK TIDAK MENCUKUPI");
-        } else {
-            // Tambahkan ukuran sebagai parameter baru
-            ct.tampilPengeluaran(kode_barang, nama_barang, ukuran, harga, qty, total);
+    qty = Integer.parseInt(txqty.getText());
 
-            txkode.setText("");
-            txnama.setText("");
-            txUkuran.setText(""); // Reset ukuran
-            txqty.setText("");
+    if(qty >= stok){
+        JOptionPane.showMessageDialog(this, "STOK TIDAK MENCUKUPI");
+        return;
+    }
 
-            for(int n = 0; n < tbPengeluaran.getRowCount(); n++){
-                hargajual = (int) tbPengeluaran.getValueAt(n, 3); // Index harga setelah ukuran (kolom ke-3)
-                qty1 = (int) tbPengeluaran.getValueAt(n, 4);      // Index qty (kolom ke-4)
-                total1 = hargajual * qty1;
-                total2 = (int) tbPengeluaran.getValueAt(n, 5);    // Index total (kolom ke-5)
+    total = harga * qty;
 
-                subTotal += total2;
-            }
+    boolean itemSudahAda = false;
 
-            tampilTTL.setText(Integer.toString(subTotal));
-            txtotal2.setText(Integer.toString(subTotal));
-            txDiskon.setText("0");
+    for (int i = 0; i < tbPengeluaran.getRowCount(); i++) {
+        String kodeBarangTabel = tbPengeluaran.getValueAt(i, 0).toString();
+        String ukuranTabel = tbPengeluaran.getValueAt(i, 2).toString();
+        int hargaTabel = Integer.parseInt(tbPengeluaran.getValueAt(i, 3).toString());
+
+        if (kode_barang.equals(kodeBarangTabel) && ukuran.equals(ukuranTabel) && harga == hargaTabel) {
+            int qtyLama = Integer.parseInt(tbPengeluaran.getValueAt(i, 4).toString());
+            int qtyBaru = qtyLama + qty;
+            int totalBaru = harga * qtyBaru;
+
+            tbPengeluaran.setValueAt(qtyBaru, i, 4);
+            tbPengeluaran.setValueAt(totalBaru, i, 5);
+
+            itemSudahAda = true;
+            break;
         }
+    }
 
-        btnNew.setEnabled(true);
-        btnCari.setEnabled(false);
-        btnSimpan.setEnabled(false);
-        btncancel.setEnabled(false);
-        txDiskon.setEditable(true);
-        txBayar.setEditable(true);
-        btnCariPlg.setEnabled(true);
-        txqty.setEditable(false);
-        txqty.setText("");
-        txBayar.requestFocus();
+    if (!itemSudahAda) {
+        ct.tampilPengeluaran(kode_barang, nama_barang, ukuran, harga, qty, total);
+    }
+
+    txkode.setText("");
+    txnama.setText("");
+    txUkuran.setText("");
+    txqty.setText("");
+
+    int subTotal = 0;
+
+    for(int n = 0; n < tbPengeluaran.getRowCount(); n++){
+        int total2 = (int) tbPengeluaran.getValueAt(n, 5); // kolom total
+        subTotal += total2;
+    }
+
+    tampilTTL.setText(Integer.toString(subTotal));
+    txtotal2.setText(Integer.toString(subTotal));
+    txDiskon.setText("0");
+
+    btnNew.setEnabled(true);
+    btnCari.setEnabled(false);
+    btnSimpan.setEnabled(false);
+    btncancel.setEnabled(false);
+    btnSave.setEnabled(true);
+    btnReset.setEnabled(true);
+    
+    txDiskon.setEditable(true);
+    txBayar.setEditable(true);
+    btnCariPlg.setEnabled(true);
+    txqty.setEditable(false);
+    txqty.setText("");
+    txBayar.requestFocus();
     }//GEN-LAST:event_btnSimpanActionPerformed
 
     private void btncancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btncancelActionPerformed
@@ -868,13 +891,14 @@ public class FormTransaksi extends javax.swing.JFrame {
 
             servisReport.printNota(nofak);
 
+            
+            btnReset.setEnabled(false);
             btnSave.setEnabled(false);
-            btnCariPlg.setEnabled(false);
-            btnNew.setEnabled(false);
+            btnNew.setEnabled(true);
 
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(rootPane, "GAGAL MENYIMPAN DATA\n" + ex.getMessage());
-            Logger.getLogger(Transaksi.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(FormTransaksi.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnSaveActionPerformed
 
@@ -898,7 +922,7 @@ public class FormTransaksi extends javax.swing.JFrame {
         btnSave.setEnabled(false);
 
         btnNew.setEnabled(true);
-      
+        
     }//GEN-LAST:event_btnResetActionPerformed
 
     private void custom_ButtonRounded1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_custom_ButtonRounded1ActionPerformed
