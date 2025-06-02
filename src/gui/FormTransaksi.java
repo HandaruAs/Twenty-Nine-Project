@@ -8,7 +8,6 @@ import control.control_transaksi;
 import control.koneksi;
 import control.laporan;
 import control.utama;
-import static gui_user.FormTransaksi_user.btnSimpan;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
@@ -58,6 +57,25 @@ public class FormTransaksi extends javax.swing.JFrame {
 
     public FormTransaksi() {
         initComponents();
+         resetForm(); 
+        txkode.setEditable(false);
+        txnama.setEditable(false);
+        txUkuran.setEditable(false);
+        txidPelanggan.setEditable(false);
+        txNoFaktur.setEditable(false);
+        txpelanggan.setEditable(false);
+        txtotal2.setEditable(false);
+        txGrandTotal.setEditable(false);
+        txKembali.setEditable(false);
+        txDiskon.setEditable(false);
+        txBayar.setEditable(false);
+        
+        btnCari.setEnabled(false);
+        btnhapus.setEnabled(false);
+        btnSimpan.setEnabled(false);
+        btncancel.setEnabled(false);
+        
+        
         txDiskon.getDocument().addDocumentListener(new javax.swing.event.DocumentListener() {
             public void insertUpdate(javax.swing.event.DocumentEvent e) {
                 hitungGrandTotal();
@@ -97,7 +115,7 @@ public class FormTransaksi extends javax.swing.JFrame {
         ut = new utama();
         tbPengeluaran.setModel(ct.model);
         ct.tampilPengeluaran("", "", "", 0, 0, 0);
-        ct.noFak();
+         ct.noFak();
         setTanggal();
     }
 
@@ -137,6 +155,19 @@ public class FormTransaksi extends javax.swing.JFrame {
             txKembali.setText("0");
         }
     }
+    private void resetForm() {
+    
+   
+    txidPelanggan.setText("");
+    txpelanggan.setText("");
+    txtotal2.setText("");
+    txDiskon.setText("0"); 
+    txBayar.setText("");
+    txGrandTotal.setText("");
+    txKembali.setText("");
+   
+}
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -223,7 +254,7 @@ public class FormTransaksi extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(tbPengeluaran);
 
-        jPanel3.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, 1220, 150));
+        jPanel3.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, 1210, 150));
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 153));
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("PEMBAYARAN"));
@@ -249,6 +280,12 @@ public class FormTransaksi extends javax.swing.JFrame {
         jLabel14.setText("RESET");
 
         jLabel17.setText("ID Pelanggan");
+
+        txNoFaktur.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txNoFakturActionPerformed(evt);
+            }
+        });
 
         txidPelanggan.setText("P0001");
 
@@ -345,31 +382,26 @@ public class FormTransaksi extends javax.swing.JFrame {
                             .addComponent(jLabel10)
                             .addComponent(txBayar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(txKembali, javax.swing.GroupLayout.DEFAULT_SIZE, 199, Short.MAX_VALUE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 68, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 80, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(12, 12, 12)
-                        .addComponent(btnSave, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnSave, javax.swing.GroupLayout.DEFAULT_SIZE, 105, Short.MAX_VALUE)
+                    .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(31, 31, 31)
-                        .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(custom_ButtonRounded1, javax.swing.GroupLayout.DEFAULT_SIZE, 105, Short.MAX_VALUE)
-                            .addComponent(btnReset, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addGap(128, 128, 128))
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(custom_ButtonRounded1, javax.swing.GroupLayout.DEFAULT_SIZE, 105, Short.MAX_VALUE)
+                        .addComponent(btnReset, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(157, 157, 157))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel12)
-                            .addComponent(jLabel14, javax.swing.GroupLayout.Alignment.TRAILING))
+                            .addComponent(jLabel14))
                         .addGap(8, 8, 8)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(btnReset, javax.swing.GroupLayout.DEFAULT_SIZE, 54, Short.MAX_VALUE)
@@ -530,11 +562,11 @@ public class FormTransaksi extends javax.swing.JFrame {
 
         kGradientPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)), "TOTAL", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 0, 11), new java.awt.Color(255, 255, 255))); // NOI18N
         kGradientPanel1.setkBorderRadius(0);
-        kGradientPanel1.setkEndColor(new java.awt.Color(0, 51, 51));
-        kGradientPanel1.setkStartColor(new java.awt.Color(102, 102, 102));
+        kGradientPanel1.setkEndColor(new java.awt.Color(255, 255, 153));
+        kGradientPanel1.setkStartColor(new java.awt.Color(255, 204, 51));
 
         tampilTTL.setFont(new java.awt.Font("Segoe UI", 1, 50)); // NOI18N
-        tampilTTL.setForeground(new java.awt.Color(255, 255, 255));
+        tampilTTL.setForeground(new java.awt.Color(0, 0, 0));
         tampilTTL.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         tampilTTL.setText("0");
 
@@ -554,15 +586,16 @@ public class FormTransaksi extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jPanel3.add(kGradientPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 70, 470, 100));
+        jPanel3.add(kGradientPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 70, 470, 100));
 
         lblNama.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        lblNama.setForeground(new java.awt.Color(255, 102, 51));
+        lblNama.setForeground(new java.awt.Color(255, 204, 51));
         lblNama.setText("0000");
-        jPanel3.add(lblNama, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 120, 50, 40));
+        jPanel3.add(lblNama, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 120, 150, 40));
 
+        tanggal.setBackground(new java.awt.Color(255, 204, 51));
         tanggal.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        tanggal.setForeground(new java.awt.Color(255, 102, 51));
+        tanggal.setForeground(new java.awt.Color(255, 204, 51));
         tanggal.setText("2020-03-28");
         jPanel3.add(tanggal, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 120, -1, 40));
 
@@ -641,9 +674,15 @@ public class FormTransaksi extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCariActionPerformed
 
     private void btnNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNewActionPerformed
-         btnCari.setEnabled(true);
+        txDiskon.setEditable(true);
+        txBayar.setEditable(true);
+
+        btnhapus.setEnabled(true);
+        btnSimpan.setEnabled(true);
+        btnCari.setEnabled(true);
         btnNew.setEnabled(false);
         btncancel.setEnabled(true);
+         resetForm();
     }//GEN-LAST:event_btnNewActionPerformed
 
     private void btnhapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnhapusActionPerformed
@@ -672,7 +711,7 @@ public class FormTransaksi extends javax.swing.JFrame {
     }//GEN-LAST:event_btnhapusActionPerformed
 
     private void btnSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSimpanActionPerformed
-       kode_barang = txkode.getText();
+    kode_barang = txkode.getText();
         nama_barang = txnama.getText();
         ukuran = txUkuran.getText(); // Ambil nilai ukuran
         qty = Integer.parseInt(txqty.getText());
@@ -844,7 +883,7 @@ public class FormTransaksi extends javax.swing.JFrame {
         tampilTTL.setText("0");
         tbPengeluaran.removeAll();
         ct.noFak();
-        txpelanggan.setText("UMUM");
+        txpelanggan.setText("");
         txDiskon.setText("0");
         txtotal2.setText("");
         txGrandTotal.setText("");
@@ -859,6 +898,7 @@ public class FormTransaksi extends javax.swing.JFrame {
         btnSave.setEnabled(false);
 
         btnNew.setEnabled(true);
+      
     }//GEN-LAST:event_btnResetActionPerformed
 
     private void custom_ButtonRounded1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_custom_ButtonRounded1ActionPerformed
@@ -873,6 +913,10 @@ public class FormTransaksi extends javax.swing.JFrame {
     private void txGrandTotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txGrandTotalActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txGrandTotalActionPerformed
+
+    private void txNoFakturActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txNoFakturActionPerformed
+       
+    }//GEN-LAST:event_txNoFakturActionPerformed
 
     /**
      * @param args the command line arguments

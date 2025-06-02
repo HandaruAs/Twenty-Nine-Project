@@ -211,7 +211,7 @@ control_login cl;
             } else if (role.equalsIgnoreCase("user")) {
                 // Tampilkan halaman user
                 FormUtama_user userForm = new FormUtama_user();
-                FormUtama_user.pengguna.setText(rs.getString("nama"));
+                FormUtama_user.pengguna_user.setText(rs.getString("nama"));
                 userForm.setVisible(true);
             }
 

@@ -41,7 +41,7 @@ public class FormPelanggan extends javax.swing.JInternalFrame {
         pl = new pelanggan();
         tampil();
         
-        txid.setEnabled(false);
+        txid.setEditable(false);
         txnama.setEditable(false);
         txalamat.setEditable(false);
         txnomor.setEditable(false);
@@ -336,6 +336,13 @@ boolean edit = false;
             String nama_pelanggan = txnama.getText();
             String alamat = txalamat.getText();
             String nomor = txnomor.getText();
+            
+             if (txid.getText().isEmpty() || txnama.getText().isEmpty() || txalamat.getText().isEmpty() || txnomor.getText().isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Semua kolom harus diisi!");
+        return;
+    }
+
+            
             try {
                 pl.edit(id_pelanggan, nama_pelanggan, alamat, nomor);
                 JOptionPane.showMessageDialog(rootPane, "DATA BERHASIL DI UPDATE");

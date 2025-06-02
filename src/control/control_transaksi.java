@@ -3,6 +3,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package control;
+import custom.JTextfieldRounded;
+import gui.FormTransaksi;
 import static gui.FormTransaksi.txNoFaktur;
 import gui.Transaksi;
 import java.sql.SQLException;
@@ -101,7 +103,7 @@ public class control_transaksi extends koneksi {
     }
 }
 
-    
+ 
 
 
     public void noFak() {
@@ -127,7 +129,7 @@ public class control_transaksi extends koneksi {
                 txNoFaktur.setText("F0001");
             }
         } catch (SQLException ex) {
-            Logger.getLogger(Transaksi.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(FormTransaksi.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -139,6 +141,7 @@ public class control_transaksi extends koneksi {
     pst.executeUpdate();
     pst.close();
 }
+
 }
 
 
