@@ -21,7 +21,10 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 /**
  *
@@ -48,11 +51,12 @@ public class User extends javax.swing.JInternalFrame {
         ur = new control_user();
         tampil();
        
-        txRFID.setEditable(false);
+        txKategori.setEditable(false);
         txUser.setEditable(false);
         txPass.setEditable(false);
         txNama.setEditable(false);
         txNohp.setEditable(false);
+        txRFID.setEditable(false);
 
 
         btnSimpan.setEnabled(false);
@@ -69,10 +73,11 @@ public class User extends javax.swing.JInternalFrame {
     }
     public void clear(){
         txNohp.setText("");
+        txRFID.setText("");
         txUser.setText("");
         txNama.setText("");
         txPass.setText("");
-        txRFID.setText("");
+        txKategori.setText("");
         tabelUser.clearSelection();
     }
     public String hashPassword(String password) {
@@ -107,12 +112,14 @@ public class User extends javax.swing.JInternalFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        txRFID = new custom.JTextfieldRounded();
+        txKategori = new custom.JTextfieldRounded();
         txUser = new custom.JTextfieldRounded();
         txNama = new custom.JTextfieldRounded();
         txNohp = new custom.JTextfieldRounded();
         txPass = new custom.JPasswordFieldRounded();
         checkpass = new javax.swing.JCheckBox();
+        txRFID = new custom.JTextfieldRounded();
+        jLabel6 = new javax.swing.JLabel();
         kGradientPanel11 = new keeptoo.KGradientPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabelUser = new custom.JTable_Custom();
@@ -156,9 +163,9 @@ public class User extends javax.swing.JInternalFrame {
 
         jLabel5.setText("RFID");
 
-        txRFID.addActionListener(new java.awt.event.ActionListener() {
+        txKategori.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txRFIDActionPerformed(evt);
+                txKategoriActionPerformed(evt);
             }
         });
 
@@ -186,34 +193,53 @@ public class User extends javax.swing.JInternalFrame {
             }
         });
 
+        txRFID.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txRFIDActionPerformed(evt);
+            }
+        });
+
+        jLabel6.setText("Kategori");
+
         javax.swing.GroupLayout PanelFormLayout = new javax.swing.GroupLayout(PanelForm);
         PanelForm.setLayout(PanelFormLayout);
         PanelFormLayout.setHorizontalGroup(
             PanelFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PanelFormLayout.createSequentialGroup()
                 .addGap(27, 27, 27)
-                .addGroup(PanelFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txRFID, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel5)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel1)
-                    .addComponent(txUser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txNama, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txNohp, javax.swing.GroupLayout.DEFAULT_SIZE, 221, Short.MAX_VALUE)
-                    .addComponent(txPass, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(checkpass, javax.swing.GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE)
+                .addGroup(PanelFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(PanelFormLayout.createSequentialGroup()
+                        .addGroup(PanelFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txKategori, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel1)
+                            .addComponent(txUser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txNama, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txNohp, javax.swing.GroupLayout.DEFAULT_SIZE, 221, Short.MAX_VALUE)
+                            .addComponent(txPass, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(checkpass, javax.swing.GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE))
+                    .addGroup(PanelFormLayout.createSequentialGroup()
+                        .addGroup(PanelFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel6)
+                            .addComponent(txRFID, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         PanelFormLayout.setVerticalGroup(
             PanelFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelFormLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(6, 6, 6)
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txRFID, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel6)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txKategori, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -221,9 +247,9 @@ public class User extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(PanelFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(checkpass, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txPass, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(PanelFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txPass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(checkpass, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -232,7 +258,7 @@ public class User extends javax.swing.JInternalFrame {
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txNohp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18))
+                .addContainerGap(16, Short.MAX_VALUE))
         );
 
         kGradientPanel11.setkBorderRadius(0);
@@ -265,7 +291,7 @@ public class User extends javax.swing.JInternalFrame {
         );
         kGradientPanel11Layout.setVerticalGroup(
             kGradientPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 351, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
         );
 
         btnNew.setText("Baru");
@@ -328,15 +354,15 @@ public class User extends javax.swing.JInternalFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                         .addGap(25, 25, 25)
                         .addComponent(kGradientPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, 499, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(41, Short.MAX_VALUE))
+                .addContainerGap(16, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(24, 24, 24)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(PanelForm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(kGradientPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, 351, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(PanelForm, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(kGradientPanel11, javax.swing.GroupLayout.DEFAULT_SIZE, 409, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btnSimpan, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
@@ -344,7 +370,7 @@ public class User extends javax.swing.JInternalFrame {
                     .addComponent(btnHapus, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnCancel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnEdit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(26, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -368,6 +394,9 @@ boolean edit = false;
     }//GEN-LAST:event_formInternalFrameClosing
 
     private void btnNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNewActionPerformed
+    
+        
+    txKategori.setEditable(true);        
     txRFID.setEditable(true);        
     txUser.setEditable(true);
     txPass.setEditable(true);
@@ -379,25 +408,39 @@ boolean edit = false;
     btnNew.setEnabled(false);
 
     txRFID.requestFocus();
+    
+    
     }//GEN-LAST:event_btnNewActionPerformed
 
     private void btnSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSimpanActionPerformed
-    String id = txRFID.getText();
+    String rfid = txRFID.getText();
+    String role = txKategori.getText().toLowerCase();
     String user = txUser.getText();
     String pass = txPass.getText();
     String nama = txNama.getText();
     String nohp = txNohp.getText();
+     
+     control_user cu = new control_user();
+if (cu.cekDuplikatRfid(txRFID.getText().trim())) {
+    JOptionPane.showMessageDialog(this, "RFID sudah terdaftar", "Peringatan", JOptionPane.WARNING_MESSAGE);
+    return;
+}
+
     
-    if (pass.length() < 6) {
-        JOptionPane.showMessageDialog(this, "Password minimal harus 6 karakter!", "Peringatan", JOptionPane.WARNING_MESSAGE);
-        return; // hentikan proses penyimpanan
+    if (!role.equals("admin") && !role.equals("user")) {
+        JOptionPane.showMessageDialog(this, "Role hanya boleh 'admin' atau 'user'", "Peringatan", JOptionPane.WARNING_MESSAGE);
+        return;
     }
 
+    if (pass.length() < 6) {
+        JOptionPane.showMessageDialog(this, "Password minimal harus 6 karakter!", "Peringatan", JOptionPane.WARNING_MESSAGE);
+        return; 
+    }
 
     String hashedPass = hashPassword(pass); 
     if (edit == true) {
         try {
-            ur.edit(id, user, hashedPass, nama, nohp); 
+            ur.edit(rfid, role, user, hashedPass, nama, nohp); 
             JOptionPane.showMessageDialog(rootPane, "DATA BERHASIL DI UPDATE");
             clear();  
             tampil();
@@ -405,7 +448,7 @@ boolean edit = false;
             txPass.setEditable(false);
             txNama.setEditable(false);
             txNohp.setEditable(false);
-            txRFID.setEditable(false);
+            txKategori.setEditable(false);
             btnSimpan.setEnabled(false);
             btnCancel.setEnabled(false);
             btnNew.setEnabled(true);
@@ -414,18 +457,19 @@ boolean edit = false;
         }
     } else {
         try {
-            ur.simpan(id, user, hashedPass, nama, nohp); 
+            ur.simpan(rfid, role, user, hashedPass, nama, nohp); 
             JOptionPane.showMessageDialog(rootPane, "DATA BERHASIL DISIMPAN");
             tampil();
             clear();
             btnSimpan.setEnabled(false);
             btnCancel.setEnabled(false);
             btnNew.setEnabled(true);
-            
+
             txUser.setEditable(false);
             txPass.setEditable(false);
             txNama.setEditable(false);
             txNohp.setEditable(false);
+            txKategori.setEditable(false);
             txRFID.setEditable(false);
         } catch (SQLException ex) {
             Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
@@ -447,10 +491,11 @@ boolean edit = false;
     }//GEN-LAST:event_btnHapusActionPerformed
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
-        txRFID.setEditable(false);
+        txKategori.setEditable(false);
         txUser.setEditable(false);
         txPass.setEditable(false);
         txNama.setEditable(false);
+        txRFID.setEditable(false);
         btnHapus.setEnabled(false);
         btnEdit.setEnabled(false);
         txNohp.setEditable(false);
@@ -468,6 +513,7 @@ boolean edit = false;
         btnEdit.setEnabled(false);
         btnHapus.setEnabled(false);
         btnSimpan.setEnabled(true);
+        txKategori.setEditable(true);
         txRFID.setEditable(false);
         txUser.setEditable(true);
         txPass.setEditable(true);
@@ -498,15 +544,20 @@ boolean edit = false;
 
     private void tabelUserMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelUserMouseClicked
         int row = tabelUser.getSelectedRow();
-        txRFID.setText(tabelUser.getValueAt(row, 0).toString());
+        txRFID.setText(tabelUser.getValueAt(row, 0).toString());      
         txUser.setText(tabelUser.getValueAt(row, 1).toString());
         txPass.setText(tabelUser.getValueAt(row, 2).toString());
         txNama.setText(tabelUser.getValueAt(row, 3).toString());
         txNohp.setText(tabelUser.getValueAt(row, 4).toString());
+        txKategori.setText(tabelUser.getValueAt(row, 5).toString());
         btnEdit.setEnabled(true);
         btnHapus.setEnabled(true);
         btnCancel.setEnabled(true);
     }//GEN-LAST:event_tabelUserMouseClicked
+
+    private void txKategoriActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txKategoriActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txKategoriActionPerformed
 
     private void txRFIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txRFIDActionPerformed
         // TODO add your handling code here:
@@ -526,10 +577,12 @@ boolean edit = false;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private keeptoo.KGradientPanel kGradientPanel11;
     private custom.JTable_Custom tabelUser;
+    private custom.JTextfieldRounded txKategori;
     private custom.JTextfieldRounded txNama;
     private custom.JTextfieldRounded txNohp;
     private custom.JPasswordFieldRounded txPass;
