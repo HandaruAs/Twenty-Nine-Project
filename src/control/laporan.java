@@ -10,6 +10,7 @@ import gui.Transaksi;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dialog;
+import java.awt.RenderingHints;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
@@ -34,6 +35,8 @@ import net.sf.jasperreports.view.JasperViewer;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
+import org.jfree.chart.axis.NumberAxis;
+import org.jfree.chart.axis.NumberTickUnit;
 import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.DefaultCategoryDataset;
@@ -74,31 +77,49 @@ public class laporan extends koneksi{
         
      
     }
-       
-       public void grafikDashboard(){
-     try {
-         DefaultCategoryDataset obj = new DefaultCategoryDataset();
-         String sql = "SELECT COUNT(no_faktur),tanggal FROM penjualan GROUP BY tanggal";
-         rs = st.executeQuery(sql);
-         while(rs.next()){
-             for(int i=0;i<rs.getRow();i++){
-                 obj.setValue(rs.getInt(1), "HARI", rs.getString(2));
-                 JFreeChart chart = ChartFactory.createLineChart("GRAFIK PENJUALAN", null, null, obj);
-                 CategoryPlot  objc = chart.getCategoryPlot();
-                 objc.setRangeGridlinePaint(Color.black);
-                 objc.setBackgroundPaint(Color.white); 
-              
-                 
-                 ChartPanel panel = new ChartPanel(chart);
-               
-             }
-         }
-     } catch (SQLException ex) {
-         Logger.getLogger(laporan.class.getName()).log(Level.SEVERE, null, ex);
-     }
-        
-     
+       public ChartPanel getChartPanel() {
+    DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+    try {
+        String sql = "SELECT COUNT(no_faktur) AS jumlah, tanggal FROM penjualan GROUP BY tanggal ORDER BY tanggal";
+        rs = st.executeQuery(sql);
+        while (rs.next()) {
+            dataset.setValue(rs.getInt("jumlah"), "Transaksi", rs.getString("tanggal"));
+        }
+    } catch (SQLException ex) {
+        Logger.getLogger(laporan.class.getName()).log(Level.SEVERE, null, ex);
     }
+
+    JFreeChart chart = ChartFactory.createBarChart(
+            "Grafik Penjualan Harian",
+            "Tanggal",
+            "Jumlah Transaksi",
+            dataset,
+            PlotOrientation.VERTICAL,
+            true, true, false
+    );
+
+    chart.setTextAntiAlias(true);
+    chart.setAntiAlias(true);
+    chart.getRenderingHints().put(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+    chart.getRenderingHints().put(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+    chart.getRenderingHints().put(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
+    chart.getRenderingHints().put(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
+    chart.getRenderingHints().put(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY);
+
+    CategoryPlot plot = chart.getCategoryPlot();
+    plot.setRangeGridlinePaint(Color.BLACK);
+    
+    NumberAxis rangeAxis = (NumberAxis) plot.getRangeAxis();
+    rangeAxis.setAutoRange(false);
+    rangeAxis.setRange(0, 30);
+    rangeAxis.setTickUnit(new NumberTickUnit(5));
+    
+    chart.setBackgroundPaint(new Color(0, 0, 0, 0)); 
+    chart.getPlot().setBackgroundPaint(new Color(0, 0, 0, 0)); 
+    chart.getPlot().setOutlinePaint(null); 
+    
+    return new ChartPanel(chart);
+}
     
      public void printNota(String nofak) {
     JasperReport jasRep;

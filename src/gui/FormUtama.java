@@ -42,10 +42,12 @@ import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.data.category.DefaultCategoryDataset;
 import com.formdev.flatlaf.FlatLightLaf;
+import java.awt.BorderLayout;
 import javax.swing.UIManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import org.jfree.chart.ChartPanel;
 /**
  *
  * @author handa
@@ -77,7 +79,24 @@ Color DefaultColor,ClickedColor;
         totalTrx2.setText(String.valueOf(getTotalPenjualan()));
         totalBrg.setText(String.valueOf(getTotalBarang()));
         totalPlg.setText(String.valueOf(getTotalPelanggan()));
-    }
+        
+       laporan lap = new laporan();
+    ChartPanel grafik = lap.getChartPanel();
+
+    
+    grafik.setOpaque(false);
+    grafik.setBackground(new Color(0, 0, 0, 0)); 
+
+    panelGrafik.setOpaque(false);
+    panelGrafik.setBackground(new Color(0, 0, 0, 0)); 
+
+   
+    panelGrafik.removeAll();
+    panelGrafik.setLayout(new BorderLayout());
+    panelGrafik.add(grafik, BorderLayout.CENTER);
+    panelGrafik.revalidate();
+    panelGrafik.repaint();
+        }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -99,6 +118,7 @@ Color DefaultColor,ClickedColor;
         kGradientPanel5 = new keeptoo.KGradientPanel();
         jLabel2 = new javax.swing.JLabel();
         totalPlg = new javax.swing.JLabel();
+        panelGrafik = new javax.swing.JPanel();
         logout = new javax.swing.JLabel();
         Menu6 = new javax.swing.JPanel();
         txRiwayat = new javax.swing.JLabel();
@@ -234,6 +254,12 @@ Color DefaultColor,ClickedColor;
 
         MainPanel.add(kGradientPanel5);
         kGradientPanel5.setBounds(560, 20, 280, 110);
+
+        panelGrafik.setBackground(new java.awt.Color(255, 255, 204));
+        panelGrafik.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Grafik Penjualan", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 0, 11), new java.awt.Color(51, 51, 51))); // NOI18N
+        panelGrafik.setLayout(new java.awt.BorderLayout());
+        MainPanel.add(panelGrafik);
+        panelGrafik.setBounds(0, 170, 880, 320);
 
         jPanel1.add(MainPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 90, 880, 490));
 
@@ -739,6 +765,7 @@ Color DefaultColor,ClickedColor;
     private keeptoo.KGradientPanel kGradientPanel5;
     public keeptoo.KGradientPanel kGradientPanel6;
     public static javax.swing.JLabel logout;
+    private javax.swing.JPanel panelGrafik;
     public static javax.swing.JLabel pengguna;
     public static javax.swing.JLabel totalBrg;
     public static javax.swing.JLabel totalPlg;

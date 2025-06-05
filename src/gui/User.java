@@ -25,6 +25,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import javax.swing.Timer;
 
 /**
  *
@@ -63,6 +64,35 @@ public class User extends javax.swing.JInternalFrame {
         btnEdit.setEnabled(true);
         btnHapus.setEnabled(true);
         btnCancel.setEnabled(false);
+
+       
+       txRFID.addKeyListener(new java.awt.event.KeyAdapter() {
+        StringBuilder rfidBuilder = new StringBuilder();
+        Timer timer;
+
+        @Override
+        public void keyTyped(java.awt.event.KeyEvent e) {
+
+            if (!txRFID.isFocusOwner()) return;
+
+            rfidBuilder.append(e.getKeyChar());
+
+            if (timer != null) {
+                timer.stop();
+            }
+
+            timer = new Timer(100, new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    txRFID.setText(rfidBuilder.toString().trim());
+                    rfidBuilder.setLength(0);
+                    timer.stop();
+                }
+            });
+
+            timer.setRepeats(false);
+            timer.start();
+        }
+    });
 
     }
     
@@ -291,7 +321,7 @@ public class User extends javax.swing.JInternalFrame {
         );
         kGradientPanel11Layout.setVerticalGroup(
             kGradientPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
         );
 
         btnNew.setText("Baru");
@@ -334,43 +364,41 @@ public class User extends javax.swing.JInternalFrame {
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(22, 22, 22)
-                        .addComponent(PanelForm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(20, 20, 20)
+                        .addComponent(PanelForm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(27, 27, 27)
+                        .addComponent(kGradientPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, 499, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(116, 116, 116)
-                        .addComponent(btnNew, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(24, 24, 24)
+                        .addGap(102, 102, 102)
+                        .addComponent(btnNew, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnSimpan, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btnHapus, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(27, 27, 27)
-                        .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                        .addGap(25, 25, 25)
-                        .addComponent(kGradientPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, 499, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(16, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(24, 24, 24)
+                .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(PanelForm, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(kGradientPanel11, javax.swing.GroupLayout.DEFAULT_SIZE, 409, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnSimpan, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
-                    .addComponent(btnNew, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnHapus, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnCancel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnEdit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(13, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnNew, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnSimpan, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnHapus, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(21, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -386,7 +414,7 @@ public class User extends javax.swing.JInternalFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-boolean edit = false;
+
     private void formInternalFrameClosing(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameClosing
         ut.tampilCountBrg();
         ut.tampilCountPlg();
@@ -395,9 +423,9 @@ boolean edit = false;
 
     private void btnNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNewActionPerformed
     
-        
+    edit = false;    
     txKategori.setEditable(true);        
-    txRFID.setEditable(true);        
+    txRFID.setEditable(false);        
     txUser.setEditable(true);
     txPass.setEditable(true);
     txNama.setEditable(true);
@@ -406,32 +434,24 @@ boolean edit = false;
     btnSimpan.setEnabled(true);
     btnCancel.setEnabled(true);
     btnNew.setEnabled(false);
-
-    txRFID.requestFocus();
     
+    txRFID.requestFocus();
     
     }//GEN-LAST:event_btnNewActionPerformed
 
     private void btnSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSimpanActionPerformed
-    String rfid = txRFID.getText();
+   String rfid = txRFID.getText();
     String role = txKategori.getText().toLowerCase();
     String user = txUser.getText();
     String pass = txPass.getText();
     String nama = txNama.getText();
     String nohp = txNohp.getText();
-     
-     if (rfid.isEmpty() || role.isEmpty() || txUser.getText().isEmpty() || txPass.getText().isEmpty() || txNama.getText().isEmpty() || txNohp.getText().isEmpty()) {
+
+    if (rfid.isEmpty() || role.isEmpty() || user.isEmpty() || pass.isEmpty() || nama.isEmpty() || nohp.isEmpty()) {
         JOptionPane.showMessageDialog(this, "Semua kolom harus diisi!");
         return;
     }
-    
-     control_user cu = new control_user();
-if (cu.cekDuplikatRfid(txRFID.getText().trim())) {
-    JOptionPane.showMessageDialog(this, "RFID sudah terdaftar", "Peringatan", JOptionPane.WARNING_MESSAGE);
-    return;
-}
 
-    
     if (!role.equals("admin") && !role.equals("user")) {
         JOptionPane.showMessageDialog(this, "Role hanya boleh 'admin' atau 'user'", "Peringatan", JOptionPane.WARNING_MESSAGE);
         return;
@@ -443,6 +463,7 @@ if (cu.cekDuplikatRfid(txRFID.getText().trim())) {
     }
 
     String hashedPass = hashPassword(pass); 
+
     if (edit == true) {
         try {
             ur.edit(rfid, role, user, hashedPass, nama, nohp); 
@@ -454,6 +475,7 @@ if (cu.cekDuplikatRfid(txRFID.getText().trim())) {
             txNama.setEditable(false);
             txNohp.setEditable(false);
             txKategori.setEditable(false);
+            txRFID.setEditable(false);
             btnSimpan.setEnabled(false);
             btnCancel.setEnabled(false);
             btnNew.setEnabled(true);
@@ -461,6 +483,12 @@ if (cu.cekDuplikatRfid(txRFID.getText().trim())) {
             Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
         }
     } else {
+      
+        if (ur.cekDuplikatRfid(rfid)) {
+            JOptionPane.showMessageDialog(this, "RFID sudah terdaftar! Gunakan RFID yang lain.", "Peringatan", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
         try {
             ur.simpan(rfid, role, user, hashedPass, nama, nohp); 
             JOptionPane.showMessageDialog(rootPane, "DATA BERHASIL DISIMPAN");
@@ -526,7 +554,7 @@ if (cu.cekDuplikatRfid(txRFID.getText().trim())) {
         txNohp.setEditable(true);
         txRFID.requestFocus();
     }//GEN-LAST:event_btnEditActionPerformed
-
+boolean edit = false;
     private void txUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txUserActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txUserActionPerformed
@@ -551,10 +579,10 @@ if (cu.cekDuplikatRfid(txRFID.getText().trim())) {
         int row = tabelUser.getSelectedRow();
         txRFID.setText(tabelUser.getValueAt(row, 0).toString());      
         txUser.setText(tabelUser.getValueAt(row, 1).toString());
-        txPass.setText(tabelUser.getValueAt(row, 2).toString());
-        txNama.setText(tabelUser.getValueAt(row, 3).toString());
-        txNohp.setText(tabelUser.getValueAt(row, 4).toString());
-        txKategori.setText(tabelUser.getValueAt(row, 5).toString());
+        txNama.setText(tabelUser.getValueAt(row, 2).toString());
+        txNohp.setText(tabelUser.getValueAt(row, 3).toString());
+        txKategori.setText(tabelUser.getValueAt(row, 4).toString());
+        
         btnEdit.setEnabled(true);
         btnHapus.setEnabled(true);
         btnCancel.setEnabled(true);
