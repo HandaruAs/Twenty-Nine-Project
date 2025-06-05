@@ -28,6 +28,7 @@ import java.awt.Font;
 public class FormBarang extends javax.swing.JInternalFrame {
  MasterBarang mb;
     utama ut;
+    StringBuilder barcodeBuffer = new StringBuilder();
     /**
      * Creates new form FormBarang
      */
@@ -46,7 +47,7 @@ public class FormBarang extends javax.swing.JInternalFrame {
             mb = new MasterBarang();
             tampil();
 
-        txtKodeBarang.setEditable(true);
+        txtKodeBarang.setEditable(false);
         txNama.setEditable(false);
         txStok.setEditable(false);
         txHarga.setEditable(false);
@@ -60,7 +61,25 @@ public class FormBarang extends javax.swing.JInternalFrame {
         btnBatal.setEnabled(false);
 
 
+     addKeyListener(new java.awt.event.KeyAdapter() {
+                @Override
+                public void keyPressed(java.awt.event.KeyEvent evt) {
+                    if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER) {
+                        
+                        txtKodeBarang.setText(barcodeBuffer.toString());
+                        barcodeBuffer.setLength(0); 
+
+                     
+                    } else {
+                        barcodeBuffer.append(evt.getKeyChar());
+                    }
+                }
+            });       
+
+        setFocusable(true);
+        requestFocusInWindow();
         }
+        
     public void tampil(){
          TabelBarang.setModel(mb.modelBarang);
         mb.modelBarang.setRowCount(0);
@@ -343,7 +362,7 @@ boolean edit = false;
 
     private void btnBaruActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBaruActionPerformed
    
-    txtKodeBarang.setEditable(true);
+    txtKodeBarang.setEditable(false);
     txNama.setEditable(true);
     txStok.setEditable(true);
     txHarga.setEditable(true);

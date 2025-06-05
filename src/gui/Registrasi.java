@@ -233,40 +233,44 @@ private void handleRfidInput(String rfid_tag) {
 
     private void btn_registrasiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_registrasiActionPerformed
      String username = txUsername.getText();
-        String password = new String(txPass.getPassword());
-        String nama = txNama.getText();
-        String nomer = txNo.getText();
-        String rfid = txRfid.getText();
-        String role = txRole.getText().trim().toLowerCase();
-         if (password.length() < 6) {
-            JOptionPane.showMessageDialog(this, "Password minimal harus 6 karakter!", "Peringatan", JOptionPane.WARNING_MESSAGE);
-      
-            return; 
-        }
+    String password = new String(txPass.getPassword());
+    String nama = txNama.getText();
+    String nomer = txNo.getText();
+    String rfid = txRfid.getText();
+    String role = txRole.getText().trim().toLowerCase();
 
-         
-          if (!role.equals("admin") && !role.equals("user")) {
+   
+    if (username.isEmpty() || password.isEmpty() || nama.isEmpty() || nomer.isEmpty() || rfid.isEmpty() || role.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Semua kolom wajib diisi!", "Peringatan", JOptionPane.WARNING_MESSAGE);
+        return;
+    }
+
+    if (password.length() < 6) {
+        JOptionPane.showMessageDialog(this, "Password minimal harus 6 karakter!", "Peringatan", JOptionPane.WARNING_MESSAGE);
+        return; 
+    }
+
+    if (!role.equals("admin") && !role.equals("user")) {
         JOptionPane.showMessageDialog(this, "Role hanya boleh 'admin' atau 'user'!", "Peringatan", JOptionPane.WARNING_MESSAGE);
         return;
     }
-         
-       registrasi registerControl = new registrasi();
 
-        if (registerControl.checkUsernameExists(username)) {
-            JOptionPane.showMessageDialog(this, "Username sudah digunakan!", "Peringatan", JOptionPane.WARNING_MESSAGE);
+    registrasi registerControl = new registrasi();
+
+    if (registerControl.checkUsernameExists(username)) {
+        JOptionPane.showMessageDialog(this, "Username sudah digunakan!", "Peringatan", JOptionPane.WARNING_MESSAGE);
+    } else {
+        boolean success = registerControl.registerUser(username, password, nama, nomer, rfid, role);
+        if (success) {
+            JOptionPane.showMessageDialog(this, "Registrasi berhasil! Silakan login.", "Sukses", JOptionPane.INFORMATION_MESSAGE);
+
+            Login loginForm = new Login();
+            loginForm.setVisible(true);
+            this.dispose(); 
         } else {
-            boolean success = registerControl.registerUser(username, password, nama, nomer, rfid, role);
-            if (success) {
-                JOptionPane.showMessageDialog(this, "Registrasi berhasil! Silakan login.", "Sukses", JOptionPane.INFORMATION_MESSAGE);
-                
-               
-                Login loginForm = new Login();
-                loginForm.setVisible(true);
-                this.dispose(); 
-            } else {
-                JOptionPane.showMessageDialog(this, "Registrasi gagal!", "Error", JOptionPane.ERROR_MESSAGE);
-            }
+            JOptionPane.showMessageDialog(this, "Registrasi gagal!", "Error", JOptionPane.ERROR_MESSAGE);
         }
+    }
     }//GEN-LAST:event_btn_registrasiActionPerformed
 
     private void labelLoginMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelLoginMousePressed
@@ -274,7 +278,7 @@ labelLogin.setForeground(Color.YELLOW);
     }//GEN-LAST:event_labelLoginMousePressed
 
     private void labelLoginMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelLoginMouseReleased
-         labelLogin.setForeground(Color.WHITE);
+labelLogin.setForeground(Color.WHITE);
     }//GEN-LAST:event_labelLoginMouseReleased
 
     private void txRoleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txRoleActionPerformed
