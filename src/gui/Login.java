@@ -14,6 +14,7 @@ import java.awt.Font;
 import java.awt.KeyEventDispatcher;
 import java.awt.KeyboardFocusManager;
 import java.awt.event.KeyEvent;
+import java.net.URL;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -22,6 +23,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.Timer;
 import javax.swing.UIManager;
@@ -75,6 +77,7 @@ control_login cl;
         return false;
     }
 });
+   
     }
   private void loginDenganRFID(String rfid_tag) {
     try {
@@ -146,7 +149,7 @@ control_login cl;
                 checkpassActionPerformed(evt);
             }
         });
-        jPanel1.add(checkpass, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 330, 30, -1));
+        jPanel1.add(checkpass, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 340, 30, 40));
 
         btn_login.setText("Login");
         btn_login.addActionListener(new java.awt.event.ActionListener() {
@@ -154,7 +157,7 @@ control_login cl;
                 btn_loginActionPerformed(evt);
             }
         });
-        jPanel1.add(btn_login, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 360, 140, 40));
+        jPanel1.add(btn_login, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 380, 140, 40));
 
         Register.setText("Registrasi");
         Register.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -168,10 +171,10 @@ control_login cl;
                 RegisterMouseReleased(evt);
             }
         });
-        jPanel1.add(Register, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 420, -1, 20));
+        jPanel1.add(Register, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 440, -1, 20));
 
         jLabel3.setText("Belum punya akun?");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 420, 210, 20));
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 440, 210, 20));
 
         ForgetPass.setText("Lupa password?");
         ForgetPass.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -185,15 +188,17 @@ control_login cl;
                 ForgetPassMouseReleased(evt);
             }
         });
-        jPanel1.add(ForgetPass, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 400, 100, 20));
+        jPanel1.add(ForgetPass, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 420, 100, 20));
 
+        txUsername.setBackground(new java.awt.Color(255, 255, 255));
         txUsername.setBorder(null);
-        jPanel1.add(txUsername, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 270, 180, 20));
+        jPanel1.add(txUsername, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 290, 180, 20));
 
+        txPass.setBackground(new java.awt.Color(255, 255, 255));
         txPass.setBorder(null);
-        jPanel1.add(txPass, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 330, 180, 20));
+        jPanel1.add(txPass, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 350, 180, 20));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/LOGIN UK FIX.png"))); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/login fiks banget 222.png"))); // NOI18N
         jLabel1.setText("jLabel1");
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1284, -1));
 
