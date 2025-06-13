@@ -739,7 +739,7 @@ public class FormTransaksi_user extends javax.swing.JFrame {
 
     qty = Integer.parseInt(txqty.getText());
 
-    if(qty >= stok){
+    if(qty > stok){
         JOptionPane.showMessageDialog(this, "STOK TIDAK MENCUKUPI");
         return;
     }

@@ -17,6 +17,9 @@ import javax.swing.JOptionPane;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import java.awt.Component;
 import java.awt.Container;
+import java.awt.KeyEventDispatcher;
+import java.awt.KeyboardFocusManager;
+import java.awt.event.KeyEvent;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import java.security.MessageDigest;
@@ -34,6 +37,7 @@ import javax.swing.Timer;
 public class User extends javax.swing.JInternalFrame {
     utama ut;
     control_user ur;
+    StringBuilder rfidBuilder = new StringBuilder();
     /**
      * Creates new form User
      */
@@ -66,33 +70,26 @@ public class User extends javax.swing.JInternalFrame {
         btnCancel.setEnabled(false);
 
        
-       txRFID.addKeyListener(new java.awt.event.KeyAdapter() {
-        StringBuilder rfidBuilder = new StringBuilder();
-        Timer timer;
-
-        @Override
-        public void keyTyped(java.awt.event.KeyEvent e) {
-
-            if (!txRFID.isFocusOwner()) return;
-
-            rfidBuilder.append(e.getKeyChar());
-
-            if (timer != null) {
-                timer.stop();
-            }
-
-            timer = new Timer(100, new java.awt.event.ActionListener() {
-                public void actionPerformed(java.awt.event.ActionEvent evt) {
-                    txRFID.setText(rfidBuilder.toString().trim());
-                    rfidBuilder.setLength(0);
-                    timer.stop();
+       // Tangkap semua input RFID dari scanner lewat KeyboardFocusManager
+        KeyboardFocusManager.getCurrentKeyboardFocusManager().addKeyEventDispatcher(new KeyEventDispatcher() {
+            public boolean dispatchKeyEvent(KeyEvent evt) {
+                if (evt.getID() == KeyEvent.KEY_PRESSED) {
+                    if (txRFID.isFocusOwner()) {
+                        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+                            String hasilRFID = rfidBuilder.toString().replaceAll("[^\\p{Print}]", "").trim();
+                            txRFID.setText(hasilRFID);
+                            rfidBuilder.setLength(0);
+                        } else {
+                            rfidBuilder.append(evt.getKeyChar());
+                        }
+                    }
                 }
-            });
+                return false;
+            }
+        });
 
-            timer.setRepeats(false);
-            timer.start();
-        }
-    });
+        setFocusable(true);
+        requestFocusInWindow();
 
     }
     

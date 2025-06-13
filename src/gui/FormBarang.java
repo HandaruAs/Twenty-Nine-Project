@@ -20,72 +20,71 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Font;
+import java.awt.KeyEventDispatcher;
+import java.awt.KeyboardFocusManager;
+import java.awt.event.KeyEvent;
 
 /**
  *
  * @author handa
  */
 public class FormBarang extends javax.swing.JInternalFrame {
- MasterBarang mb;
+    MasterBarang mb;
     utama ut;
     StringBuilder barcodeBuffer = new StringBuilder();
-    /**
-     * Creates new form FormBarang
-     */
-        public FormBarang() {
-            initComponents();
 
-               
+    public FormBarang() {
+        initComponents();
+
         Font font = new Font("Poppins", Font.PLAIN, 11);
         setFontKeSemuaKomponen(this, font);
 
+        this.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
+        BasicInternalFrameUI ui = (BasicInternalFrameUI) this.getUI();
+        ui.setNorthPane(null);
+        ut = new utama();
+        mb = new MasterBarang();
+        tampil();
 
-            this.setBorder(javax.swing.BorderFactory.createEmptyBorder(0,0,0,0));
-            BasicInternalFrameUI ui=(BasicInternalFrameUI)this.getUI();
-            ui.setNorthPane(null);
-            ut = new utama();
-            mb = new MasterBarang();
-            tampil();
-
-        txtKodeBarang.setEditable(false);
+        txtKodeBarang.setEditable(false); // Tidak bisa diketik manual
         txNama.setEditable(false);
         txStok.setEditable(false);
         txHarga.setEditable(false);
         txStatus.setEnabled(false);
         txUkuran.setEditable(false);
 
-
         btnSimpan.setEnabled(false);
         btnEdit.setEnabled(false);
         btnHapus.setEnabled(false);
         btnBatal.setEnabled(false);
 
-
-     addKeyListener(new java.awt.event.KeyAdapter() {
-                @Override
-                public void keyPressed(java.awt.event.KeyEvent evt) {
-                    if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER) {
-                        
-                        txtKodeBarang.setText(barcodeBuffer.toString());
-                        barcodeBuffer.setLength(0); 
-
-                     
+        // Tambahkan key listener ke seluruh form menggunakan KeyboardFocusManager
+        KeyboardFocusManager.getCurrentKeyboardFocusManager().addKeyEventDispatcher(new KeyEventDispatcher() {
+            public boolean dispatchKeyEvent(KeyEvent evt) {
+                if (evt.getID() == KeyEvent.KEY_PRESSED) {
+                    if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+                      String kodeBersih = barcodeBuffer.toString().replaceAll("[^\\p{Print}]", "").trim();
+                        txtKodeBarang.setText(kodeBersih);
+                        barcodeBuffer.setLength(0); // Reset buffer
                     } else {
                         barcodeBuffer.append(evt.getKeyChar());
                     }
                 }
-            });       
+                return false;
+            }
+        });
 
         setFocusable(true);
         requestFocusInWindow();
-        }
-        
-    public void tampil(){
-         TabelBarang.setModel(mb.modelBarang);
+    }
+
+    public void tampil() {
+        TabelBarang.setModel(mb.modelBarang);
         mb.modelBarang.setRowCount(0);
         mb.tampil();
     }
-    public void clear(){
+
+    public void clear() {
         txHarga.setText("");
         txtKodeBarang.setText("");
         txStok.setText("");
