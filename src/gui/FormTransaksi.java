@@ -838,86 +838,118 @@ public class FormTransaksi extends javax.swing.JFrame {
     }//GEN-LAST:event_txKembaliActionPerformed
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
-       String nofak = txNoFaktur.getText().trim();
-        String kasir = lblNama.getText().trim();
-        String id_pelanggan = txidPelanggan.getText().trim();
-        String pelanggan = txpelanggan.getText().trim();
-        String tanggall = tanggal.getText().trim();
+      String nofak = txNoFaktur.getText().trim();
+    String kasir = lblNama.getText().trim();
+    String id_pelanggan = txidPelanggan.getText().trim();
+    String pelanggan = txpelanggan.getText().trim();
+    String tanggall = tanggal.getText().trim();
 
-        if (nofak.isEmpty() || kasir.isEmpty() || id_pelanggan.isEmpty() || pelanggan.isEmpty()) {
-            JOptionPane.showMessageDialog(rootPane, "Lengkapi semua data terlebih dahulu!");
-            return;
-        }
+    
+    if (nofak.isEmpty()) {
+        JOptionPane.showMessageDialog(rootPane, "No Faktur belum diisi!");
+        return;
+    }
 
-        if (tbPengeluaran.getRowCount() == 0) {
-            JOptionPane.showMessageDialog(rootPane, "Tabel barang kosong!");
-            return;
-        }
+    if (kasir.isEmpty()) {
+        JOptionPane.showMessageDialog(rootPane, "Nama kasir belum diisi!");
+        return;
+    }
 
-        int total, diskon, bayar, kembali;
-        try {
-            total = Integer.parseInt(txGrandTotal.getText());
-            diskon = Integer.parseInt(txDiskon.getText());
-            bayar = Integer.parseInt(txBayar.getText());
-            kembali = Integer.parseInt(txKembali.getText());
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(rootPane, "Format angka tidak valid.");
-            return;
-        }
+    if (id_pelanggan.isEmpty()) {
+        JOptionPane.showMessageDialog(rootPane, "ID Pelanggan belum diisi!");
+        return;
+    }
 
-        if (bayar < total) {
-            JOptionPane.showMessageDialog(rootPane, "PEMBAYARAN KURANG");
-            return;
-        }
+    if (pelanggan.isEmpty()) {
+        JOptionPane.showMessageDialog(rootPane, "Nama Pelanggan belum diisi!");
+        return;
+    }
 
-        try {
+    if (tbPengeluaran.getRowCount() == 0) {
+        JOptionPane.showMessageDialog(rootPane, "Tabel barang kosong!");
+        return;
+    }
 
-            ct.simpanPenjualan(nofak, kasir, id_pelanggan, pelanggan, diskon, total, bayar, kembali, tanggall);
+    int total, diskon, bayar, kembali;
+    try {
+        total = Integer.parseInt(txGrandTotal.getText());
+        diskon = Integer.parseInt(txDiskon.getText());
+        bayar = Integer.parseInt(txBayar.getText());
+        kembali = Integer.parseInt(txKembali.getText());
+    } catch (NumberFormatException e) {
+        JOptionPane.showMessageDialog(rootPane, "Format angka tidak valid.");
+        return;
+    }
 
-            for (int n = 0; n < tbPengeluaran.getRowCount(); n++) {
-                String kode_barang = tbPengeluaran.getValueAt(n, 0).toString(); 
-                String nama_barang = tbPengeluaran.getValueAt(n, 1).toString(); 
-                String ukuran = tbPengeluaran.getValueAt(n, 2).toString();      
-                int harga = Integer.parseInt(tbPengeluaran.getValueAt(n, 3).toString()); 
-                int qty = Integer.parseInt(tbPengeluaran.getValueAt(n, 4).toString());   
-                int totall = Integer.parseInt(tbPengeluaran.getValueAt(n, 5).toString()); 
+    if (bayar < total) {
+        JOptionPane.showMessageDialog(rootPane, "PEMBAYARAN KURANG");
+        return;
+    }
 
-                db.setKoneksi();
-                String sqli = "SELECT stok FROM masterBarang WHERE kode_barang = ?";
-                PreparedStatement pst = db.getKoneksi().prepareStatement(sqli);
-                pst.setString(1, kode_barang);
-                ResultSet rs = pst.executeQuery();
+    try {
+       
+        for (int n = 0; n < tbPengeluaran.getRowCount(); n++) {
+            String kode_barang = tbPengeluaran.getValueAt(n, 0).toString();
+            String nama_barang = tbPengeluaran.getValueAt(n, 1).toString();
+            int qty = Integer.parseInt(tbPengeluaran.getValueAt(n, 4).toString());
 
-                if (rs.next()) {
-                    int stok = rs.getInt("stok");
-                    if (qty > stok) {
-                        JOptionPane.showMessageDialog(rootPane, "Stok barang " + nama_barang + " tidak mencukupi!");
-                        return;
-        }
-                    int sisa = stok - qty;
-                    ct.updateStok(sisa, kode_barang);
+            db.setKoneksi();
+            String sqli = "SELECT stok FROM masterBarang WHERE kode_barang = ?";
+            PreparedStatement pst = db.getKoneksi().prepareStatement(sqli);
+            pst.setString(1, kode_barang);
+            ResultSet rs = pst.executeQuery();
+
+            if (rs.next()) {
+                int stok = rs.getInt("stok");
+                if (qty > stok) {
+                    JOptionPane.showMessageDialog(rootPane, "Stok barang " + nama_barang + " tidak mencukupi!");
+                    return;
                 }
+            }
+        }
 
-                ct.insertBarang(nofak, kode_barang, nama_barang, ukuran, harga, qty, totall);
+       
+        ct.simpanPenjualan(nofak, kasir, id_pelanggan, pelanggan, diskon, total, bayar, kembali, tanggall);
 
+        for (int n = 0; n < tbPengeluaran.getRowCount(); n++) {
+            String kode_barang = tbPengeluaran.getValueAt(n, 0).toString(); 
+            String nama_barang = tbPengeluaran.getValueAt(n, 1).toString(); 
+            String ukuran = tbPengeluaran.getValueAt(n, 2).toString();      
+            int harga = Integer.parseInt(tbPengeluaran.getValueAt(n, 3).toString()); 
+            int qty = Integer.parseInt(tbPengeluaran.getValueAt(n, 4).toString());   
+            int totall = Integer.parseInt(tbPengeluaran.getValueAt(n, 5).toString()); 
+
+          
+            db.setKoneksi();
+            String sqli = "SELECT stok FROM masterBarang WHERE kode_barang = ?";
+            PreparedStatement pst = db.getKoneksi().prepareStatement(sqli);
+            pst.setString(1, kode_barang);
+            ResultSet rs = pst.executeQuery();
+
+            if (rs.next()) {
+                int stok = rs.getInt("stok");
+                int sisa = stok - qty;
+                ct.updateStok(sisa, kode_barang);
             }
 
-            JOptionPane.showMessageDialog(rootPane, "DATA BERHASIL DI SIMPAN");
-
-            ct.noFak();
-            ((DefaultTableModel) tbPengeluaran.getModel()).setRowCount(0);
-
-            servisReport.printNota(nofak);
-
-            
-            btnReset.setEnabled(false);
-            btnSave.setEnabled(false);
-            btnNew.setEnabled(true);
-
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(rootPane, "GAGAL MENYIMPAN DATA\n" + ex.getMessage());
-            Logger.getLogger(FormTransaksi.class.getName()).log(Level.SEVERE, null, ex);
+            ct.insertBarang(nofak, kode_barang, nama_barang, ukuran, harga, qty, totall);
         }
+
+        JOptionPane.showMessageDialog(rootPane, "DATA BERHASIL DI SIMPAN");
+
+        ct.noFak();
+        ((DefaultTableModel) tbPengeluaran.getModel()).setRowCount(0);
+
+        servisReport.printNota(nofak);
+
+        btnReset.setEnabled(false);
+        btnSave.setEnabled(false);
+        btnNew.setEnabled(true);
+
+    } catch (SQLException ex) {
+        JOptionPane.showMessageDialog(rootPane, "GAGAL MENYIMPAN DATA\n" + ex.getMessage());
+        Logger.getLogger(FormTransaksi.class.getName()).log(Level.SEVERE, null, ex);
+    }
     }//GEN-LAST:event_btnSaveActionPerformed
 
     private void btnResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetActionPerformed
