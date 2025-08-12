@@ -11,9 +11,13 @@ import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import control.koneksi;
+import control.laporan;
 import static gui.FormUtama.totalBrg;
 import static gui.FormUtama.totalPlg;
 import static gui.FormUtama.totalTrx2;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import org.jfree.chart.ChartPanel;
 /**
  *
  * @author handa
@@ -39,7 +43,26 @@ public class FormHome extends javax.swing.JInternalFrame {
         totalTrx2.setText(String.valueOf(getTotalPenjualan()));
         totalBrg.setText(String.valueOf(getTotalBarang()));
         totalPlg.setText(String.valueOf(getTotalPelanggan()));
+        
+        laporan lap = new laporan();
+        ChartPanel grafik = lap.getChartPanel();
+
+    
+    grafik.setOpaque(false);
+    grafik.setBackground(new Color(0, 0, 0, 0)); 
+
+    panelGrafik.setOpaque(false);
+    panelGrafik.setBackground(new Color(0, 0, 0, 0)); 
+
+   
+    panelGrafik.removeAll();
+    panelGrafik.setLayout(new BorderLayout());
+    panelGrafik.add(grafik, BorderLayout.CENTER);
+    panelGrafik.revalidate();
+    panelGrafik.repaint();
     }
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -60,6 +83,7 @@ public class FormHome extends javax.swing.JInternalFrame {
         kGradientPanel6 = new keeptoo.KGradientPanel();
         TotalTransaksi2 = new javax.swing.JLabel();
         totalTrx2 = new javax.swing.JLabel();
+        panelGrafik = new javax.swing.JPanel();
 
         kGradientPanel4.setkEndColor(new java.awt.Color(255, 153, 51));
         kGradientPanel4.setkGradientFocus(400);
@@ -174,6 +198,12 @@ public class FormHome extends javax.swing.JInternalFrame {
         roundedDesktopPane1.add(kGradientPanel6);
         kGradientPanel6.setBounds(10, 20, 240, 110);
 
+        panelGrafik.setBackground(new java.awt.Color(255, 255, 204));
+        panelGrafik.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Grafik Penjualan", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 12), new java.awt.Color(51, 51, 51))); // NOI18N
+        panelGrafik.setLayout(new java.awt.BorderLayout());
+        roundedDesktopPane1.add(panelGrafik);
+        panelGrafik.setBounds(0, 170, 880, 320);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -187,7 +217,9 @@ public class FormHome extends javax.swing.JInternalFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-  public int getTotalPenjualan() {
+    
+    
+    public int getTotalPenjualan() {
         int total = 0;
         String sql = "SELECT count(*) AS total_penjualan FROM penjualan";
 
@@ -249,6 +281,8 @@ public class FormHome extends javax.swing.JInternalFrame {
 
         return total;
     }
+    
+ 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel TotalTransaksi2;
     private javax.swing.JLabel jLabel2;
@@ -256,6 +290,7 @@ public class FormHome extends javax.swing.JInternalFrame {
     private keeptoo.KGradientPanel kGradientPanel4;
     private keeptoo.KGradientPanel kGradientPanel5;
     public keeptoo.KGradientPanel kGradientPanel6;
+    public static javax.swing.JPanel panelGrafik;
     private custom.RoundedDesktopPane roundedDesktopPane1;
     public static javax.swing.JLabel totalBrg;
     public static javax.swing.JLabel totalPlg;

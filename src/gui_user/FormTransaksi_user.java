@@ -9,6 +9,7 @@ import control.control_transaksi;
 import control.koneksi;
 import control.laporan;
 import control.utama;
+import static gui.FormTransaksi.lblNama;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;

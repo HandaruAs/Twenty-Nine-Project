@@ -84,7 +84,7 @@ public class Transaksi_user extends javax.swing.JInternalFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
      String nama = pengguna_user.getText(); 
-    FormTransaksi transaksi = new FormTransaksi(); 
+    FormTransaksi_user transaksi = new FormTransaksi_user(); 
     transaksi.setNamaPengguna(nama); 
     transaksi.setVisible(true);
     transaksi.toFront(); 

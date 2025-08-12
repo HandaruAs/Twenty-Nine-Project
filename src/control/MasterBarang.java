@@ -7,6 +7,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
@@ -42,25 +43,30 @@ public class MasterBarang extends koneksi {
 
     
     public void tampil() {
-        try {
-            String sqli = "SELECT * FROM masterbarang";
-            String[] kolom = {"Kode Barang", "Nama Barang", "Stok", "Harga", "Status", "Ukuran"};
-            modelBarang.setColumnIdentifiers(kolom);
-            rs = st.executeQuery(sqli);
-            while (rs.next()) {
-                Object[] data = new Object[6];
-                data[0] = rs.getString("kode_barang");
-                data[1] = rs.getString("nama_barang");
-                data[2] = rs.getInt("stok");
-                data[3] = rs.getInt("harga");
-                data[4] = rs.getString("status");
-                data[5] = rs.getInt("ukuran");
-                modelBarang.addRow(data);
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(MasterBarang.class.getName()).log(Level.SEVERE, null, ex);
+    try {
+        String sqli = "SELECT * FROM masterbarang";
+        String[] kolom = {"Kode Barang", "Nama Barang", "Stok", "Harga", "Status", "Ukuran"};
+        modelBarang.setColumnIdentifiers(kolom);
+
+        // format angka ribuan pakai titik
+        DecimalFormat df = new DecimalFormat("#,###");
+
+        rs = st.executeQuery(sqli);
+        while (rs.next()) {
+            Object[] data = new Object[6];
+            data[0] = rs.getString("kode_barang");
+            data[1] = rs.getString("nama_barang");
+            data[2] = rs.getInt("stok");
+            data[3] = df.format(rs.getDouble("harga")); // <- ini sudah format ribuan
+            data[4] = rs.getString("status");
+            data[5] = rs.getInt("ukuran");
+            modelBarang.addRow(data);
         }
+    } catch (SQLException ex) {
+        Logger.getLogger(MasterBarang.class.getName()).log(Level.SEVERE, null, ex);
     }
+}
+
 }
 
 
